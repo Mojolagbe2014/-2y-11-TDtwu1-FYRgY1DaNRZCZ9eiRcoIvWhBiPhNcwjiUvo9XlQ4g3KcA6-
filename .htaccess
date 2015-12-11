@@ -1,0 +1,26 @@
+ServerSignature Off
+
+#Default Language Settings
+DefaultLanguage en
+
+#Disable directory listing 
+Options All -Indexes
+
+RewriteEngine on
+
+RewriteCond %{HTTPS} off
+
+RewriteCond %{REQUEST_FILENAME} !-d
+
+RewriteCond %{REQUEST_FILENAME}\.php -f
+
+RewriteRule ^([^/]+)/?$ $1.php [NC,L]
+
+RewriteRule ^course/([0-9]+)/([^/]+)/?$ course.php?id=$1 [NC,L]
+
+RewriteRule ^category/([0-9]+)/([^/]+)/?$ category.php?id=$1 [NC,L]
+
+RewriteRule ^event/([0-9]+)/([^/]+)/?$ event.php?id=$1 [NC,L]
+
+RewriteRule ^member/([0-9]+)/([^/]+)/?$ member.php?id=$1 [NC,L]
+
