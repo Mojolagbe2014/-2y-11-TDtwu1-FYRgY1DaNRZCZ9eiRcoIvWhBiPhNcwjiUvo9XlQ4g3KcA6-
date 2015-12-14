@@ -1,4 +1,36 @@
 /*---LEFT BAR ACCORDION----*/
+function logout(){
+    if (typeof localStorage !== "undefined") {
+        $('.container').animate({ scrollTop:0 }, 800, 'easeInOutQuad');
+        $("#messageBox, .messageBox").html('<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert">&times;</button> <img src="img/cycling.GIF" width="30" height="30" alt="Ajax Loading"> Login out .. ! Please wait ... </div>');
+        $(".messageBox, .messageBox").html('<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert">&times;</button> <img src="img/cycling.GIF" width="30" height="30" alt="Ajax Loading"> Login out .. ! Please wait ... </div>');
+        $.ajax({
+            url: "../REST/admin-logout.php",
+            success : function(data, status) {
+                if(data.status == "1"){
+                    sessionStorage.clear();
+                    $("#messageBox, .messageBox").html('<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert">&times;</button><img src="img/cycling.GIF" width="30" height="30" alt="Ajax Loading"> '+data.msg+' Redirecting...</div>');
+                    setInterval(function(){ window.location = 'login'; }, 2000);
+                }
+                else if(data.status != "undefined" && data.status !=1) {
+                    $("#messageBox, .messageBox").html('<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>'+data.msg+'</div>');
+                }
+                else $("#messageBox, .messageBox").html('<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>'+data+'</div>');
+            }
+        });
+    }
+}
+$(document).ready(function(){
+    //Login Verification
+    if (typeof localStorage !== "undefined") {
+        if(sessionStorage.SWPadminId == "" || sessionStorage.SWPadminId == null || sessionStorage.SWPadminEmail == "" || sessionStorage.SWPadminEmail == null)
+        window.location = "login";
+    }
+    $('.adminName').text(sessionStorage.SWPAdminName);//Set Admin name
+    $('.log-out').click(function(){ logout(); });//Logout link clicked
+    
+});
+
 $(function() {
     $('#nav-accordion').dcAccordion({
         eventType: 'click',

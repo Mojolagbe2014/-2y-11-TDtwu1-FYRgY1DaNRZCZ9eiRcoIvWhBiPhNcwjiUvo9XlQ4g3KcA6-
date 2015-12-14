@@ -23,7 +23,7 @@ class WebPage {
     private static $tableName;
     
     //Class Constructor
-    public function WebPage($dbObj=null, $tableName='webpage') {
+    public function WebPage($dbObj=null, $tableName=__CLASS__) {
         self::$dbObj = $dbObj;        
         self::$tableName = $tableName;
         

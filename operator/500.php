@@ -34,7 +34,7 @@
           <i class="icon-500"></i>
           <h1>Ouch!</h1>
           <h2>500 Page Error</h2>
-          <p class="page-500">Looks like Something went wrong. <a href="index.html">Return Home</a></p>
+          <p class="page-500">Looks like Something went wrong. <a href="index">Return Home</a></p>
       </section>
 
     </div>

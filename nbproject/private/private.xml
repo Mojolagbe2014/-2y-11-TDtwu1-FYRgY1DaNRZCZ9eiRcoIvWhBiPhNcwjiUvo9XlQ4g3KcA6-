@@ -3,7 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/wampserv/www/sweepstake/operator/login.php</file>
+            <file>file:/C:/wampserv/www/sweepstake/operator/profile.php</file>
+            <file>file:/C:/wampserv/www/sweepstake/operator/includes/sidebar.php</file>
+            <file>file:/C:/wampserv/www/sweepstake/REST/update-admin.php</file>
+            <file>file:/C:/wampserv/www/sweepstake/operator/js/profile.js</file>
+            <file>file:/C:/wampserv/www/sweepstake/operator/includes/header.php</file>
         </group>
     </open-files>
 </project-private>

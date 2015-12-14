@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -7,7 +8,7 @@
         <meta name="author" content="Mosaddek">
         <meta name="keyword" content="FlatLab, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
         <link rel="shortcut icon" href="img/favicon.png">
-        <title>Sweepstakes Admin</title>
+        <title>Sweepstakes &amp; Contests Admin</title>
         <!-- Bootstrap core CSS -->
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link href="css/bootstrap-reset.css" rel="stylesheet">
@@ -32,6 +33,7 @@
         <!--main content start-->
         <section id="main-content">
             <section class="wrapper">
+                <div id="messageBox"></div>
                 <!--state overview start-->
                 <div class="row state-overview">
                     <div class="col-lg-3 col-sm-6">
@@ -100,39 +102,9 @@
     <script class="include" type="text/javascript" src="js/jquery.dcjqaccordion.2.7.js"></script>
     <script src="js/jquery.scrollTo.min.js"></script>
     <script src="js/jquery.nicescroll.js" type="text/javascript"></script>
-    <script src="js/jquery.sparkline.js" type="text/javascript"></script>
-    <script src="assets/jquery-easy-pie-chart/jquery.easy-pie-chart.js"></script>
-    <script src="js/owl.carousel.js" ></script>
-    <script src="js/jquery.customSelect.min.js" ></script>
-    <script src="js/respond.min.js" ></script>
     <!--common script for all pages-->
     <script src="js/common-scripts.js"></script>
     <!--script for this page-->
-    <script src="js/sparkline-chart.js"></script>
-    <script src="js/easy-pie-chart.js"></script>
     <script src="js/count.js"></script>
-    <script>
-
-        //owl carousel
-
-        $(document).ready(function() {
-            $("#owl-demo").owlCarousel({
-                navigation : true,
-                slideSpeed : 300,
-                paginationSpeed : 400,
-                singleItem : true,
-                            autoPlay:true
-
-            });
-        });
-
-        //custom select box
-
-        $(function(){
-            $('select.styled').customSelect();
-        });
-
-    </script>
-
   </body>
 </html>
