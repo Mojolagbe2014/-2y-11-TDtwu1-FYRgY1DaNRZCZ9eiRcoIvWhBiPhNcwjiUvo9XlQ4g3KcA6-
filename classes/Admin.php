@@ -4,7 +4,7 @@
  *
  * @author Kaiste
  */
-class Admin{
+class Admin implements ContentManipulator{
     private $id;
     private $name;
     private $email;
@@ -13,7 +13,7 @@ class Admin{
     private $role;
     private $dateRegistered = " CURRENT_DATE ";
     private static $dbObj;
-    public static $tableName;
+    public static $tableName = __CLASS__;
 
 
 
@@ -90,7 +90,8 @@ class Admin{
                 if($r['role']== "Admin"){  $fetAdminRole = 'icon-check'; $fetAdminRolCol = 'btn-success'; $fetAdminRolTit = "Degrade Admin";}
                 $deleteActionLink = '<button data-role="'.$r['role'].'" data-name="'.$r['name'].'" data-id="'.$r['id'].'" class="btn '.$fetAdminRolCol.' btn-small upgrade-admin"  title="'.$fetAdminRolTit.'"><i class="btn-icon-only '.$fetAdminRole.'"> </i></button> <button data-role="'.$r['role'].'" data-id="'.$r['id'].'" data-name="'.$r['name'].'" class="btn btn-danger btn-small delete-admin" title="Delete"><i class="btn-icon-only icon-trash"> </i></button>';
                 $multiActionBox = '<input type="checkbox" class="multi-action-box" data-id="'.$r['id'].'" data-role="'.$r['role'].'" />';
-                if($r['role']== "Admin" && $r['email'] == 'info@kaisteventures.com'){ $deleteActionLink = '';$multiActionBox ='';}
+                $mainAdminEmail = Setting::getValue(self::$dbObj, 'MAIN_ADMIN_EMAIL') ? trim(stripcslashes(strip_tags(Setting::getValue(self::$dbObj, 'MAIN_ADMIN_EMAIL')))) : '';
+                if($r['email'] == $mainAdminEmail){ $deleteActionLink = '';$multiActionBox ='';}
                 $result[] = array(utf8_encode($multiActionBox), $r['id'], utf8_encode($r['name']), utf8_encode($r['email']),  utf8_encode($r['username']),  utf8_encode($r['role']),  utf8_encode($r['date_registered']), utf8_encode(' <button data-role="'.$r['role'].'" data-name="'.$r['name'].'" data-email="'.$r['email'].'"  data-username="'.$r['username'].'" data-id="'.$r['id'].'" class="btn btn-info btn-small edit-admin"  title="Edit"><i class="btn-icon-only icon-pencil"> </i></button> '.$deleteActionLink));
             }
             $json = array("status" => 1,"draw" => intval($draw), "recordsTotal"    => intval($totalData), "recordsFiltered" => intval($totalFiltered), "data" => $result);

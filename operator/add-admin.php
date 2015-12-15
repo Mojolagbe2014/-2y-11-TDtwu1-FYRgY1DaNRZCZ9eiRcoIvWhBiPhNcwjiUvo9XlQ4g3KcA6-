@@ -14,7 +14,7 @@
         <link href="css/bootstrap-reset.css" rel="stylesheet">
         <!--external css-->
         <link href="assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
-        <link href="assets/jquery-easy-pie-chart/jquery.easy-pie-chart.css" rel="stylesheet" type="text/css" media="screen"/>
+        <link rel="stylesheet" type="text/css" href="assets/gritter/css/jquery.gritter.css" />
         <link rel="stylesheet" href="css/owl.carousel.css" type="text/css">
         <!-- Custom styles for this template -->
         <link href="css/style.css" rel="stylesheet">
@@ -95,6 +95,7 @@
     <script src="js/jquery-1.8.3.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script class="include" type="text/javascript" src="js/jquery.dcjqaccordion.2.7.js"></script>
+    <script type="text/javascript" src="assets/gritter/js/jquery.gritter.js"></script>
     <script src="js/jquery.scrollTo.min.js"></script>
     <script src="js/jquery.nicescroll.js" type="text/javascript"></script>
     <!--common script for all pages-->

@@ -27,12 +27,8 @@
                             <span>Sweepstakes/Contests</span>
                         </a>
                         <ul class="sub">
-                            <li><a  href="general">General</a></li>
-                            <li><a  href="buttons">Buttons</a></li>
-                            <li><a  href="widget">Widget</a></li>
-                            <li><a  href="slider">Slider</a></li>
-                            <li><a  href="nestable">Nestable</a></li>
-                            <li><a  href="font_awesome">Font Awesome</a></li>
+                            <li><a  href="add-contest">Add New</a></li>
+                            <li><a  href="manage-contests">Manage All</a></li>
                         </ul>
                     </li>
                     <li class="sub-menu">

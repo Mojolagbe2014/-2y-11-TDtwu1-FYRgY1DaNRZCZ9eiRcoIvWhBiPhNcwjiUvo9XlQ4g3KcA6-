@@ -17,11 +17,11 @@ else{
     $columns = array( 0 =>'id', 1 =>'id', 2 => 'name', 3=> 'email', 4 => 'username', 5 => 'role', 6 => 'date_registered');
 
     // getting total number records without any search
-    $query = $dbObj->query("SELECT * FROM admin ");
+    $query = $dbObj->query("SELECT * FROM ".$adminObj::$tableName);
     $totalData = mysqli_num_rows($query);
     $totalFiltered = $totalData;  // when there is no search parameter then total number rows = total number filtered rows.
 
-    $sql = "SELECT id, name, email, username, role, date_registered FROM admin WHERE 1=1 ";
+    $sql = "SELECT * FROM ".$adminObj::$tableName." WHERE 1=1 ";
     if(!empty($requestData['search']['value'])) {   // if there is a search parameter, $requestData['search']['value'] contains search parameter
             $sql.=" AND ( name LIKE '%".$requestData['search']['value']."%' ";    
             $sql.=" OR email LIKE '%".$requestData['search']['value']."%' ";

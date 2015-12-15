@@ -1,0 +1,27 @@
+/* CSS included only in the App Designer */
+body.empty #wrapper {
+  min-height: 200px; }
+
+/* control box shown when hovering over a widget */
+#wrapper .ss_widget_placeholder {
+  height: 10px;
+  background: #ff7c00 !important;
+  border: dashed 2px #00a7c6 !important;
+  opacity: 0.4 !important;
+  -webkit-box-sizing: border-box !important;
+  -moz-box-sizing: border-box !important;
+  box-sizing: border-box !important; }
+#wrapper .ss_container.ss_empty {
+  min-height: 50px; }
+
+body.ss_dragging #wrapper .ss_container {
+  padding: 0 10px 10px;
+  min-height: 30px;
+  margin: 10px 0; }
+  body.ss_dragging #wrapper .ss_container.ss_empty {
+    min-height: 100px; }
+body.ss_dragging #wrapper .ss_layout {
+  padding: 0; }
+body.ss_dragging #wrapper .ss_layout_column {
+  min-height: 100px;
+  margin: 0; }

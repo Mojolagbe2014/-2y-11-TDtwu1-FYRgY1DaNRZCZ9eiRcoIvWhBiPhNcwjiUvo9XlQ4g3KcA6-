@@ -31,8 +31,8 @@
         <h2 class="form-signin-heading">sweepstakes admin login</h2>
         
         <div class="login-wrap">
-            <input type="text" class="form-control" id="email" name="email"  placeholder="Admin ID" required="required">
-            <input type="password" class="form-control" id="passWord" name="passWord" placeholder="Password" required="required">
+            <input type="text" class="form-control" id="email" name="email"  placeholder="ID" required="required">
+            <input type="password" class="form-control" id="passWord" name="passWord" placeholder="KEY" required="required">
             <input type="hidden" id="loginstuff" name="loginstuff" value="loginstuff">
             <label class="checkbox">
                 <input type="checkbox" value="remember-me"> Remember me
@@ -41,7 +41,7 @@
 
                 </span>
             </label>
-            <button class="btn btn-lg btn-login btn-block" type="submit">Sign in</button>
+            <button class="btn btn-lg btn-login btn-block" type="submit">Authenticate &AMP; Authorize</button>
         </div>
           <!-- Modal -->
           <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal fade">

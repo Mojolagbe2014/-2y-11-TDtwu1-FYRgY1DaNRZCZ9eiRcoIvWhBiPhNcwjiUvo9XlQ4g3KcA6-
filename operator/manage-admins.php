@@ -19,6 +19,7 @@
         <!-- Custom styles for this template -->
         <link href="css/style.css" rel="stylesheet">
         <link href="assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" type="text/css" href="assets/gritter/css/jquery.gritter.css" />
         <link href="assets/font_awesome/css/font-awesome.css" rel="stylesheet" type="text/css"/>
         <link href="css/style-responsive.css" rel="stylesheet" />
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 tooltipss and media queries -->
@@ -128,6 +129,7 @@
     <script src="js/jquery-1.8.3.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script class="include" type="text/javascript" src="js/jquery.dcjqaccordion.2.7.js"></script>
+    <script type="text/javascript" src="assets/gritter/js/jquery.gritter.js"></script>
     <script src="js/jquery.scrollTo.min.js"></script>
     <script src="js/jquery.nicescroll.js" type="text/javascript"></script>
     <script src="assets/dataTables/jquery.dataTables.js"></script>

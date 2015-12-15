@@ -92,6 +92,11 @@ $(document).ready(function(){
                 else if(data.status !== 1 && data.status !== "undefined"){
                     $("#messageBox, .messageBox").html('<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>'+data.msg+'</div>');
                 } else $("#messageBox, .messageBox").html('<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>'+data+'</div>');
+                
+                $.gritter.add({
+                    title: 'Notification!',
+                    text: data.msg ? data.msg : data
+                });
             },
             error : function(xhr, status) {
                 erroMsg = '';
@@ -102,6 +107,10 @@ $(document).ready(function(){
                 else if(status==='timeout'){  erroMsg = 'Request Time out.';}
                 else { erroMsg = 'Unknow Error.\n'+xhr.responseText;}          
                 $("#messageBox, .messageBox").html('<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>Admin details update failed. '+erroMsg+'</div>');
+                $.gritter.add({
+                    title: 'Notification!',
+                    text: erroMsg
+                });
             }
         });
     }
@@ -119,6 +128,10 @@ $(document).ready(function(){
                 else if(data.status !== 1 && data.status !== "undefined"){
                     $("#messageBox, .messageBox").html('<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>'+data.msg+'</div>');
                 } else $("#messageBox, .messageBox").html('<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>'+data+'</div>');
+                $.gritter.add({
+                    title: 'Notification!',
+                    text: data.msg ? data.msg : data
+                });
             },
             error : function(xhr, status) {
                 erroMsg = '';
@@ -129,12 +142,17 @@ $(document).ready(function(){
                 else if(status==='timeout'){  erroMsg = 'Request Time out.';}
                 else { erroMsg = 'Unknow Error.\n'+xhr.responseText;}          
                 $("#messageBox, .messageBox").html('<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>Admin details update failed. '+erroMsg+'</div>');
+                $.gritter.add({
+                    title: 'Notification!',
+                    text: erroMsg
+                });
             }
         });
     }
     function editAdminDetails(id, name, email, userName, role){//,
         var formVar = {id:id, name:name, email:email, userName:userName, role:role};
         $('#hiddenUpdateForm').removeClass('hidden');
+        $(document).scrollTo('div#hiddenUpdateForm');
         $.each(formVar, function(key, value) { $('form #'+key).val(value); });
         $("form#CreateAdmin").submit(function(e){ 
             e.stopPropagation(); 
@@ -152,6 +170,10 @@ $(document).ready(function(){
                     if(data.status !== null)  $("#messageBox, .messageBox").html('<div class="alert alert-'+alertType[data.status]+'"><button type="button" class="close" data-dismiss="alert">&times;</button>'+data.msg+'  </div>'); 
                     else $("#messageBox, .messageBox").html('<div class="alert alert-info"><button type="button" class="close" data-dismiss="alert">&times;</button> '+data+'  </div>');
                     dataTable.ajax.reload();
+                    $.gritter.add({
+                        title: 'Notification!',
+                        text: data.msg ? data.msg : data
+                    });
                 },
                 error : function(xhr, status) {
                     erroMsg = '';
@@ -162,6 +184,10 @@ $(document).ready(function(){
                     else if(status==='timeout'){  erroMsg = 'Request Time out.';}
                     else { erroMsg = 'Unknow Error.\n'+xhr.responseText;}          
                     $("#messageBox, .messageBox").html('<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>Admin details update failed. '+erroMsg+'</div>');
+                    $.gritter.add({
+                        title: 'Notification!',
+                        text: erroMsg
+                    });
                 }
             });
             return false;

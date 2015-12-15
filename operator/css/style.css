@@ -5501,3 +5501,4 @@ a.guest-on i {
     font-size:8px;margin:1px;padding:4px
 }
 .multi-select i {font-size: 12px}
+div#previewpane {min-height:700px}
