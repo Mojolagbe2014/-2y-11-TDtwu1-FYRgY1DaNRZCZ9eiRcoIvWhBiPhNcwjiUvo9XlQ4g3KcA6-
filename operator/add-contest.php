@@ -22,6 +22,7 @@
     <link href="../css/theme_default2.css" rel="stylesheet" type="text/css"/>
     <link href="css/style.css" rel="stylesheet">
     <link href="css/style-responsive.css" rel="stylesheet" />
+    <script src="assets/ckeditor/ckeditor.js" type="text/javascript"></script>
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 tooltipss and media queries -->
     <!--[if lt IE 9]>
       <script src="js/html5shiv.js"></script>
@@ -45,7 +46,7 @@
                         </ul>
                         <!--breadcrumbs start -->
                         <ul class="breadcrumb pull-right text-success">
-                            <li> <i class="fa fa-eye"></i> Output Preview <button class="btn btn-sm btn-success" id="reload-frame"> <i class="fa fa-refresh"></i> </button></li>
+                            <li> <i class="fa fa-eye"></i> Output Preview </li>
                         </ul>
                         <!--breadcrumbs end -->
                     </div>
@@ -74,24 +75,29 @@
                                   <fieldset title="Step1" class="step" id="default-step-0">
                                       <legend> </legend>
                                       <div class="form-group">
-                                          <label class="col-lg-2 control-label">Full Name</label>
+                                          <label class="col-lg-2 control-label"> Title:</label>
                                           <div class="col-lg-10">
-                                              <input type="text" class="form-control" placeholder="Full Name">
+                                              <input type="text" class="form-control" placeholder="Sweepstakes Title">
                                           </div>
                                       </div>
                                       <div class="form-group">
-                                          <label class="col-lg-2 control-label">Email Address</label>
+                                          <label class="col-lg-2 control-label"> Description:</label>
                                           <div class="col-lg-10">
-                                              <input type="text" class="form-control" placeholder="Email Address">
+                                              <textarea class="ckeditor form-control" id="description" name="description"></textarea>
                                           </div>
                                       </div>
                                       <div class="form-group">
-                                          <label class="col-lg-2 control-label">User Name</label>
+                                          <label class="col-lg-2 control-label">Header :</label>
                                           <div class="col-lg-10">
-                                              <input type="text" class="form-control" placeholder="Username">
+                                              <input type="file" class="form-control" name="header" id="header">
                                           </div>
                                       </div>
-
+                                      <div class="form-group">
+                                          <label class="col-lg-2 control-label">Contest Image:</label>
+                                          <div class="col-lg-10">
+                                              <input type="file" class="form-control" name="logo" id="logo">
+                                          </div>
+                                      </div>
                                   </fieldset>
                                   <fieldset title="Step 2" class="step" id="default-step-1" >
                                       <legend> </legend>
@@ -212,10 +218,18 @@
     </script>
     <script>//preview-pane-frame
         $(document).ready(function(){
-            $('button#reload-frame').click(function(){
-                var FrameID = 'preview-pane-frame';
-                document.getElementById(FrameID).contentDocument.location.reload(true);
-            });
+            function readURL(input, output) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        $(output).attr('src', e.target.result);
+                    };
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+            $("#header").change(function(){ readURL(this, 'img#headerImage'); });
+            $("#logo").change(function(){ readURL(this, 'img#logoImage'); });
         });
     </script>
   </body>

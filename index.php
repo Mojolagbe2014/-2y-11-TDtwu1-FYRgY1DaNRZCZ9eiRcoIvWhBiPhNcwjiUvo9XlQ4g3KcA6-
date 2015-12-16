@@ -52,7 +52,7 @@ require('includes/page-properties.php');
             </div>
             <div class="ss_box_content ss_image_content ss_align_center" id="content_image">
                 <div class="ss_image_container">
-                    <img alt="" class="no_hotspots" src="<?php echo SITE_URL; ?>images/original_ec503296c84547636b2afbf081a3041c.png" title="">
+                    <img alt="" id="headerImage" class="no_hotspots" src="<?php echo SITE_URL; ?>images/original_ec503296c84547636b2afbf081a3041c.png" title="">
                 </div>
             </div>
             <div class="ss_box_footer ss_image_footer" id="footer_image"></div>
@@ -66,7 +66,7 @@ require('includes/page-properties.php');
                         </div>
                         <div class="ss_box_content ss_image_content ss_align_center" id="content_image2">
                             <div class="ss_image_container">
-                                <img alt="" class="no_hotspots" src="<?php echo SITE_URL; ?>images/original_original_d5be9bbb216fc983cb69d22a0c5d6dee.png" title="">
+                                <img alt="" class="no_hotspots" id="logoImage" src="<?php echo SITE_URL; ?>images/original_original_d5be9bbb216fc983cb69d22a0c5d6dee.png" title="">
                             </div>
                         </div>
                         <div class="ss_box_footer ss_image_footer" id="footer_image2"></div>
@@ -90,33 +90,16 @@ require('includes/page-properties.php');
                         </div>
                         <div class="ss_box_content ss_form_content" id="content_form">
                             <div class="ss_form_header_msg" id="header_msg_form"></div>
-                            <form action="" class="ss_form_form ss_bindable_form" id="form_form" method="post" novalidate="novalidate">
-                                <div style="margin:0;padding:0;display:inline">
-                                    <input name="authenticity_token" type="hidden" value="4Iq4FXfIfYLcggYUCGdl+TyN/6Eslj3/Gylnqno6GpU=">
-                                </div>
-                                <input id="simulated" name="simulated" type="hidden" value="1">
-                                <input class="ss_token" id="ss_token" name="ss_token" type="hidden" value="">
-                                <input class="ss_timestamp" id="ss_timestamp" name="ss_timestamp" type="hidden" value="">
-                                <input class="ss_url_path" id="ss_url_path" name="ss_url_path" type="hidden" value="">
-                                <input class="ss_user_agent" id="ss_user_agent" name="ss_user_agent" type="hidden" value="Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.80 Safari/537.36">
-                                <input class="fb_api_version" id="fb_api_version" name="fb_api_version" type="hidden" value="2">
-                                <input class="ss_avi" id="ss_avi" name="ss_avi" type="hidden">
-                                <input id="referring_entry_id" name="referring_entry_id" type="hidden" value="0">
-                                <div class="horizontal_container name_field_block" id="form_name_block">
-                                    <label for="form_name"><span class="main_field_label">Name</span><span class="required">*</span>
+                            <form action="" class="ss_form_form ss_bindable_form" id="form_form" method="post">
+                                <div class="field_block email_field_block" id="form_name_block">
+                                    <label for="name"><span class="main_field_label">Name</span><span class="required">*</span>
                                     </label>
-                                    <div class="field_block first_child first_name_field_block" id="form_first_name_block">
-                                        <input id="form_first_name" name="form[first_name]" placeholder="" type="text" class="error">
-                                    </div>
-                                    <div class="field_block last_name_field_block" id="form_last_name_block">
-                                        <input id="form_last_name" name="form[last_name]" placeholder="" type="text" class="error">
-                                    </div>
-                                    <div class="clear"></div>
+                                    <input id="name" name="name" placeholder="" type="text" class="error" required="required">
                                 </div>
                                 <div class="field_block email_field_block" id="form_email_block">
-                                    <label for="form_email"><span class="main_field_label">Email</span><span class="required">*</span>
+                                    <label for="email"><span class="main_field_label">Email</span><span class="required">*</span>
                                     </label>
-                                    <input id="form_email" name="form[email]" placeholder="" type="text" class="error">
+                                    <input id="email" name="email" placeholder="" type="text" class="error" required="required">
                                 </div>
                                 <div class="field_block custom_field_1_field_block format_rich_text_field_type_block" id="form_custom_field_1_block">
                                     <p style="text-align: center;">&nbsp;</p>
@@ -139,9 +122,7 @@ require('includes/page-properties.php');
                                     </label>
                                     <input class="large valid" id="form_custom_field_3" name="form[custom_field_3]" placeholder="" type="text">
                                 </div>
-                                <div class="field_block submit_field_block" id="form_submit_block"><a class="form_submit ss_btn" href="#" onclick="return SST.form_submit(widget_36129236);">
-Submit
-</a>
+                                <div class="field_block submit_field_block" id="form_submit_block"><button type="submit" class="form_submit ss_btn">Submit </button>
                                 </div>
                                 <div class="ss_form_message ajax_message" id="message_form"></div>
                             </form>

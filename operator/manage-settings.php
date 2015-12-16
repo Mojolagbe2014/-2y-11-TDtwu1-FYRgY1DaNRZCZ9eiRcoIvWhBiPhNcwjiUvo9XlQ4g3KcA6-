@@ -22,7 +22,7 @@
         <link rel="stylesheet" type="text/css" href="assets/gritter/css/jquery.gritter.css" />
         <link href="assets/font_awesome/css/font-awesome.css" rel="stylesheet" type="text/css"/>
         <link href="css/style-responsive.css" rel="stylesheet" />
-        <script src="../ckeditor/ckeditor.js" type="text/javascript"></script>
+        <script src="assets/ckeditor/ckeditor.js" type="text/javascript"></script>
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 tooltipss and media queries -->
         <!--[if lt IE 9]>
           <script src="js/html5shiv.js"></script>
