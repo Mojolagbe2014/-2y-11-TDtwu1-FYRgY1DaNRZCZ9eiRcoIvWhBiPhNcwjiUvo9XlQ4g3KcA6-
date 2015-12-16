@@ -1,5 +1,7 @@
 $(document).ready(function(){
     $('#previewpane').load('http://localhost/sweepstake/');
+    $('#default').stepy({ backLabel: 'Previous', block: true, nextLabel: 'Next', titleClick: true, titleTarget: '.stepy-tab' });
+    
 //    $( "#startDate" ).datepicker({ 
 //        dateFormat: "yy-mm-dd",appendText: "(yyyy-mm-dd)", changeMonth: true, changeYear: true,
 //        onClose: function(){ $('#endDate').datepicker( "option", "minDate", new Date($(this).datepicker( "getDate" )) ); }

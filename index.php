@@ -12,6 +12,7 @@ require('includes/page-properties.php');
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <title>Contest Template</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <link href="operator/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
     <link href="css/tabserving_v2.css" media="screen" rel="stylesheet" type="text/css">
@@ -24,6 +25,9 @@ require('includes/page-properties.php');
     </style>
     <link href="css/base.css" rel="stylesheet" type="text/css" />
     <link href="css/theme_default2.css" rel="stylesheet" type="text/css" />
+    <link href="operator/assets/font_awesome/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+    <link href="operator/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+    <link href="css/facebox.css" rel="stylesheet" type="text/css"/>
     <style id="ss_custom_css" type="text/css">
         .column_border {
             padding: 2%;
@@ -69,18 +73,23 @@ require('includes/page-properties.php');
                                 <img alt="" class="no_hotspots" id="logoImage" src="<?php echo SITE_URL; ?>images/original_original_d5be9bbb216fc983cb69d22a0c5d6dee.png" title="">
                             </div>
                         </div>
-                        <div class="ss_box_footer ss_image_footer" id="footer_image2"></div>
                     </div>
                     <div class="ss_box ss_rich_text ss_odd" data-widget="rich_text" id="rich_text">
                         <div class="ss_box_header ss_rich_text_header" id="header_rich_text">
                             <h3>Intro Text</h3>
                         </div>
                         <div class="ss_box_content ss_rich_text_content" id="content_rich_text">
-                            <h1 style="text-align: center;">We're giving away an awesome prize!</h1>
-                            <p style="text-align: center;">That's right, and all you have to do is enter! Fill out the form and be sure to share with friends. The more the merrier!</p>
+                            <h1 style="text-align: center;" id="prevIntro">We're giving away an awesome prize!</h1>
+                            <p style="text-align: center;" id="prevDescription">That's right, and all you have to do is enter! Fill out the form and be sure to share with friends. The more the merrier!</p>
                             <h3 style="text-align: center;">Good luck!</h3>
                         </div>
                         <div class="ss_box_footer ss_rich_text_footer" id="footer_rich_text"></div>
+                    </div>
+                    <div class="ss_box_footer ss_image_footer" id="footer_image2">
+                        <strong> <i class="fa fa-calendar"></i> Start Date:</strong> <span id="prevStartDate"></span><br/><br/>
+                        <strong> <i class="fa fa-calendar"></i> End Date:</strong> <span id="prevEndDate"></span><br/><br/>
+                        <strong> <i class="fa fa-trophy"></i> Winner(s) Announce on:</strong> <span id="prevAnnounceDate"></span><br/><br/>
+                        <strong> <i class="fa fa-trophy"></i> No of Winner(s):</strong> <span id="prevNoOfWinners"></span>
                     </div>
                 </div>
                 <div class="ss_container ss_layout_column" data-widget="column2" id="column2" style="width: 50%;">
@@ -92,35 +101,34 @@ require('includes/page-properties.php');
                             <div class="ss_form_header_msg" id="header_msg_form"></div>
                             <form action="" class="ss_form_form ss_bindable_form" id="form_form" method="post">
                                 <div class="field_block email_field_block" id="form_name_block">
-                                    <label for="name"><span class="main_field_label">Name</span><span class="required">*</span>
+                                    <div class="field_block email_field_block" id="form_email_block">
+                                        <label for="entrantEmail"><span class="main_field_label">Your Email:</span><span class="required">*</span>
+                                        </label>
+                                        <input id="entrantEmail" name="entrantEmail" type="text" class="error" required="required">
+                                    </div>
+                                    <label for="name"><span class="main_field_label">Your Friend's Name:</span><span class="required">*</span>
                                     </label>
-                                    <input id="name" name="name" placeholder="" type="text" class="error" required="required">
+                                    <input id="name" name="name" type="text" class="error" required="required">
                                 </div>
                                 <div class="field_block email_field_block" id="form_email_block">
-                                    <label for="email"><span class="main_field_label">Email</span><span class="required">*</span>
+                                    <label for="email"><span class="main_field_label">Your Friend's Email</span><span class="required">*</span>
                                     </label>
-                                    <input id="email" name="email" placeholder="" type="text" class="error" required="required">
+                                    <input id="email" name="email" type="text" class="error" required="required">
                                 </div>
                                 <div class="field_block custom_field_1_field_block format_rich_text_field_type_block" id="form_custom_field_1_block">
                                     <p style="text-align: center;">&nbsp;</p>
                                     <hr>
                                     <h1 style="text-align: center;">Earn extra entry points!</h1>
-                                    <p style="text-align: center;">Each question you answer below gets you two extra points!</p>
+                                    <p style="text-align: center;">Each question you answer below gets you extra points!</p>
                                     <p style="text-align: center;">&nbsp;</p>
                                 </div>
                                 <div class="field_block custom_field_2_field_block select_field_type_block" id="form_custom_field_2_block">
-                                    <label for="form_custom_field_2"><span class="main_field_label">Enter a question here</span>
-                                    </label>
-                                    <select id="form_custom_field_2" name="form[custom_field_2]" size="0" class="valid">
-                                        <option value="Choice 1">Google</option>
-                                        <option value="Choice 2">Yahoo</option>
-                                        <option value="Choice 3">Others</option>
-                                    </select>
+                                    <label for="form_custom_field_2"><span class="main_field_label">Question: (Optional)</span> </label>
+                                    <p><em id="prevBonusQuestion">The sweepstakes extra point question goes here?</em></p>
                                 </div>
                                 <div class="field_block custom_field_3_field_block text_field_type_block" id="form_custom_field_3_block">
-                                    <label for="form_custom_field_3"><span class="main_field_label">Question</span>
-                                    </label>
-                                    <input class="large valid" id="form_custom_field_3" name="form[custom_field_3]" placeholder="" type="text">
+                                    <label for="answer"><span class="main_field_label">Answer: </span> <span id="prevBonusAnswer"></span></label>
+                                    <input class="large valid" id="answer" name="answer" type="text">
                                 </div>
                                 <div class="field_block submit_field_block" id="form_submit_block"><button type="submit" class="form_submit ss_btn">Submit </button>
                                 </div>
@@ -160,17 +168,9 @@ require('includes/page-properties.php');
                     <h3>Links</h3>
                 </div>
                 <div class="ss_box_content ss_links_content ss_align_center" id="content_links">
-                    <a class="ss_btn ss_links_menu" href="#" onclick="">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </a>
                     <ol>
-                        <li class="item0 first" id="item_0_links"><a data-action="rich_text3.popup" href="#" id="link_0_links" onclick="">Official Rules</a>
-                        </li>
-                        <li class="item1 last selected" id="item_1_links"><a href="#" id="link_1_links">The Prize
-</a>
-                        </li>
+                        <li class="item0 first" id="item_0_links"><a  href="#" id="officialRules" >Official Rules</a> </li>
+                        <li class="item1 last selected" id="item_1_links"><a href="#" id="thePrize">The Prize </a> </li>
                     </ol>
                 </div>
                 <div class="ss_box_footer ss_links_footer" id="footer_links"></div>
@@ -217,6 +217,29 @@ require('includes/page-properties.php');
             <div class="ss_box_footer ss_share_footer" id="footer_share"></div>
         </div>
     </div>
-    <ul id="ss_cimico" style="display:none;"></ul>
+    <div id="officialRulesOverlay" class="facebox et_pb_module et_pb_contact_form_container clearfix  et_pb_contact_form_0">
+        <div><h4 class="et_pb_contact_main_title">Official Rules <button class="close" style="float:right;margin-top:-7px">X</button></h4> </div>
+        <div class="et_pb_contact">
+            Office entry rules goes here!
+        </div>
+        
+    </div>
+    <div id="thePrizeOverlay" class="facebox et_pb_module et_pb_contact_form_container clearfix  et_pb_contact_form_0">
+        <div><h4 class="et_pb_contact_main_title">The Prize <button class="close" style="float:right;margin-top:-7px">X</button></h4> </div>
+        <div class="et_pb_contact">
+            Prize info goes here!
+        </div>
+        
+    </div>
+    <script src="http://cdn.jquerytools.org/1.2.6/full/jquery.tools.min.js"></script>
+    <script type="text/javascript">
+        jQuery(document).ready(function(e) {
+            jQuery("#officialRules, #thePrize").click(function() {
+                $("#"+$(this).attr('id')+'Overlay').overlay().load();
+            });
+            // select the overlay element - and "make it an overlay"
+            $(".facebox").overlay({top: 150,mask: {color: '#fff',loadSpeed: 200,opacity: 0.5},closeOnClick: true,load: false });
+        });	
+    </script>
 </body>
 </html>

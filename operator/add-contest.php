@@ -23,6 +23,8 @@
     <link href="css/style.css" rel="stylesheet">
     <link href="css/style-responsive.css" rel="stylesheet" />
     <script src="assets/ckeditor/ckeditor.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="assets/bootstrap-datetimepicker/css/datetimepicker.css" />
+    <link href="../css/facebox.css" rel="stylesheet" type="text/css"/>
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 tooltipss and media queries -->
     <!--[if lt IE 9]>
       <script src="js/html5shiv.js"></script>
@@ -45,7 +47,7 @@
                             <li> <i class="fa fa-cogs"></i> Sweepstakes Settings</li>
                         </ul>
                         <!--breadcrumbs start -->
-                        <ul class="breadcrumb pull-right text-success">
+                        <ul class="breadcrumb pull-right text-danger">
                             <li> <i class="fa fa-eye"></i> Output Preview </li>
                         </ul>
                         <!--breadcrumbs end -->
@@ -53,7 +55,7 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-6">
-                        <section class="panel">
+                        <section class="panel panel-primary">
                           <header class="panel-heading">
                               Sweepstakes Creation Wizard
                           </header>
@@ -75,93 +77,131 @@
                                   <fieldset title="Step1" class="step" id="default-step-0">
                                       <legend> </legend>
                                       <div class="form-group">
-                                          <label class="col-lg-2 control-label"> Title:</label>
-                                          <div class="col-lg-10">
-                                              <input type="text" class="form-control" placeholder="Sweepstakes Title">
+                                          <label class="col-lg-2 control-label" for="title"> Title:</label>
+                                          <div class="col-lg-10 input-preview">
+                                              <input type="text" data-preview-id="prevTitle" id="title" name="title" class="form-control" placeholder="Sweepstakes Title">
                                           </div>
                                       </div>
                                       <div class="form-group">
-                                          <label class="col-lg-2 control-label"> Description:</label>
-                                          <div class="col-lg-10">
-                                              <textarea class="ckeditor form-control" id="description" name="description"></textarea>
+                                          <label class="col-lg-2 control-label" for="intro"> Intro:</label>
+                                          <div class="col-lg-10 input-preview">
+                                              <input type="text" data-preview-id="prevIntro" name="intro" id="intro" class="form-control" placeholder="Sweepstakes Intro Text">
                                           </div>
                                       </div>
                                       <div class="form-group">
-                                          <label class="col-lg-2 control-label">Header :</label>
+                                          <label class="col-lg-2 control-label" for="description"> Description:</label>
+                                          <div class="col-lg-10 input-preview">
+                                              <textarea class="form-control" data-preview-id="prevDescription" id="description" name="description" placeholder="About this sweepstakes or contest"></textarea>
+                                          </div>
+                                      </div>
+                                      <div class="form-group">
+                                          <label class="col-lg-2 control-label">Header:</label>
                                           <div class="col-lg-10">
                                               <input type="file" class="form-control" name="header" id="header">
                                           </div>
                                       </div>
                                       <div class="form-group">
-                                          <label class="col-lg-2 control-label">Contest Image:</label>
+                                          <label class="col-lg-2 control-label">Logo:</label>
                                           <div class="col-lg-10">
                                               <input type="file" class="form-control" name="logo" id="logo">
+                                          </div>
+                                      </div>
+                                      <div class="form-group">
+                                          <label class="col-lg-2 control-label" for="startDate"> Start:</label>
+                                          <div class="col-lg-10">
+                                                <div class="input-group date form_datetime-adv">
+                                                    <input type="text" class="form-control" data-preview-id="prevStartDate" id="startDate" name="startDate" readonly="" size="16" placeholder="Start Date">
+                                                    <div class="input-group-btn">
+                                                        <button type="button" class="btn btn-danger date-reset"><i class="fa fa-times"></i></button>
+                                                        <button type="button" class="btn btn-warning date-set"><i class="fa fa-calendar"></i></button>
+                                                    </div>
+                                                </div>  
+                                          </div>
+                                      </div>
+                                      <div class="form-group">
+                                          <label class="col-lg-2 control-label" for="endDate"> End:</label>
+                                          <div class="col-lg-10">
+                                              <div class="input-group date form_datetime-adv">
+                                                  <input type="text" class="form-control" data-preview-id="prevEndDate" id="endDate" name="endDate" readonly="" size="16" placeholder="End Date">
+                                                    <div class="input-group-btn">
+                                                        <button type="button" class="btn btn-danger date-reset"><i class="fa fa-times"></i></button>
+                                                        <button type="button" class="btn btn-warning date-set"><i class="fa fa-calendar"></i></button>
+                                                    </div>
+                                                </div>  
+                                          </div>
+                                      </div>
+                                      <div class="form-group">
+                                          <label class="col-lg-2 control-label" for="announceDate"> Winner:</label>
+                                          <div class="col-lg-10">
+                                              <div class="input-group date form_datetime-adv">
+                                                  <input type="text" class="form-control" data-preview-id="prevAnnounceDate" id="announceDate" name="announceDate" readonly="" size="16" placeholder="Winner Announcement Date">
+                                                    <div class="input-group-btn">
+                                                        <button type="button" class="btn btn-danger date-reset"><i class="fa fa-times"></i></button>
+                                                        <button type="button" class="btn btn-warning date-set"><i class="fa fa-calendar"></i></button>
+                                                    </div>
+                                                </div>  
+                                          </div>
+                                      </div>
+                                      <div class="form-group">
+                                          <label class="col-lg-2 control-label" for="NoOfWinners"> No of Winners:</label>
+                                          <div class="col-lg-10 input-preview">
+                                              <input type="number" data-preview-id="prevNoOfWinners" id="NoOfWinners" name="NoOfWinners" class="form-control" placeholder="Number of Winners">
                                           </div>
                                       </div>
                                   </fieldset>
                                   <fieldset title="Step 2" class="step" id="default-step-1" >
                                       <legend> </legend>
                                       <div class="form-group">
-                                          <label class="col-lg-2 control-label">Phone</label>
-                                          <div class="col-lg-10">
-                                              <input type="text" class="form-control" placeholder="Phone">
+                                          <label class="col-lg-2 control-label" for='bonusQuestion'>Question:</label>
+                                          <div class="col-lg-10 input-preview">
+                                              <input type="text" data-preview-id="prevBonusQuestion" id="bonusQuestion" name="bonusQuestion" class="form-control" placeholder="Bonus Question">
                                           </div>
                                       </div>
                                       <div class="form-group">
-                                          <label class="col-lg-2 control-label">Mobile</label>
-                                          <div class="col-lg-10">
-                                              <input type="text" class="form-control" placeholder="Mobile">
+                                          <label class="col-lg-2 control-label" for="bonusAnswer">Answer:</label>
+                                          <div class="col-lg-10 input-preview">
+                                              <input type="text" data-preview-id="prevBonusAnswer" name="bonusAnswer" id="bonusAnswer" class="form-control" placeholder="Answer to bonus question">
                                           </div>
                                       </div>
                                       <div class="form-group">
-                                          <label class="col-lg-2 control-label">Address</label>
+                                          <label class="col-lg-2 control-label" for="bonusPoint">Bonus Point:</label>
                                           <div class="col-lg-10">
-                                              <textarea class="form-control" cols="60" rows="5"></textarea>
+                                              <input type="text" name="bonusPoint" id="bonusPoint" class="form-control" placeholder="Bonus Point">
                                           </div>
                                       </div>
-
+                                      <div class="form-group">
+                                          <label class="col-lg-2 control-label" for="point">Points/Invite:</label>
+                                          <div class="col-lg-10">
+                                              <input type="text" name="point" id="point" class="form-control" placeholder="Point per invitation">
+                                          </div>
+                                      </div>
+                                      <div class="form-group">
+                                          <label class="col-lg-2 control-label" for="rules">Rules:</label>
+                                          <div class="col-lg-10 input-preview">
+                                              <textarea class="form-control ckeditor" id="rules" placeholder="Rules" name="rules" data-preview-id="prevRules" cols="60" rows="5"></textarea>
+                                          </div>
+                                      </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-2 control-label" for="prize">Prize:</label>
+                                            <div class="col-lg-10 input-preview">
+                                                <textarea class="form-control" id="prize" placeholder="Prize to be won" name="prize" data-preview-id="prevPrize" cols="60" rows="5"></textarea>
+                                            </div>
+                                        </div>
+                                       <div class="form-group">
+                                            <label class="col-lg-2 control-label" for="message">Message:</label>
+                                            <div class="col-lg-10 input-preview">
+                                                <textarea class="form-control" id="message" placeholder="Thank you message" name="message" cols="60" rows="5"></textarea>
+                                            </div>
+                                        </div>
                                   </fieldset>
                                   <fieldset title="Step 3" class="step" id="default-step-2" >
                                       <legend> </legend>
-                                      <div class="form-group">
-                                          <label class="col-lg-2 control-label">Full Name</label>
-                                          <div class="col-lg-10">
-                                              <p class="form-control-static">Tawseef Ahmed</p>
-                                          </div>
-                                      </div>
-                                      <div class="form-group">
-                                          <label class="col-lg-2 control-label">Email Address</label>
-                                          <div class="col-lg-10">
-                                              <p class="form-control-static">tawseef@vectorlab.com</p>
-                                          </div>
-                                      </div>
-                                      <div class="form-group">
-                                          <label class="col-lg-2 control-label">User Name</label>
-                                          <div class="col-lg-10">
-                                              <p class="form-control-static">tawseef</p>
-                                          </div>
-                                      </div>
-                                      <div class="form-group">
-                                          <label class="col-lg-2 control-label">Phone</label>
-                                          <div class="col-lg-10">
-                                              <p class="form-control-static">01234567</p>
-                                          </div>
-                                      </div>
-                                      <div class="form-group">
-                                          <label class="col-lg-2 control-label">Mobile</label>
-                                          <div class="col-lg-10">
-                                              <p class="form-control-static">01234567</p>
-                                          </div>
-                                      </div>
-                                      <div class="form-group">
-                                          <label class="col-lg-2 control-label">Address</label>
-                                          <div class="col-lg-10">
-                                              <p class="form-control-static">
-                                                  Dreamland Ave, Suite 73
-                                                  AU, PC 1361
-                                                  P: (123) 456-7891 </p>
-                                          </div>
-                                      </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-2 control-label" for="customStyle">Custom CSS:</label>
+                                            <div class="col-lg-10">
+                                                <textarea class="form-control" id="customStyle" placeholder="Custom CSS" name="customStyle" cols="60" rows="5"></textarea>
+                                            </div>
+                                        </div>
                                   </fieldset>
                                   <input type="submit" class="finish btn btn-danger" value="Finish"/>
                               </form>
@@ -169,11 +209,12 @@
                       </section>
                     </div>
                     <div class="col-lg-6">
-                        <section class="panel">
+                        <section class="panel panel-info">
+                            <header class="panel-heading" id="prevTitle">
+                                New Sweepstakes or Contest
+                            </header>
                             <div class="panel-body">
-                                <div id="previewpane">
-<!--                                    <iframe src="http://localhost/sweepstake/" id="preview-pane-frame" style="width:100%; height: 750px;border:0px"></iframe>-->
-                                </div>
+                                <div id="previewpane"></div>
                             </div>
                         </section>
                     </div>
@@ -186,6 +227,16 @@
     </section>
 
     <!-- js placed at the end of the document so the pages load faster -->
+    <script src="http://cdn.jquerytools.org/1.2.6/full/jquery.tools.min.js"></script>
+    <script type="text/javascript">
+        jQuery(document).ready(function(e) {
+            jQuery(document).on('click', "#officialRules, #thePrize", function() {
+                $("#"+$(this).attr('id')+'Overlay').overlay().load();
+            });
+            // select the overlay element - and "make it an overlay"
+            $(".facebox").overlay({top: 150,mask: {color: '#fff',loadSpeed: 200,opacity: 0.5},closeOnClick: true,load: true });
+        });	
+    </script>
     <script src="js/jquery.js"></script>
     <script src="js/jquery-1.8.3.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
@@ -195,29 +246,24 @@
     <script type="text/javascript" src="assets/gritter/js/jquery.gritter.js"></script>
     <script src="js/respond.min.js" ></script>
     <script type="text/javascript" src="js/jquery.pulsate.min.js"></script>
-    <script src="js/add-contest.js" type="text/javascript"></script>
     <!--common script for all pages-->
     <script src="js/common-scripts.js"></script>
-
     <!--script for this page only-->
     <script src="js/gritter.js" type="text/javascript"></script>
     <script src="js/pulstate.js" type="text/javascript"></script>
+    <script type="text/javascript" src="assets/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"></script>
     <!--script for this page-->
     <script src="js/jquery.stepy.js"></script>
-    <script>
-        //step wizard
-        $(function() {
-            $('#default').stepy({
-                backLabel: 'Previous',
-                block: true,
-                nextLabel: 'Next',
-                titleClick: true,
-                titleTarget: '.stepy-tab'
-            });
-        });
-    </script>
+    <script src="js/add-contest.js" type="text/javascript"></script>
     <script>//preview-pane-frame
         $(document).ready(function(){
+            $(".form_datetime-adv").datetimepicker({
+                format: "dd MM yyyy - hh:ii",
+                autoclose: true,
+                todayBtn: true,
+                //startDate: "2013-02-14 10:00",
+                minuteStep: 10
+            });
             function readURL(input, output) {
                 if (input.files && input.files[0]) {
                     var reader = new FileReader();
@@ -228,9 +274,15 @@
                     reader.readAsDataURL(input.files[0]);
                 }
             }
+            
             $("#header").change(function(){ readURL(this, 'img#headerImage'); });
             $("#logo").change(function(){ readURL(this, 'img#logoImage'); });
+            $(".form_datetime-adv input, .input-preview input, .input-preview textarea").change(function(){
+                $('#'+$(this).attr('data-preview-id')).html($(this).val() ? $(this).val() : $(this).text());
+            });
         });
     </script>
+    
+    
   </body>
 </html>
