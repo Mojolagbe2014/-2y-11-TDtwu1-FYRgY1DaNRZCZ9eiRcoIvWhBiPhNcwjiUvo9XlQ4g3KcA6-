@@ -80,38 +80,38 @@
                                       <div class="form-group">
                                           <label class="col-lg-2 control-label" for="title"> Title:</label>
                                           <div class="col-lg-10 input-preview">
-                                              <input type="text" data-preview-id="prevTitle" size="100" id="title" name="title" class="form-control" placeholder="Sweepstakes Title">
+                                              <input type="text" data-preview-id="prevTitle" size="100" id="title" name="title" data-placement="top" class="form-control tooltips" data-toggle="tooltip" data-original-title="This value will appear as the contest's page title" placeholder="Sweepstakes Title">
                                           </div>
                                       </div>
                                       <div class="form-group">
                                           <label class="col-lg-2 control-label" for="intro"> Intro:</label>
                                           <div class="col-lg-10 input-preview">
-                                              <input type="text" size="50" data-preview-id="prevIntro" name="intro" id="intro" class="form-control" placeholder="Sweepstakes Intro Text">
+                                              <input type="text" size="50" data-preview-id="prevIntro" name="intro" id="intro" data-placement="top" class="form-control tooltips" data-toggle="tooltip" data-original-title="Brief introduction to the sweepstakes." placeholder="Sweepstakes Intro Text">
                                           </div>
                                       </div>
                                       <div class="form-group">
                                           <label class="col-lg-2 control-label" for="description"> Description:</label>
                                           <div class="col-lg-10 input-preview">
-                                              <textarea class="form-control" data-preview-id="prevDescription" id="description" name="description" placeholder="About this sweepstakes or contest"></textarea>
+                                              <textarea data-placement="top" class="form-control tooltips" data-toggle="tooltip" data-original-title="This description will be used as the sweepstakes' page description as well as brief description to appear on the page" data-preview-id="prevDescription" id="description" name="description" placeholder="About this sweepstakes or contest"></textarea>
                                           </div>
                                       </div>
                                       <div class="form-group">
                                           <label class="col-lg-2 control-label">Header:</label>
                                           <div class="col-lg-10">
-                                              <input type="file" class="form-control" name="header" id="header">
+                                              <input type="file" data-placement="top" class="form-control tooltips" data-toggle="tooltip" data-original-title="The header image in the template will be replaced by the supplied here" name="header" id="header">
                                           </div>
                                       </div>
                                       <div class="form-group">
                                           <label class="col-lg-2 control-label">Logo:</label>
                                           <div class="col-lg-10">
-                                              <input type="file" class="form-control" name="logo" id="logo">
+                                              <input type="file" data-placement="top" class="form-control tooltips" data-toggle="tooltip" data-original-title="This will replace the small image caption below the header image" name="logo" id="logo">
                                           </div>
                                       </div>
                                       <div class="form-group">
                                           <label class="col-lg-2 control-label" for="startDate"> Start:</label>
                                           <div class="col-lg-10">
                                                 <div class="input-group date form_datetime-adv">
-                                                    <input type="text" class="form-control" data-preview-id="prevStartDate" id="startDate" name="startDate" readonly="" size="16" placeholder="Start Date">
+                                                    <input type="text" data-placement="top" class="form-control tooltips" data-toggle="tooltip" data-original-title="The date at which the contest/sweepstakes will start to appear" data-preview-id="prevStartDate" id="startDate" name="startDate" readonly="" size="16" placeholder="Start Date">
                                                     <div class="input-group-btn">
                                                         <button type="button" class="btn btn-danger date-reset"><i class="fa fa-times"></i></button>
                                                         <button type="button" class="btn btn-warning date-set"><i class="fa fa-calendar"></i></button>
@@ -123,7 +123,7 @@
                                           <label class="col-lg-2 control-label" for="endDate"> End:</label>
                                           <div class="col-lg-10">
                                               <div class="input-group date form_datetime-adv">
-                                                  <input type="text" class="form-control" data-preview-id="prevEndDate" id="endDate" name="endDate" readonly="" size="16" placeholder="End Date">
+                                                  <input type="text" data-placement="top" class="form-control tooltips" data-toggle="tooltip" data-original-title="The date and time at which contest/sweepstakes will stop appearing or ends" data-preview-id="prevEndDate" id="endDate" name="endDate" readonly="" size="16" placeholder="End Date">
                                                     <div class="input-group-btn">
                                                         <button type="button" class="btn btn-danger date-reset"><i class="fa fa-times"></i></button>
                                                         <button type="button" class="btn btn-warning date-set"><i class="fa fa-calendar"></i></button>
@@ -135,7 +135,7 @@
                                           <label class="col-lg-2 control-label" for="announcementDate"> Winner:</label>
                                           <div class="col-lg-10">
                                               <div class="input-group date form_datetime-adv">
-                                                  <input type="text" class="form-control" data-preview-id="prevAnnounceDate" id="announcementDate" name="announcementDate" readonly="" size="16" placeholder="Winner Announcement Date">
+                                                  <input type="text" data-placement="top" class="form-control tooltips" data-toggle="tooltip" data-original-title="The winner(s) details will appear on this day." data-preview-id="prevAnnounceDate" id="announcementDate" name="announcementDate" readonly="" size="16" placeholder="Winner Announcement Date">
                                                     <div class="input-group-btn">
                                                         <button type="button" class="btn btn-danger date-reset"><i class="fa fa-times"></i></button>
                                                         <button type="button" class="btn btn-warning date-set"><i class="fa fa-calendar"></i></button>
@@ -146,7 +146,7 @@
                                       <div class="form-group">
                                           <label class="col-lg-2 control-label" for="winners"> No of Winners:</label>
                                           <div class="col-lg-10 input-preview">
-                                              <input type="number" data-preview-id="prevNoOfWinners" id="winners" name="winners" class="form-control" placeholder="Number of Winners">
+                                              <input type="number" data-preview-id="prevNoOfWinners" id="winners" name="winners" data-placement="top" class="form-control tooltips" data-toggle="tooltip" data-original-title="The number of expected winners in the contest" placeholder="Number of Winners">
                                           </div>
                                       </div>
                                   </fieldset>
@@ -155,43 +155,43 @@
                                       <div class="form-group">
                                           <label class="col-lg-2 control-label" for='question'>Question:</label>
                                           <div class="col-lg-10 input-preview">
-                                              <input type="text" data-preview-id="prevBonusQuestion" id="question" name="question" class="form-control" placeholder="Bonus Question">
+                                              <input type="text" data-preview-id="prevBonusQuestion" id="question" name="question" data-placement="top" class="form-control tooltips" data-toggle="tooltip" data-original-title="Additional bonus question that will be answered once after which it will not be counted" placeholder="Bonus Question">
                                           </div>
                                       </div>
                                       <div class="form-group">
                                           <label class="col-lg-2 control-label" for="answer">Answer:</label>
                                           <div class="col-lg-10 input-preview">
-                                              <input type="text" data-preview-id="prevBonusAnswer" name="answer" id="answer" class="form-control" placeholder="Answer to bonus question">
+                                              <input type="text" data-preview-id="prevBonusAnswer" name="answer" id="answer" data-placement="top" class="form-control tooltips" data-toggle="tooltip" data-original-title="Answer to the bonus question" placeholder="Answer to bonus question">
                                           </div>
                                       </div>
                                       <div class="form-group">
                                           <label class="col-lg-2 control-label" for="bonusPoint">Bonus Point:</label>
                                           <div class="col-lg-10">
-                                              <input type="text" name="bonusPoint" id="bonusPoint" class="form-control" placeholder="Bonus Point">
+                                              <input type="text" name="bonusPoint" id="bonusPoint" data-placement="top" class="form-control tooltips" data-toggle="tooltip" data-original-title="Point to be earned for supplying the correct answer to the bonus question" placeholder="Bonus Point">
                                           </div>
                                       </div>
                                       <div class="form-group">
                                           <label class="col-lg-2 control-label" for="point">Points per Invitation:</label>
                                           <div class="col-lg-10">
-                                              <input type="text" name="point" id="point" class="form-control" placeholder="Point per invitation">
+                                              <input type="text" name="point" id="point" data-placement="top" class="form-control tooltips" data-toggle="tooltip" data-original-title="Point to be earned for each friend invitation" placeholder="Point per invitation">
                                           </div>
                                       </div>
                                       <div class="form-group">
                                           <label class="col-lg-2 control-label" for="rules">Rules:</label>
                                           <div class="col-lg-10 input-preview">
-                                              <textarea class="form-control ckeditor" id="rules" placeholder="Rules" name="rules" data-preview-id="prevRules" cols="60" rows="5"></textarea>
+                                              <textarea data-placement="top" class="form-control tooltips ckeditor" data-toggle="tooltip" data-original-title="Rules and regulation binding the contest" id="rules" placeholder="Rules" name="rules" data-preview-id="prevRules" cols="60" rows="5"></textarea>
                                           </div>
                                       </div>
                                         <div class="form-group">
                                             <label class="col-lg-2 control-label" for="prize">Prize:</label>
                                             <div class="col-lg-10 input-preview">
-                                                <textarea class="form-control" id="prize" placeholder="Prize to be won" name="prize" data-preview-id="prevPrize" cols="60" rows="5"></textarea>
+                                                <textarea data-placement="top" class="form-control tooltips" data-toggle="tooltip" data-original-title="The details of the prize to be won by the winners and how to redeem the prize" id="prize" placeholder="Prize to be won" name="prize" data-preview-id="prevPrize" cols="60" rows="5"></textarea>
                                             </div>
                                         </div>
                                        <div class="form-group">
                                             <label class="col-lg-2 control-label" for="message">Message:</label>
                                             <div class="col-lg-10 input-preview">
-                                                <textarea class="form-control" id="message" placeholder="Thank you message" name="message" cols="60" rows="5"></textarea>
+                                                <textarea data-placement="top" class="form-control tooltips" data-toggle="tooltip" data-original-title="Message that will appear after each successful invitation" id="message" placeholder="Thank you message" name="message" cols="60" rows="5"></textarea>
                                             </div>
                                         </div>
                                   </fieldset>
@@ -200,7 +200,7 @@
                                         <div class="form-group">
                                             <label class="col-lg-2 control-label" for="announceWinner">Auto Announce Winner:</label>
                                             <div class="col-lg-10">
-                                                <select class="form-control" name="announceWinner" id="announceWinner">
+                                                <select data-placement="top" class="form-control tooltips" data-toggle="tooltip" data-original-title="YES valu will allow the winner to appear automatically after the contest has ended. NO does otherwise" name="announceWinner" id="announceWinner">
                                                     <option value="1">Yes</option>
                                                     <option value="0">No</option>
                                                 </select>
@@ -209,22 +209,22 @@
                                         <div class="form-group">
                                             <label class="col-lg-2 control-label" for="restart">Auto Restart:</label>
                                             <div class="col-lg-10">
-                                                <select class="form-control" name="restart" id="restart">
-                                                    <option value="1">Yes</option>
+                                                <select data-placement="top" class="form-control tooltips" data-toggle="tooltip" data-original-title="YES will automatically restart the contest after the contest has expired and after the interval specified default is 7 days. No does nothing." name="restart" id="restart">
                                                     <option value="0">No</option>
+                                                    <option value="1">Yes</option>
                                                 </select>
                                             </div>
                                         </div>
                                       <div class="form-group">
                                             <label class="col-lg-2 control-label" for="restartInterval">Restart Interval (days):</label>
                                             <div class="col-lg-10">
-                                                <input type="number" class="form-control" name="restartInterval" id="restartInterval"/>
+                                                <input type="number"  data-placement="top" class="form-control tooltips" data-toggle="tooltip" data-original-title="This field has no effect if Autorestart value is NO " name="restartInterval" id="restartInterval" value="7"/>
                                             </div>
                                         </div>
                                       <div class="form-group">
                                             <label class="col-lg-2 control-label" for="css">Custom CSS:</label>
                                             <div class="col-lg-10">
-                                                <textarea class="form-control" id="css" placeholder="Custom CSS" name="css" cols="60" rows="5"></textarea>
+                                                <textarea data-placement="top" class="form-control tooltips" data-toggle="tooltip" data-original-title="Additional custom styles for customizing further the template and should be entered without <style></style> tags" id="css" placeholder="Custom CSS" name="css" cols="60" rows="5"></textarea>
                                             </div>
                                         </div>
                                   </fieldset>
