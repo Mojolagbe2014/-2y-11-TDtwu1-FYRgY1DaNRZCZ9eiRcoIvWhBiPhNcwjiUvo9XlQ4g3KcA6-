@@ -18,17 +18,17 @@ else{
         foreach ($postVars as $postVar){
             switch($postVar){
                 case 'name2':   $settingName = filter_input(INPUT_POST, $postVar) ? mysqli_real_escape_string($dbObj->connection, filter_input(INPUT_POST, $postVar)) :  ''; 
-                                if($settingName === "") {array_push ($errorArr, "Please enter setting name ");}
+                                if($settingName === "") {array_push ($errorArr, "Setting name ");}
                                 if($settingName!='') {$settingObj->name = $settingName;}
                                 break;
                 default     :   $settingObj->$postVar = filter_input(INPUT_POST, $postVar) ? mysqli_real_escape_string($dbObj->connection, filter_input(INPUT_POST, $postVar)) :  ''; 
-                                if($settingObj->$postVar === "") {array_push ($errorArr, "Please enter $postVar ");}
+                                if($settingObj->$postVar === "") {array_push ($errorArr, " $postVar ");}
                                 break;
             }
         }
         if(count($errorArr) < 1)   {  echo $settingObj->add(); }
         else{ 
-            $json = array("status" => 0, "msg" => $errorArr); 
+            $json = array("status" => 0, "msg" => $thisPage->showPlainErrors($errorArr)); 
             $dbObj->close();//Close Database Connection
             header('Content-type: application/json');
             echo json_encode($json);
@@ -61,13 +61,13 @@ else{
         foreach ($postVars as $postVar){
             switch($postVar){
                 default     :   $settingObj->$postVar = filter_input(INPUT_POST, $postVar) ? mysqli_real_escape_string($dbObj->connection, filter_input(INPUT_POST, $postVar)) :  ''; 
-                                if($settingObj->$postVar === "") {array_push ($errorArr, "Please enter $postVar ");}
+                                if($settingObj->$postVar === "") {array_push ($errorArr, " $postVar ");}
                                 break;
             }
         }
         if(count($errorArr) < 1)   { echo $settingObj->delete(); }
         else{ 
-            $json = array("status" => 0, "msg" => $errorArr); 
+            $json = array("status" => 0, "msg" => $thisPage->showPlainErrors($errorArr)); 
             $dbObj->close();//Close Database Connection
             header('Content-type: application/json');
             echo json_encode($json);
@@ -80,13 +80,13 @@ else{
         foreach ($postVars as $postVar){
             switch($postVar){
                 default     :   $settingObj->$postVar = filter_input(INPUT_POST, $postVar) ? mysqli_real_escape_string($dbObj->connection, filter_input(INPUT_POST, $postVar)) :  ''; 
-                                if($settingObj->$postVar === "") {array_push ($errorArr, "Please enter $postVar ");}
+                                if($settingObj->$postVar === "") {array_push ($errorArr, " $postVar ");}
                                 break;
             }
         }
         if(count($errorArr) < 1)   { echo $settingObj->update(); }
         else{ 
-            $json = array("status" => 0, "msg" => $errorArr); 
+            $json = array("status" => 0, "msg" => $thisPage->showPlainErrors($errorArr)); 
             $dbObj->close();//Close Database Connection
             header('Content-type: application/json');
             echo json_encode($json);

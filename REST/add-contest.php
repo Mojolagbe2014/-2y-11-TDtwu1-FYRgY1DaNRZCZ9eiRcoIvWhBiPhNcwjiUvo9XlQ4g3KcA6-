@@ -15,13 +15,13 @@ if(!isset($_SESSION['SWPLoggedInAdmin']) || !isset($_SESSION["SWPadminEmail"])){
 }
 else{
     if(filter_input(INPUT_POST, "addNewContest") != NULL){
-        $postVars = array('title','intro','description','header','logo','startDate','endDate','announcementDate','winners', 'question', 'answer', 'point', 'bonusPoint', 'rules', 'prize', 'message', 'css'); // Form fields names
+        $postVars = array('title','intro','description','header','logo','startDate','endDate','announcementDate','winners', 'question', 'answer', 'point', 'bonusPoint', 'rules', 'prize', 'message', 'css', 'announceWinner', 'restart', 'restartInterval'); // Form fields names
         //Validate the POST variables and add up to error message if empty
         foreach ($postVars as $postVar){
             switch($postVar){
                 case 'header':   $contestObj->$postVar = basename($_FILES["header"]["name"]) ? rand(100000, 1000000)."_". StringManipulator::slugify(filter_input(INPUT_POST, 'title')).".".pathinfo(basename($_FILES["header"]["name"]),PATHINFO_EXTENSION): ""; 
                                 $contestHeaderImg = $contestObj->$postVar;
-                                if($contestObj->$postVar == "") {array_push ($errorArr, "Please enter $postVar ");}
+                                if($contestObj->$postVar == "") {array_push ($errorArr, " $postVar ");}
                                 break;
                 case 'logo':   $contestObj->$postVar = basename($_FILES["logo"]["name"]) ? rand(100000, 1000000)."_". StringManipulator::slugify(filter_input(INPUT_POST, 'title')).".".pathinfo(basename($_FILES["logo"]["name"]),PATHINFO_EXTENSION): ""; 
                                 $contestLogoImg = $contestObj->$postVar;
@@ -29,7 +29,7 @@ else{
                 case 'css':    $contestObj->$postVar = filter_input(INPUT_POST, $postVar) ? mysqli_real_escape_string($dbObj->connection, filter_input(INPUT_POST, $postVar)) :  ''; 
                                 break;
                 default     :   $contestObj->$postVar = filter_input(INPUT_POST, $postVar) ? mysqli_real_escape_string($dbObj->connection, filter_input(INPUT_POST, $postVar)) :  ''; 
-                                if($contestObj->$postVar == "") {array_push ($errorArr, "Please enter $postVar ");}
+                                if($contestObj->$postVar == "") {array_push ($errorArr, " $postVar ");}
                                 break;
             }
         }
@@ -53,7 +53,7 @@ else{
             else { echo $contestObj->add(); }
         }
         else{ 
-            $json = array("status" => 0, "msg" => $errorArr); 
+            $json = array("status" => 0, "msg" => $thisPage->showPlainErrors($errorArr)); 
             $dbObj->close();//Close Database Connection
             header('Content-type: application/json');
             echo json_encode($json);

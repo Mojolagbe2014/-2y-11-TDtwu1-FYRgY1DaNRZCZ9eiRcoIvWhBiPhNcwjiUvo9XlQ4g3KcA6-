@@ -82,6 +82,20 @@ class WebPage {
         return $this->messageBox($msg, 'error');
     }
     
+    /**
+     * showPlainErrors display error list
+     * @param mixed $error Error
+     */
+    public function showPlainErrors($error){
+        if(is_array($error)){
+            $msg ="<p>Please attend to the following errors:</p><ul>";
+            foreach($error as $error){ $msg .="<li>".ucwords($error)."</li>"; }     
+            $msg .="</ul>";
+        }
+        else{ $msg = ucwords($error); }
+        return $msg;
+    }
+    
     /** Redirect() redirects a webpage to $redirectTo
      *  @param string $location String path of the page to be redirected to
      */

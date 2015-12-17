@@ -201,8 +201,8 @@
                                             <label class="col-lg-2 control-label" for="announceWinner">Auto Announce Winner:</label>
                                             <div class="col-lg-10">
                                                 <select data-placement="top" class="form-control tooltips" data-toggle="tooltip" data-original-title="YES valu will allow the winner to appear automatically after the contest has ended. NO does otherwise" name="announceWinner" id="announceWinner">
-                                                    <option value="1">Yes</option>
-                                                    <option value="0">No</option>
+                                                    <option value="Yes">Yes</option>
+                                                    <option value="No">No</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -210,8 +210,8 @@
                                             <label class="col-lg-2 control-label" for="restart">Auto Restart:</label>
                                             <div class="col-lg-10">
                                                 <select data-placement="top" class="form-control tooltips" data-toggle="tooltip" data-original-title="YES will automatically restart the contest after the contest has expired and after the interval specified default is 7 days. No does nothing." name="restart" id="restart">
-                                                    <option value="0">No</option>
-                                                    <option value="1">Yes</option>
+                                                    <option value="No">No</option>
+                                                    <option value="Yes">Yes</option>
                                                 </select>
                                             </div>
                                         </div>
