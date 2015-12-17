@@ -73,19 +73,19 @@
                                       </li>
                                   </ul>
                               </div>
-                              <form class="form-horizontal" id="default">
+                              <form class="form-horizontal" action="../REST/add-contest.php" id="default" method="POST"  enctype="multipart/form-data">
                                   <fieldset title="Step1" class="step" id="default-step-0">
                                       <legend> </legend>
                                       <div class="form-group">
                                           <label class="col-lg-2 control-label" for="title"> Title:</label>
                                           <div class="col-lg-10 input-preview">
-                                              <input type="text" data-preview-id="prevTitle" id="title" name="title" class="form-control" placeholder="Sweepstakes Title">
+                                              <input type="text" data-preview-id="prevTitle" size="100" id="title" name="title" class="form-control" placeholder="Sweepstakes Title">
                                           </div>
                                       </div>
                                       <div class="form-group">
                                           <label class="col-lg-2 control-label" for="intro"> Intro:</label>
                                           <div class="col-lg-10 input-preview">
-                                              <input type="text" data-preview-id="prevIntro" name="intro" id="intro" class="form-control" placeholder="Sweepstakes Intro Text">
+                                              <input type="text" size="50" data-preview-id="prevIntro" name="intro" id="intro" class="form-control" placeholder="Sweepstakes Intro Text">
                                           </div>
                                       </div>
                                       <div class="form-group">
@@ -131,10 +131,10 @@
                                           </div>
                                       </div>
                                       <div class="form-group">
-                                          <label class="col-lg-2 control-label" for="announceDate"> Winner:</label>
+                                          <label class="col-lg-2 control-label" for="announcementDate"> Winner:</label>
                                           <div class="col-lg-10">
                                               <div class="input-group date form_datetime-adv">
-                                                  <input type="text" class="form-control" data-preview-id="prevAnnounceDate" id="announceDate" name="announceDate" readonly="" size="16" placeholder="Winner Announcement Date">
+                                                  <input type="text" class="form-control" data-preview-id="prevAnnounceDate" id="announcementDate" name="announcementDate" readonly="" size="16" placeholder="Winner Announcement Date">
                                                     <div class="input-group-btn">
                                                         <button type="button" class="btn btn-danger date-reset"><i class="fa fa-times"></i></button>
                                                         <button type="button" class="btn btn-warning date-set"><i class="fa fa-calendar"></i></button>
@@ -143,24 +143,24 @@
                                           </div>
                                       </div>
                                       <div class="form-group">
-                                          <label class="col-lg-2 control-label" for="NoOfWinners"> No of Winners:</label>
+                                          <label class="col-lg-2 control-label" for="winners"> No of Winners:</label>
                                           <div class="col-lg-10 input-preview">
-                                              <input type="number" data-preview-id="prevNoOfWinners" id="NoOfWinners" name="NoOfWinners" class="form-control" placeholder="Number of Winners">
+                                              <input type="number" data-preview-id="prevNoOfWinners" id="winners" name="winners" class="form-control" placeholder="Number of Winners">
                                           </div>
                                       </div>
                                   </fieldset>
                                   <fieldset title="Step 2" class="step" id="default-step-1" >
                                       <legend> </legend>
                                       <div class="form-group">
-                                          <label class="col-lg-2 control-label" for='bonusQuestion'>Question:</label>
+                                          <label class="col-lg-2 control-label" for='question'>Question:</label>
                                           <div class="col-lg-10 input-preview">
-                                              <input type="text" data-preview-id="prevBonusQuestion" id="bonusQuestion" name="bonusQuestion" class="form-control" placeholder="Bonus Question">
+                                              <input type="text" data-preview-id="prevBonusQuestion" id="question" name="question" class="form-control" placeholder="Bonus Question">
                                           </div>
                                       </div>
                                       <div class="form-group">
-                                          <label class="col-lg-2 control-label" for="bonusAnswer">Answer:</label>
+                                          <label class="col-lg-2 control-label" for="answer">Answer:</label>
                                           <div class="col-lg-10 input-preview">
-                                              <input type="text" data-preview-id="prevBonusAnswer" name="bonusAnswer" id="bonusAnswer" class="form-control" placeholder="Answer to bonus question">
+                                              <input type="text" data-preview-id="prevBonusAnswer" name="answer" id="answer" class="form-control" placeholder="Answer to bonus question">
                                           </div>
                                       </div>
                                       <div class="form-group">
@@ -170,7 +170,7 @@
                                           </div>
                                       </div>
                                       <div class="form-group">
-                                          <label class="col-lg-2 control-label" for="point">Points/Invite:</label>
+                                          <label class="col-lg-2 control-label" for="point">Points per Invitation:</label>
                                           <div class="col-lg-10">
                                               <input type="text" name="point" id="point" class="form-control" placeholder="Point per invitation">
                                           </div>
@@ -197,12 +197,13 @@
                                   <fieldset title="Step 3" class="step" id="default-step-2" >
                                       <legend> </legend>
                                         <div class="form-group">
-                                            <label class="col-lg-2 control-label" for="customStyle">Custom CSS:</label>
+                                            <label class="col-lg-2 control-label" for="css">Custom CSS:</label>
                                             <div class="col-lg-10">
-                                                <textarea class="form-control" id="customStyle" placeholder="Custom CSS" name="customStyle" cols="60" rows="5"></textarea>
+                                                <textarea class="form-control" id="css" placeholder="Custom CSS" name="css" cols="60" rows="5"></textarea>
                                             </div>
                                         </div>
                                   </fieldset>
+                                  <input type="hidden" id="addNewContest" name="addNewContest" value="addNewContest"/>
                                   <input type="submit" class="finish btn btn-danger" value="Finish"/>
                               </form>
                           </div>
@@ -227,16 +228,6 @@
     </section>
 
     <!-- js placed at the end of the document so the pages load faster -->
-    <script src="http://cdn.jquerytools.org/1.2.6/full/jquery.tools.min.js"></script>
-    <script type="text/javascript">
-        jQuery(document).ready(function(e) {
-            jQuery(document).on('click', "#officialRules, #thePrize", function() {
-                $("#"+$(this).attr('id')+'Overlay').overlay().load();
-            });
-            // select the overlay element - and "make it an overlay"
-            $(".facebox").overlay({top: 150,mask: {color: '#fff',loadSpeed: 200,opacity: 0.5},closeOnClick: true,load: true });
-        });	
-    </script>
     <script src="js/jquery.js"></script>
     <script src="js/jquery-1.8.3.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
@@ -249,7 +240,6 @@
     <!--common script for all pages-->
     <script src="js/common-scripts.js"></script>
     <!--script for this page only-->
-    <script src="js/gritter.js" type="text/javascript"></script>
     <script src="js/pulstate.js" type="text/javascript"></script>
     <script type="text/javascript" src="assets/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"></script>
     <!--script for this page-->

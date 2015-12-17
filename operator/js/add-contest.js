@@ -1,41 +1,12 @@
 $(document).ready(function(){
     $('#previewpane').load('http://localhost/sweepstake/');
     $('#default').stepy({ backLabel: 'Previous', block: true, nextLabel: 'Next', titleClick: true, titleTarget: '.stepy-tab' });
-    
-//    $( "#startDate" ).datepicker({ 
-//        dateFormat: "yy-mm-dd",appendText: "(yyyy-mm-dd)", changeMonth: true, changeYear: true,
-//        onClose: function(){ $('#endDate').datepicker( "option", "minDate", new Date($(this).datepicker( "getDate" )) ); }
-//    });
-//    $( "#endDate" ).datepicker({ dateFormat: "yy-mm-dd",appendText: "(yyyy-mm-dd)", changeMonth: true, changeYear: true });
-   
-    $.ajax({
-        url: "../REST/fetch-categories.php",
-        type: 'POST',
-        cache: false,
-        success : function(data, status) {
-            $('#category').empty();
-            if(data.status === 0 ){ 
-                $("#messageBox, .messageBox").html('<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>Category loading error. '+data.msg+'</div>');
-            }
-            if(data.status === 2 ){ 
-                $("#messageBox, .messageBox").html('<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>No category available</div>');
-                 $('#category').append('<option value="">-- No category available --</option>');
-            }
-            else if(data.status ===1 && data.info.length > 0){
-                $('#category').append('<option value="">-- Select a category.. --</option>');
-                $.each(data.info, function(i, item) {
-                    $('#category').append('<option value="'+item.id+'">'+item.name+'</option>');
-                });
-            } 
 
-        }
-    });
-    
-    $("form#CreateCourse").submit(function(e){ 
+    $("form#default").submit(function(e){ 
         e.stopPropagation();
         e.preventDefault();
         var formData = new FormData($(this)[0]);
-        formData.append('description', CKEDITOR.instances['description'].getData());
+        formData.append('rules', CKEDITOR.instances['rules'].getData());
         var alertType = ["danger", "success", "danger", "error"];
         $.ajax({
             url: $(this).attr("action"),
@@ -47,6 +18,10 @@ $(document).ready(function(){
             success : function(data, status) {
                 if(data.status != null)  $("#messageBox, .messageBox").html('<div class="alert alert-'+alertType[data.status]+'"><button type="button" class="close" data-dismiss="alert">&times;</button>'+data.msg+'</div>');
                 else $("#messageBox, .messageBox").html('<div class="alert alert-info"><button type="button" class="close" data-dismiss="alert">&times;</button>'+data+'</div>');
+                $.gritter.add({
+                    title: 'Notification!',
+                    text: data.msg ? data.msg : data
+                });
             },
             error : function(xhr, status) {
                 erroMsg = '';
@@ -57,6 +32,10 @@ $(document).ready(function(){
                 else if(status==='timeout'){  erroMsg = 'Request Time out.';}
                 else { erroMsg = 'Unknow Error.\n'+xhr.responseText;}          
                 $("#messageBox, .messageBox").html('<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>Failed. '+erroMsg+'</div>');
+                $.gritter.add({
+                    title: 'Notification!',
+                    text: erroMsg
+                });
             },
             processData: false
         });
