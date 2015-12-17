@@ -171,6 +171,7 @@ require('includes/page-properties.php');
                     <ol>
                         <li class="item0 first" id="item_0_links"><a  href="#" id="officialRules" >Official Rules</a> </li>
                         <li class="item1 last selected" id="item_1_links"><a href="#" id="thePrize">The Prize </a> </li>
+                        <li class="item1 last selected" id="item_1_links"><a href="#" id="theWinners">The Winners </a> </li>
                     </ol>
                 </div>
                 <div class="ss_box_footer ss_links_footer" id="footer_links"></div>
@@ -231,10 +232,17 @@ require('includes/page-properties.php');
         </div>
         
     </div>
-    <script src="http://cdn.jquerytools.org/1.2.6/full/jquery.tools.min.js"></script>
+    <div id="theWinnersOverlay" class="facebox et_pb_module et_pb_contact_form_container clearfix  et_pb_contact_form_0">
+        <div><h4 class="et_pb_contact_main_title">The Winners <button class="close" style="float:right;margin-top:-7px">X</button></h4> </div>
+        <div class="et_pb_contact">
+            The List of winners goes here
+        </div>
+        
+    </div>
+    <script src="js/jquery.tools.min.js" type="text/javascript"></script>
     <script type="text/javascript">
         jQuery(document).ready(function(e) {
-            jQuery("#officialRules, #thePrize").click(function() {
+            jQuery("#officialRules, #thePrize, #theWinners").click(function() {
                 $("#"+$(this).attr('id')+'Overlay').overlay().load();
             });
             // select the overlay element - and "make it an overlay"

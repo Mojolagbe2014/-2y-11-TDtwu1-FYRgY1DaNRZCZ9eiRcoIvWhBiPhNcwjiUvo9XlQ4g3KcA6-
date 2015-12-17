@@ -13,7 +13,7 @@
     <link href="css/bootstrap-reset.css" rel="stylesheet">
     <!--external css-->
     <link href="assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
-    <link rel="stylesheet" type="text/css" href="assets/gritter/css/jquery.gritter.css" />
+    
     <!-- Custom styles for this template -->
     <link href="../css/tabdesign_v2.css" rel="stylesheet" type="text/css"/>
     <link href="../css/tabserving_v2.css" rel="stylesheet" type="text/css"/>
@@ -25,6 +25,7 @@
     <script src="assets/ckeditor/ckeditor.js" type="text/javascript"></script>
     <link rel="stylesheet" type="text/css" href="assets/bootstrap-datetimepicker/css/datetimepicker.css" />
     <link href="../css/facebox.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" type="text/css" href="assets/gritter/css/jquery.gritter.css" />
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 tooltipss and media queries -->
     <!--[if lt IE 9]>
       <script src="js/html5shiv.js"></script>
@@ -197,6 +198,30 @@
                                   <fieldset title="Step 3" class="step" id="default-step-2" >
                                       <legend> </legend>
                                         <div class="form-group">
+                                            <label class="col-lg-2 control-label" for="announceWinner">Auto Announce Winner:</label>
+                                            <div class="col-lg-10">
+                                                <select class="form-control" name="announceWinner" id="announceWinner">
+                                                    <option value="1">Yes</option>
+                                                    <option value="0">No</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-2 control-label" for="restart">Auto Restart:</label>
+                                            <div class="col-lg-10">
+                                                <select class="form-control" name="restart" id="restart">
+                                                    <option value="1">Yes</option>
+                                                    <option value="0">No</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                      <div class="form-group">
+                                            <label class="col-lg-2 control-label" for="restartInterval">Restart Interval (days):</label>
+                                            <div class="col-lg-10">
+                                                <input type="number" class="form-control" name="restartInterval" id="restartInterval"/>
+                                            </div>
+                                        </div>
+                                      <div class="form-group">
                                             <label class="col-lg-2 control-label" for="css">Custom CSS:</label>
                                             <div class="col-lg-10">
                                                 <textarea class="form-control" id="css" placeholder="Custom CSS" name="css" cols="60" rows="5"></textarea>
@@ -236,11 +261,9 @@
     <script src="js/jquery.nicescroll.js" type="text/javascript"></script>
     <script type="text/javascript" src="assets/gritter/js/jquery.gritter.js"></script>
     <script src="js/respond.min.js" ></script>
-    <script type="text/javascript" src="js/jquery.pulsate.min.js"></script>
     <!--common script for all pages-->
     <script src="js/common-scripts.js"></script>
     <!--script for this page only-->
-    <script src="js/pulstate.js" type="text/javascript"></script>
     <script type="text/javascript" src="assets/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"></script>
     <!--script for this page-->
     <script src="js/jquery.stepy.js"></script>
@@ -272,7 +295,5 @@
             });
         });
     </script>
-    
-    
   </body>
 </html>

@@ -20,7 +20,8 @@ $(document).ready(function(){
                 else $("#messageBox, .messageBox").html('<div class="alert alert-info"><button type="button" class="close" data-dismiss="alert">&times;</button>'+data+'</div>');
                 $.gritter.add({
                     title: 'Notification!',
-                    text: data.msg ? data.msg : data
+                    text: data.msg ? data.msg : data,
+                    class_name: 'gritter-light'
                 });
             },
             error : function(xhr, status) {
