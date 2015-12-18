@@ -1,0 +1,105 @@
+/* BASE version 1.09 ------------------------ */
+#wrapper{padding:1px 16px 30px;}
+.boxy-wrapper{background-color:#777;box-shadow:2px 2px 2px #333;}
+.boxy-wrapper .title-bar{background-color:#777;}
+.boxy-wrapper .title-bar h2{padding-top:0;}
+.showchoice_buttons a,
+.ss_fb_photo_btn,
+.ss_fb_photo.selected
+  {background-color:#000;}
+.ss_fb_photo_btn{border-radius:3px;}
+.showchoice_buttons a{padding:5px 15px;border-radius:3px;}
+.showchoice_buttons a:hover{opacity:0.7;text-decoration:none;}
+.ss_box{margin:12px 0 0;padding-bottom:12px;clear:both;}
+.ss_box_header h3{display:none;padding:12px;}
+.ss_box_content{*overflow:auto;/* IE7 fix for tiler arrows */
+padding:12px 12px 0;}
+.ss_image_content{padding:0;}
+.ss_box_footer_actions{border-top:none;padding:10px 12px 0;}
+.itemActions{margin-top:5px;/* Push Comments/Share buttons down a bit */}
+#wrapper,
+p,
+.boxy-inner{line-height:1.4;text-align:inherit;}
+h1,h2,h3,h4{margin-top:1em;}
+h1:first-child,h2:first-child,h3:first-child,h4:first-child{margin-top:0;}
+/* no spacing between headline and first paragraph */
+h2 + p,h3 + p,h4 + p{margin-top:0;}
+/* Change fixed sizes to relative */
+.ss_box_header h3,
+.product_title h4{font-size:120%;}
+.rssEntry .title{font-size:110%;}
+.tweet,
+.rssEntry,
+.rssEntry .author,
+.comment_link,
+.share_link,
+h4,
+h5{font-size:90%;}
+a,
+.tweet a{font-weight:bold;text-decoration:underline;}
+a:hover,
+.tweet a:hover{text-decoration:none;}
+.ss_box .ss_btn,
+.ss_box .comment_link,
+.ss_box .share_link,
+.ss_box .form_submit{display:inline-block;text-decoration:none;}
+.tiler{position:relative;}
+.tiler_btn{text-decoration:none;/* IE7 fix */}
+.tiler_btn.disabled{display:none;}
+.tiler_index a{border-radius:5px;margin-right:1px;opacity:1;width:10px !important;/* override variable widths */}
+.tiler_index a.selected{opacity:1;}
+.tiler_counter{display:none;}
+.ss_countdown_content{font-size:2em;text-align:center;}
+.ss_gift_thumbs a{display:inline-block;margin:10px;}
+.ss_box.ss_image{background:transparent;border:none;}
+.ss_box.ss_links{background:none;border:none;padding:0;}
+.ss_box_content.ss_links_content{padding:0;}
+.ss_flickr_template3 .tiler_index{margin-bottom:10px;}
+.ss_flickr_template3 .tiler_btn{top:0;}
+.ss_foursquare h4{font-size:1.2em;margin-bottom:0em;}
+.ss_foursquare .stats p{font-size:0.9em !important;margin:5px 0 10px;}
+.ss_foursquare .stats span{display:block;font-size:2em;line-height:1;}
+.ss_foursquare .statsHerenow{display:none;}
+.mayor{border-radius:3px;padding:5px 10px 10px;}
+.mayor h4{margin-bottom:0.5em;}
+.mayor p{margin:0;}
+.foursquareTip{border:none;border-radius:3px;font-size:0.9em;margin:0.1em 0 0.5em;padding:5px;}
+.ss_googlemaps_content{text-align:center;}
+.ss_image.full_width{margin-left:-16px;margin-right:-16px;}
+.ss_links li{border:none;}
+.ss_poll_content{padding-top:16px;}
+.ss_poll_prompt{font-size:1.2em;font-weight:normal;}
+.ss_poll label{font-weight:normal;}
+.ss_poll_choice label input{margin-right:10px;}
+.ss_poll_result{position:relative;}
+.ss_poll_percentage{text-align:right;font-size:0.8em;position:absolute;right:0;top:2px;}
+.product_photo a{/* 'Click to Zoom' */
+  text-decoration:none;}
+.ss_voting_content .ss_voting_template5 .my_db_entry{width:137px;}
+body.timeline .ss_voting_content .ss_voting_template5 .my_db_entry{margin:5px 1px 5px 0;}
+.ss_box.ss_rich_text h1{font-size:2.5em;}
+.ss_box.ss_rich_text h2{font-size:1.7em;}
+.facebook_id_field_block .required{color:inherit;}
+.left,.right{width:48.5%;margin-bottom:10px;}
+.left{float:left;clear:left;}
+.right{float:right;clear:right;}
+/* General Layout Styles */
+.layout{overflow:visible;} /* clearing div is added via js */
+/* 2-Column w/Left Sidebar ------------------- */
+.col2-left-sidebar .layout-sidebar{float:left;width:32.52%;}
+.col2-left-sidebar .layout-main{float:right; width:66.33%;}
+/* 2-Column w/Right Sidebar ------------------- */
+.col2-right-sidebar .layout-sidebar{float:right;width:32.52%;}
+.col2-right-sidebar .layout-main{float:left;width:66.33%;}
+/* 2-Column Even ------------------- */
+.col2-even .layout-sidebar{float:left;width:49.36%;}
+.col2-even .layout-main{float:right;width:49.36%;}
+/* 3-Column Even ------------------- */
+.col3-even .layout-child{float:left;width:32.52%;margin-left:1.29%;}
+.col3-even .layout-col1{margin-left:0;}
+.col3-even .layout-col3{float:right;margin-left:0;}
+/* 4-Column Even ------------------- */
+.col4-even .layout-child{float:left;width:24.03%;margin-left:1.29%;}
+.col4-even .layout-col1{margin-left:0;}
+.col4-even .layout-col4{float:right;margin-left:0;}
+/* END BASE ----------------------------------- */

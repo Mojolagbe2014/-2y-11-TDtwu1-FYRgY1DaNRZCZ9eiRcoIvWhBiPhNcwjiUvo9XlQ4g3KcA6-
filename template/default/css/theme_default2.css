@@ -1,0 +1,922 @@
+/* Import a font from a web font service */
+/*@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300italic,600,600italic,700,400);*/
+
+/* web publish background color*/
+body.desktop {
+  background-color: #ccc;
+}
+
+/* TAB BACKGROUND ----------------------------- */
+
+#wrapper{
+  padding-top: 2%; /* use percentages to translate ratios to mobile */
+  background-color: #ececec;
+}
+
+/* DEFAULT WIDGET STYLE ----------------------- */
+
+.ss_box{
+  background: #ffffff; /* Old browsers */
+  margin: 10px 0px;
+  border: none;
+  border-radius: 0;
+}
+
+/* header box background for show_title Extra CSS class */
+.ss_box_header h3 {
+  background: #5ba7bd;
+  border: none;
+}
+
+/* font color for show_title Extra CSS class */
+.show_title .ss_box_header h3 {
+  color: #fff;
+  text-shadow: none;
+  text-transform: uppercase;
+  font-weight: 300;
+}
+
+/* TEXT --------------------------------------- */
+
+/* general font size and weight */
+#wrapper, p, label, .boxy-inner{
+  font-size: 14px;
+}
+
+strong {
+  font-weight: bold;
+}
+
+/* default font styles */
+#wrapper, p, label, .boxy-inner{
+  color: #3b3b3b;
+  font-family: 'source sans pro', helvetica, arial, sans-serif;
+  font-weight: 300;
+}
+
+/* headlines */
+.ss_box h1{
+  color: #3b3b3b;
+  font-weight: 300;
+}
+
+.ss_box h2,
+.ss_box h3,
+.ss_box h4{
+  color:#3b3b3b;
+  font-weight: 600;
+}
+
+/* text links */
+a,
+.tweet a{
+  color:#5ba7bd;
+  font-weight: 400;
+  text-decoration: none;
+  transition: all 0.2s ease-in 0s;
+}
+
+/* text links hover */
+a:hover,
+.tweet a:hover{
+  color: #6a6a6a;
+  text-decoration: underline;
+}
+
+/* less important text */
+.tweet .tweetDate,
+.rssEntry .author,
+.foursquareTip .author{
+  color: #666;
+}
+
+/* border color */
+.tweet,
+.rssEntry,
+.yelpReview,
+.foursquareTip,
+.ss_product_content .widget_item{
+  border-color: #ccc;
+}
+
+/* transparent_bg border color */
+.transparent_bg .tweet,
+.transparent_bg .rssEntry,
+.transparent_bg .yelpReview,
+.transparent_bg .foursquareTip,
+.transparent_bg .ss_product_content .widget_item{
+  border-color: #ccc;
+}
+
+/* horizontal rule */
+hr {
+  border-top: 1px solid #ccc;
+  border-bottom: transparent;
+  color: transparent;
+}
+
+/* Button styles--------------------------------- */
+
+/* general buttons (not link widget buttons) */
+.ss_box .ss_btn,
+.ss_box .comment_link,
+.ss_box .share_link,
+.product_btn .product_info_link,
+.ss_poll_content .ss_poll_layout .ss_poll_vote{
+  background: #454545; /* Old browsers */
+  border: none;
+  border-radius: 2px;
+  color: #fff;
+  font-size: small;
+  font-weight: 300;
+  padding: 5px 15px;
+  text-align: center;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.25);
+}
+
+/* general buttons hover */
+.ss_box .ss_btn:hover,
+.ss_box .comment_link:hover,
+.ss_box .share_link:hover,
+.product_btn .product_info_link:hover,
+.ss_poll_content .ss_poll_layout .ss_poll_vote:hover {
+  background: #666;
+  text-decoration: none;
+  box-shadow: none;
+}
+
+/* product widget more info button styling */
+.product_btn .product_actions {
+  margin-top: 2%;
+}
+
+/* submit buttons */
+.ss_box .form_submit,
+.charcoal_bg .ss_box .form_submit{
+  background: #5ba7bd; /* Old browsers */
+  font-size: x-large;
+}
+
+.ss_box .form_submit:hover,
+.charcoal_bg .ss_box .form_submit:hover{
+  background: #73bace;
+  text-decoration: none;
+  box-shadow: none;
+}
+
+/* vote/poll buttons */
+.ss_voting_v2_layout .vote_link.vote {
+  background-color: #5ba7bd;
+  border: none;
+  border-radius: 2px;
+  color: #fff;
+  font-size: 25px;
+  font-weight: lighter;
+  display: inline-block;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.25);
+}
+
+.ss_voting_v2_layout .vote_link.voted,
+.ss_voting_v2_layout .vote_link.voting,
+.ss_voting_v2_layout .vote_link.vote:hover{
+  background-color: #73bace;
+  border-radius: 2px;
+  color: #fff;
+  border: none;
+  opacity: 1;
+  box-shadow: none;
+}
+
+.ss_poll_content .ss_poll_layout .ss_poll_vote {
+  background: #5ba7bd;
+}
+
+.ss_poll_content .ss_poll_layout .ss_poll_vote:hover {
+  background-color: #73bace;
+}
+
+/* Links widget buttons */
+.ss_links a{
+  background: #454545; /* Old browsers */
+  border: none;
+  border-radius: 2px;
+  color: #fff;
+  font-size: medium;
+  font-weight: 300;
+  padding: 5px 15px;
+  text-align: center;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.25);
+  display: inline-block;
+  text-decoration: none; /* <--- removes default underline */
+}
+
+.ss_links a:hover{
+  background: #666;
+  text-decoration: none;
+  box-shadow: none;
+}
+
+.ss_links {
+  box-shadow: none;
+}
+
+/* padding for links widget */
+.ss_box .ss_links_content {
+  padding: 2% 0;
+}
+
+/* POPUPS----------------------------- */
+
+/* border around pop-ups */
+.boxy-wrapper{
+  background-color: #5a5a5a;
+  border-radius: 0px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.35);
+}
+
+/* pop-up title bar background */
+.boxy-wrapper .title-bar{
+  background-color: #5a5a5a;
+}
+
+.boxy-wrapper .title-bar h2{
+  text-shadow: none;
+  text-transform: uppercase;
+}
+
+.boxy-wrapper .title-bar .close {
+  text-shadow: none;
+}
+
+/* pop-up inner background */
+.boxy-inner,
+.image_zoom {
+  background-color: #fff;
+}
+
+/* pop-up error message */
+.boxy-wrapper .ss_alert p {
+  color: #333;
+  font-size: 13px;
+  padding: 20px;
+}
+
+/* pop-up button area background */
+.showchoice_buttons {
+  background-color: #ebebeb;
+  border-top: 1px solid WHITE;
+  padding: 10px;
+  text-align: right;
+}
+
+
+/* pop-up OK button */
+.showchoice_buttons .boxy_choice_ok,
+.showchoice_buttons a,
+.ss_fb_photo_btn,
+.ss_fb_photo.selected {
+  background: #454545; /* Old browsers */
+  color: #fff;
+  border: none;
+  border-radius: 2px;
+  font-size: small;
+  font-weight: 300;
+  text-decoration: none;
+}
+
+/* pop-up OK hover */
+.showchoice_buttons .boxy_choice_ok:hover {
+ opacity: 1;
+  background: #666;
+}
+
+/* pop-up cancel button */
+.showchoice_buttons .boxy_choice_cancel{
+  background: #ddd; /* Old browsers */
+  color: #353535;
+  border: none;
+  border-radius: 2px;
+  font-size: small;
+  font-weight: 300;
+  text-decoration: none;
+}
+
+/* pop-up cancel hover */
+.showchoice_buttons .boxy_choice_cancel:hover {
+  opacity: 1;
+  background: #fff;
+}
+
+.ss_check_instagram_username_btn {
+  background-color: #5ba7bd;
+}
+
+/* widgets----------------------*/
+
+/* FORM/PROMOTION WIDGET */
+
+/* Required fields asterisk */
+.field_block label .required,
+.horizontal_container label .required {
+  color: #ff6600;
+  font-weight: 300;
+}
+
+/* required field error message */
+label.error {
+  color: #ff6600;
+  font-weight: 600;
+}
+
+/* field labels */
+label {
+  font-size: medium;
+}
+
+/* text input field */
+.field_block input, .field_block textarea {
+  border: 1pt solid #ccc;
+  min-height: 2em;
+  border-radius: 2px;
+}
+
+select {
+  border: 1pt solid #ccc;
+  min-height: 2em;
+  border-radius: 2px;
+}
+
+select:focus, input:focus, textarea:focus {
+  border: 1pt solid #ccc;
+  min-height: 2em;
+  border-radius: 2px;
+}
+
+/*field instructions text */
+.field_block_instructions {
+  color: #5ba7bd;
+}
+
+/* thank you/sending message */
+.ajax_message p {
+  color: #5ba7bd;
+  font-size: large;
+}
+
+/* adjustment for checkboxes on chrome */
+.field_block input[type=checkbox], .field_block input[type=radio] {
+  vertical-align: middle;
+}
+
+/* remove border for photo select */
+.image_field_block input{
+  border: none;
+}
+
+/* VOTING WIDGET */
+/* general */
+.entry_photo .click_to_zoom {
+  background: url(https://d2xcq4qphg1ge9.cloudfront.net/assets/19/2389363/original_a7a35772842e6cf3a88a21371c1289db.png);
+}
+
+/* v1 templates */
+.ss_voting_content .ss_voting_template6 .my_db_entry,
+.ss_voting_content .ss_voting_template5 .my_db_entry,
+.ss_voting_content .ss_voting_template4 .my_db_entry,
+.ss_voting_content .ss_voting_template3 .my_db_entry,
+.ss_voting_content .ss_voting_template2 .my_db_entry,
+.ss_voting_content .ss_voting_template1 .my_db_entry {
+  border: 1px solid #ccc;
+  border-radius: 2px;
+}
+
+.ss_voting_template6 .my_db_entry .entry_votes {
+  border-radius: 2px;
+}
+
+/* v2 templates */
+.ss_voting_v2_layout .my_db_entry,
+.ss_voting_v2_layout .my_db_entry:first-child {
+  border: 1px solid #ccc;
+  border-radius:2px;
+}
+
+/* v2 entry votes */
+.ss_voting_content .ss_voting_default .entry_votes,
+.ss_voting_content .ss_voting_voting_layout2 .entry_votes,
+.ss_voting_content .ss_voting_voting_layout3 .entry_votes {
+  background: #454545;
+}
+
+/* Product widget-----*/
+.ss_product_default .widget_item,
+.ss_product_product_layout2 .widget_item, 
+.ss_product_product_layout3 .widget_item,
+.ss_product_manual .widget_item{
+  border: 1px solid #ccc !important;
+  border-radius:2px;
+}
+
+/* TILER FOR PRODUCT WIDGET/GALLERY WIDGET */
+
+/* index dots - not selected */
+.tiler_index a{
+  background-color:#ccc;
+  border-radius: 0;
+}
+/* index dots - selected */
+.tiler_index a.selected{
+  background-color:#5ba7bd;
+}
+
+/* tiler arrows */
+
+/* tiler arrow background */
+.tiler_btn{
+  background-color:rgba(0, 0, 0, 0.6); /* <--- you can also set this to transparent */
+  border:none;
+  border-radius:0;
+  height:24px;
+  position:absolute;
+  top:30%;
+  width:24px;
+  padding: 1%;
+}
+
+/* tiler arrow next (this is an actual image. you can upload your own into the media manager) */
+.tiler_next{
+  background-image:url(https://d2xcq4qphg1ge9.cloudfront.net/assets/19/2389412/original_843918ab940374dc6fa923d153c29b6d.png);
+  right:-22px;
+}
+
+/* tiler arrow previous */
+.tiler_prev{
+  background-image:url(https://d2xcq4qphg1ge9.cloudfront.net/assets/19/2389411/original_f6e7a134b91c63c4cdc70ef83307d87d.png);
+  left:-22px;
+}
+
+/* full width tiler arrow next */
+.full_width .tiler_next{
+  right:-10px;
+}
+
+/* full width arrow previous */
+.full_width .tiler_prev{
+  left:-10px;
+}
+
+/* tiler arrow mobile settings */
+body.mobile .tiler_btn{
+  background-color: transparent; /* <--- you can also set this to transparent */
+  border:none;
+  border-radius:0;
+  position:relative;
+  top:30%;
+  height:32px;
+  width:25px;
+  padding: 1%;
+}
+
+/* FANCY GALLERY */
+.tn3e-thumbs {
+  border: 1px solid #ccc;
+}
+
+/* tiler arrows */
+.tn3e-next,
+.tn3-next{
+  background-image:url(https://d2xcq4qphg1ge9.cloudfront.net/assets/19/2389412/original_843918ab940374dc6fa923d153c29b6d.png);
+  background-color: #666;
+  width:18px;
+  height: 18px;
+  border: 5px solid #666;
+  background-position: center;
+}
+
+.tn3e-prev,
+.tn3-prev{
+  background-image:url(https://d2xcq4qphg1ge9.cloudfront.net/assets/19/2389411/original_f6e7a134b91c63c4cdc70ef83307d87d.png);
+  background-color: #666;
+  width:18px;
+  height: 18px;
+  border: 5px solid #666;
+  background-position: center;
+}
+
+.tn3e-prev:hover,
+.tn3-prev:hover,
+.tn3e-next:hover,
+.tn3-next:hover {
+  background-position: center;
+}
+
+/* gallery text*/
+.tn3-image-title a,
+.tn3e-image-title a{
+  color: #5ba7bd;
+}
+
+.tn3-image-title,
+.tn3e-image-title{
+  color: #333;
+  font-weight: normal;
+  font-family: 'source sans pro';
+}
+
+.tn3-text-bg,
+.tne3-text-bg {
+  background: transparent;
+  text-align: center;
+}
+
+/* timer slider bar */
+.tn3e-timer,
+.tn3-timer{
+  background: #ffca61;
+}
+
+/* POLL WIDGET */
+
+/* poll percentage border */
+.ss_poll_graph_container{
+  border-color: SILVER;
+}
+/* poll percentage bar color */
+.ss_poll_graph_percentage{
+  background-color: #5ba7bd;
+}
+
+/* poll entry border */
+.ss_poll_content .ss_poll_layout .ss_poll_choice {
+  border: 1px solid #ddd;
+  border-radius: 2px;
+}
+
+/* GIFT WIDGET */
+
+/* gift thumbnail */
+.ss_gift_thumbs a{
+  border:solid 1px SILVER;
+  border-radius:2px;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.15);
+}
+
+.ss_gift_thumbs a img{
+  vertical-align: bottom;
+}
+
+/* gift thumbnail hover */
+.ss_gift_thumbs a:hover{
+  border:solid 1px #5ba7bd;
+  box-shadow: none;
+}
+
+/* gift pop-up thumb not selected */
+.ss_gift_selector_item {
+    background: none repeat scroll 0 0 WHITE;
+    border: 1px solid SILVER;
+}
+
+/* gift pop-up thumb selected */
+.ss_gift_selector_item.selected {
+    background: none repeat scroll 0 0 #5ba7bd;
+}
+
+/* gift pop-up  main image */
+.ss_gift_selected_image img {
+    border: 2px solid #5ba7bd;
+}
+
+/* COUNTDOWN WIDGET */
+/* font weight/color */
+.ss_countdown_content {
+  color: #333;
+  font-weight: 300;
+}
+
+/* template 1 */
+.ss_countdown_content .ss_countdown_layout span {
+  font-size: x-large;
+  padding: 5px;
+  border-radius: 3px;
+font-weight: 600;
+}
+
+body.mobile .ss_countdown_content .ss_countdown_layout .ss_countdown_word {
+  margin: 5px 0 0;
+  padding: 0;
+  border: none;
+  background: none; 
+  font-size: medium;
+  color: #333;
+  font-weight: 300;
+}
+
+.ss_countdown_content .ss_countdown_layout span {
+  font-size: x-large;
+  padding: 5px;
+  border-radius: 3px;
+  border: 1px solid #5ba7bd;
+  background-color: #5ba7bd;
+  color: white;
+  background: linear-gradient(to bottom, #5ba7bd 0%, #5ba7bd 49%, #66b1c7 50%, #66b1c7 100%); 
+}
+/* template 2 */
+
+.ss_countdown_content .ss_countdown_layout_2 .ss_countdown_number {
+  display: inline-block;
+  margin: 0 auto;
+  padding: 5px 15px; 
+}
+
+.ss_countdown_content .ss_countdown_layout_2 .ss_countdown_word {
+  margin: 5px 0 0;
+  padding: 0;
+  color: #333;
+  border: none ;
+  background: none ; 
+  font-size: medium ;
+  font-weight: 300;
+}
+
+/* template 3 */
+
+.ss_countdown_content .ss_countdown_layout_3 span {
+  font-size: x-large;
+  color: #333;
+  background-color: #5ba7bd;
+  border: 1px solid #CCC;
+  background: linear-gradient(to bottom, #c4c4c4 0%, #e0e0e0 20%, #f5f6f6 49%, #e2e2e2 79%, #c4c4c4 100%); 
+}
+
+
+/* template 4 */
+
+.ss_countdown_content .ss_countdown_layout_4 .ss_countdown_time {
+  font-weight: 600;
+}
+
+
+/* instagram widget-------------------*/
+.ss_zoom_content_trigger {
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.15);
+}
+
+.ss_zoom_content_trigger:hover {
+  box-shadow: none;
+}
+
+
+/* OPTIONAL ----------------------------------
+
+   Edit a widget, click the Options tab,
+   then add one or more of these to the
+   Extra CSS Classes field. Don't type
+   the period, just the class name.
+   For example: left
+
+*/
+
+/* Extra CSS Class: left
+   2-column, left */
+
+/* Extra CSS Class: right
+   2-column, right */
+
+/* Extra CSS Class: show_title
+   Display widget title */
+.show_title
+.ss_box_header h3{
+  display:block;
+}
+/* Extra CSS Class: hide_title
+   Hide widget title */
+.hide_title
+.ss_box_header h3{
+  display:none;
+}
+/* Extra CSS Class: cascade
+   Video thumbnails cascade down the tab */
+.cascade .ss_video_thumbs{
+  margin-left:0;
+  margin-right:0;
+  text-align:center;
+  white-space:normal;
+}
+
+/* video thumbs border */
+.cascade .ss_video_thumbs a{
+  border:solid 1px LIGHTGRAY;
+  border-radius:2px;
+  display:inline-block;
+  margin:10px;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.15);
+}
+
+/* video thumbs hover  border */
+.cascade .ss_video_thumbs a:hover{
+  border:solid 1px #5ba7bd;
+  box-shadow: none;
+}
+.cascade .ss_video_thumbs img{
+  border-radius:2px;
+  }
+
+.cascade .ss_video_thumbs a img {
+  vertical-align: bottom;
+}
+
+/* no background extra css class - applies to  containers - removes all individual widget styling */
+.transparent_bg .ss_box{
+  background: transparent;
+  border: none;
+  border-radius: 0px;
+  margin: 10px 0px;
+}
+
+/* no background extra css class - applies to widgets only - overrides container settings */
+.transparent_bg {
+  background: transparent !important;
+  border: none;
+  border-radius: 0px;
+  margin: 10px 0px;
+}
+
+/* remove individual widget styling add default widget style - applies to containers - affects widgets within that container */
+.container_bg {
+  background: #ffffff; /* Old browsers */
+  border: none;
+  border-radius: 0;
+  margin: 10px 0;
+}
+
+.container_bg .ss_box {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
+
+/* full width extra css class - applies to widgets and containers ------*/
+.full_width {
+  margin-left:-16px;
+  margin-right:-16px;
+  border-radius: 0;
+  border-left: none;
+  border-right: none;
+}
+
+/* padding for full width links */
+.full_width .ss_box .ss_links_content {
+  padding: 2%;
+}
+
+/* charcoal color bg---------------------------- */
+
+/* containers only - removes individual widget styling */
+
+.alternate_bg .ss_box{
+  background: #3b3b3b;
+}
+
+.alternate_bg {
+  background: #3b3b3b !important;
+}
+
+/* default font styles charcoal bg */
+#wrapper .alternate_bg,
+.alternate_bg label,
+.alternate_bg p,
+.alternate_bg .boxy-inner{
+  color: #fff;
+  font-family: 'source sans pro', helvetica, arial, sans-serif;
+  font-weight: 300;
+}
+
+/* charcoal bg headlines */
+.alternate_bg h1,
+.alternate_bg h2,
+.alternate_bg h3,
+.alternate_bg h4{
+  color:#fff;
+}
+
+/* general buttons charcoal bg */
+.alternate_bg .ss_btn,
+.alternate_bg .comment_link,
+.alternate_bg .share_link,
+.alternate_bg .product_btn .product_info_link{
+  background: #ccc; /* Old browsers */
+  color: #353535;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.25);
+}
+
+/* general buttons hover charcoal bg */
+.alternate_bg .ss_btn:hover,
+.alternate_bg .comment_link:hover,
+.alternate_bg .share_link:hover,
+.alternate_bg .product_btn .product_info_link:hover {
+  background: #ddd;
+  box-shadow: none;
+}
+
+/* Links widget buttons charcoal bg */
+.alternate_bg .ss_links a{
+  background: #ccc; /* Old browsers */
+  color: #353535;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.25);
+}
+
+.alternate_bg .ss_links a:hover{
+  background: #ddd;
+  box-shadow: none;
+}
+
+/* padding for full width links */
+.alternate_bg .ss_box .ss_links_content,
+.container_bg .ss_box .ss_links_content {
+  padding: 2%;
+}
+
+/* charcoal bg VOTING WIDGET */
+
+/* templates charcoal_bg */
+.alternate_bg .ss_voting_content .ss_voting_template6 .my_db_entry,
+.alternate_bg .ss_voting_content .ss_voting_template1 .my_db_entry,
+.alternate_bg .ss_voting_content .ss_voting_template1 .my_db_entry,
+.alternate_bg .ss_voting_content .ss_voting_template3 .my_db_entry,
+.alternate_bg .ss_voting_content .ss_voting_template4 .my_db_entry,
+.alternate_bg .ss_voting_content .ss_voting_template5 .my_db_entry{
+  border: 1px solid #666;
+  border-radius: 2px;
+}
+
+/* v2 templates */
+.alternate_bg .ss_voting_v2_layout .my_db_entry {
+  border: 1px solid #666 !important;
+  border-radius: 2px;
+}
+
+/* v2 entry votes */
+.alternate_bg .ss_voting_content .ss_voting_default .entry_votes,
+.alternate_bg .ss_voting_content .ss_voting_voting_layout2 .entry_votes,
+.alternate_bg .ss_voting_content .ss_voting_voting_layout3 .entry_votes {
+  background: #ccc;
+  color: #353535;
+  position: absolute;
+  top: 1px;
+  right: 1px;
+}
+
+/* Product widget-----*/
+.alternate_bg .ss_product_default .widget_item,
+.alternate_bg .ss_product_product_layout2 .widget_item, 
+.alternate_bg .ss_product_product_layout3 .widget_item,
+.alternate_bg .ss_product_manual .widget_item{
+  border: 1px solid #666 !important;
+  border-radius: 2px;
+}
+
+/* poll entry border */
+.alternate_bg .ss_poll_content .ss_poll_layout .ss_poll_choice {
+  border: 1px solid #666;
+  border-radius: 2px;
+}
+
+/* FANCY GALLERY */
+.alternate_bg .alternate_bg .tn3e-thumbs {
+  border: 1px solid #555;
+}
+
+.alternate_bg .tn3-image-title,
+.alternate_bg .tn3e-image-title{
+  color: #fff;
+  font-weight: normal;
+  font-family: 'source sans pro';
+}
+
+/* COUNTDOWN WIDGET */
+/* font weight/color */
+.alternate_bg .ss_countdown_content {
+  color: #fff;
+}
+
+body.mobile .ss_countdown_content .ss_countdown_layout .ss_countdown_word {
+  margin: 5px 0 0;
+  padding: 0;
+  color: #fff !important;
+  border: none !important;
+  background: none !important; 
+  font-size: medium;
+}
+
+
+/* template 2 */
+
+.alternate_bg .ss_countdown_content .ss_countdown_layout_2 .ss_countdown_word {
+  margin: 5px 0 0;
+  padding: 0;
+  color: #fff !important;
+  border: none !important;
+  background: none !important; 
+  font-size: medium !important;
+}
