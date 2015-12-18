@@ -184,7 +184,7 @@ foreach ($contestObj->fetchRaw("*", " id = $thisContestId ") as $contest) {
                                       <div class="form-group">
                                           <label class="col-lg-2 control-label" for='question'>Question:</label>
                                           <div class="col-lg-10 input-preview">
-                                              <input <?php echo $contestObj->question; ?> type="text" data-preview-id="prevBonusQuestion" id="question" name="question" data-placement="top" class="form-control tooltips" data-toggle="tooltip" data-original-title="Additional bonus question that will be answered once after which it will not be counted" placeholder="Bonus Question">
+                                              <input value="<?php echo $contestObj->question; ?>" type="text" data-preview-id="prevBonusQuestion" id="question" name="question" data-placement="top" class="form-control tooltips" data-toggle="tooltip" data-original-title="Additional bonus question that will be answered once after which it will not be counted" placeholder="Bonus Question">
                                           </div>
                                       </div>
                                       <div class="form-group">

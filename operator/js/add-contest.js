@@ -31,7 +31,7 @@ $(document).ready(function(){
         e.preventDefault();
         var formData = new FormData($(this)[0]);
         formData.append('rules', CKEDITOR.instances['rules'].getData());
-        var alertType = ["danger", "success", "danger", "error"];
+        var alertType = ["danger", "success", "warning", "info"];
         $.ajax({
             url: $(this).attr("action"),
             type: 'POST',

@@ -6,7 +6,7 @@ $thisPage = new WebPage($dbObj); //Create new instance of webPage class
 
 $contestObj = new Contest($dbObj); // Create an object of Contest class
 $errorArr = array(); //Array of errors
-$oldHeader = ""; $newHeader =""; $oldImage=""; $newImage =""; $contestLogoFil="";
+$oldHeader = ""; $newHeader =""; $oldLogo=""; $newLogo =""; $contestLogoFil=""; $contestHeaderFil = "";
 
 if(!isset($_SESSION['SWPLoggedInAdmin']) || !isset($_SESSION["SWPadminEmail"])){ 
     $json = array("status" => 0, "msg" => "You are not logged in."); 
@@ -108,20 +108,66 @@ else{
     }  
     
     if(filter_input(INPUT_POST, "editContest") != NULL){
-        $postVars = array('value', 'name'); // Form fields names
+        $postVars = array('id','title','intro','description','header','logo','startDate','endDate','announcementDate','winners', 'question', 'answer', 'point', 'bonusPoint', 'rules', 'prize', 'message', 'css', 'announceWinner', 'restart', 'restartInterval'); // Form fields names
+        $oldHeader = $_REQUEST['oldHeader']; $oldLogo = $_REQUEST['oldLogo'];
+        //Validate the POST variables and add up to error message if empty
         foreach ($postVars as $postVar){
             switch($postVar){
-                default     :   $contestObj->$postVar = filter_input(INPUT_POST, $postVar) ? mysqli_real_escape_string($dbObj->connection, filter_input(INPUT_POST, $postVar)) :  ''; 
-                                if($contestObj->$postVar === "") {array_push ($errorArr, " $postVar ");}
+                case 'header':  $newHeader = basename($_FILES["header"]["name"]) ? rand(100000, 1000000)."_".  StringManipulator::slugify(filter_input(INPUT_POST, 'title')).".".pathinfo(basename($_FILES["header"]["name"]),PATHINFO_EXTENSION): ""; 
+                                $contestObj->$postVar = $newHeader;
+                                if($contestObj->$postVar == "") { $contestObj->$postVar = $oldHeader;}
+                                $contestHeaderFil = $newHeader;
                                 break;
+                case 'logo':    $newLogo = basename($_FILES["logo"]["name"]) ? rand(100000, 1000000)."_".  StringManipulator::slugify(filter_input(INPUT_POST, 'title')).".".pathinfo(basename($_FILES["logo"]["name"]),PATHINFO_EXTENSION): ""; 
+                                $contestObj->$postVar = $newLogo;
+                                if($contestObj->$postVar == "") { $contestObj->$postVar = $oldLogo;}
+                                $contestLogoFil = $newLogo;
+                                break;
+                case 'css':     $contestObj->$postVar = filter_input(INPUT_POST, $postVar) ? mysqli_real_escape_string($dbObj->connection, filter_input(INPUT_POST, $postVar)) :  ''; 
+                                break;
+                default     :   $contestObj->$postVar = filter_input(INPUT_POST, $postVar) ? mysqli_real_escape_string($dbObj->connection, filter_input(INPUT_POST, $postVar)) :  ''; 
+                                if($contestObj->$postVar == "") {array_push ($errorArr, " $postVar ");}
+                                break;
+                
             }
         }
-        if(count($errorArr) < 1)   { echo $contestObj->update(); }
+        if(count($errorArr) < 1)   {
+            $targetHeader = MEDIA_FILES_PATH."contest-header/". $contestHeaderFil;
+            $targetLogo = MEDIA_FILES_PATH."contest-logo/". $contestLogoFil;
+            $uploadOk = 1; $msg = '';
+            $imageFileType = pathinfo($targetHeader,PATHINFO_EXTENSION);
+            
+            if($newHeader !=""){
+                if (move_uploaded_file($_FILES["header"]["tmp_name"], MEDIA_FILES_PATH."contest-header/".$contestHeaderFil)) {
+                    $msg .= "The file ". basename( $_FILES["header"]["name"]). " has been uploaded.";
+                    $status = 'ok'; if($oldHeader!='' && file_exists(MEDIA_FILES_PATH."contest-header/".$oldHeader)) unlink(MEDIA_FILES_PATH."contest-header/".$oldHeader); $uploadOk = 1;
+                } else {
+                    $uploadOk = 0;
+                }
+            }
+            if($newLogo !=""){
+                if (move_uploaded_file($_FILES["logo"]["tmp_name"], MEDIA_FILES_PATH."contest-logo/".$contestLogoFil)) {
+                    $msg .= "The file ". basename( $_FILES["logo"]["name"]). " has been uploaded.";
+                    $status = 'ok'; if($oldLogo!='' && file_exists(MEDIA_FILES_PATH."contest-logo/".$oldLogo))unlink(MEDIA_FILES_PATH."contest-logo/".$oldLogo); $uploadOk = 1;
+                } else {
+                    $uploadOk = 0;
+                }
+            }
+            
+            if($uploadOk == 1){ echo $contestObj->update(); }
+            else {
+                $msg = " Sorry, there was an error uploading your contest header. ERROR: ".$msg;
+                $json = array("status" => 0, "msg" => $thisPage->showPlainErrors($msg)); 
+                $dbObj->close();//Close Database Connection
+                header('Content-type: application/json');
+                echo json_encode($json);
+            }
+        }
         else{ 
             $json = array("status" => 0, "msg" => $thisPage->showPlainErrors($errorArr)); 
             $dbObj->close();//Close Database Connection
             header('Content-type: application/json');
             echo json_encode($json);
         }
-    } 
+    }  
 }
