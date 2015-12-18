@@ -11,6 +11,8 @@ define("DB_CONFIG_FILE", __ROOT__.'/config/Database.php');
 define("WEBPAGE_FILE_PATH", CLASSES_PATH.'WebPage.php');
 define("MEDIA_FILES_PATH", '../media/');
 define("MEDIA_FILES_PATH1", SITE_URL.'media/');
+define("TEMPLATE_PATH", SITE_URL.'templates/');
+define("TEMPLATE_LOCATION", __ROOT__.'/templates/');
 
 include(DB_CONFIG_FILE); //Include Databse manipulation handler file
 require(WEBPAGE_FILE_PATH);
@@ -23,3 +25,18 @@ $cfg->dbServer    = DB_SERVER;
 $cfg->dbName    = DB_NAME;
 $cfg->dbUser    = DB_USER;
 $cfg->dbPass    = DB_PASSWORD;
+$cfg->templatePath = TEMPLATE_PATH;
+$cfg->templateLoc = TEMPLATE_LOCATION;
+$cfg->templateName = 'default';
+$cfg->templateUrl = $cfg->templatePath.$cfg->templateName.'/';
+
+if(strpos($_SERVER['SCRIPT_NAME'],'template')){
+    $contestObj = new stdClass();
+    $contestDatas = array('id','title','intro','description','header','logo','startDate','endDate','announcementDate','winners', 'question', 'answer', 'point', 'bonusPoint', 'rules', 'prize', 'message', 'css', 'announceWinner', 'restart', 'restartInterval'); // Form fields names
+    foreach ($contestDatas as $contestData){
+        switch ($contestData) { 
+            default     :   $contestObj->$contestData = ''; break; 
+        }
+    }
+}
+

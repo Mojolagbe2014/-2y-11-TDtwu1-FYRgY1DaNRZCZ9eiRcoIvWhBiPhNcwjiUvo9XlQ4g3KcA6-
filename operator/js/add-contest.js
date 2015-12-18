@@ -9,7 +9,7 @@ function readURL(input, output) {
     }
 }
 $(document).ready(function(){
-    $('#previewpane').load('http://localhost/sweepstake/');
+    
     $('#default').stepy({ backLabel: 'Previous', block: true, nextLabel: 'Next', titleClick: true, titleTarget: '.stepy-tab' });
 
     $(".form_datetime-adv").datetimepicker({

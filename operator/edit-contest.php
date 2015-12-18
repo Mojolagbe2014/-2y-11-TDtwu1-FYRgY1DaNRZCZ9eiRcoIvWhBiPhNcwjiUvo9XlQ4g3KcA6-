@@ -39,16 +39,10 @@ foreach ($contestObj->fetchRaw("*", " id = $thisContestId ") as $contest) {
     <link href="assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
     
     <!-- Custom styles for this template -->
-    <link href="../css/tabdesign_v2.css" rel="stylesheet" type="text/css"/>
-    <link href="../css/tabserving_v2.css" rel="stylesheet" type="text/css"/>
-    <link href="../css/responsive.css" rel="stylesheet" type="text/css"/>
-    <link href="../css/base.css" rel="stylesheet" type="text/css"/>
-    <link href="../css/theme_default2.css" rel="stylesheet" type="text/css"/>
     <link href="css/style.css" rel="stylesheet">
     <link href="css/style-responsive.css" rel="stylesheet" />
     <script src="assets/ckeditor/ckeditor.js" type="text/javascript"></script>
     <link rel="stylesheet" type="text/css" href="assets/bootstrap-datetimepicker/css/datetimepicker.css" />
-    <link href="../css/facebox.css" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" type="text/css" href="assets/gritter/css/jquery.gritter.css" />
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 tooltipss and media queries -->
     <!--[if lt IE 9]>
@@ -299,6 +293,7 @@ foreach ($contestObj->fetchRaw("*", " id = $thisContestId ") as $contest) {
     <script src="js/add-contest.js" type="text/javascript"></script>
     <script>
         $(document).ready(function(){
+            $('#previewpane').load('<?php echo SITE_URL.'load-template?name='.$cfg->templateName; ?>');
             $("#header").change(function(){ readURL(this, 'img#oldHeaderImg'); });
             $("#logo").change(function(){ readURL(this, 'img#oldLogoImg'); });
             //Set Preview after DOM elements has loaded

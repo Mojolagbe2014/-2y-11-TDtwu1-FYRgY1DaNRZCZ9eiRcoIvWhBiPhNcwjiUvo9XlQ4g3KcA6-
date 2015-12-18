@@ -1,4 +1,9 @@
-<?php session_start(); ?>
+<?php 
+session_start(); 
+include('../config/config.php');
+$dbObj = new Database($cfg);//Instantiate database
+$thisPage = new WebPage($dbObj); //Create new instance of webPage class
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -16,16 +21,10 @@
     <link href="assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
     
     <!-- Custom styles for this template -->
-    <link href="../css/tabdesign_v2.css" rel="stylesheet" type="text/css"/>
-    <link href="../css/tabserving_v2.css" rel="stylesheet" type="text/css"/>
-    <link href="../css/responsive.css" rel="stylesheet" type="text/css"/>
-    <link href="../css/base.css" rel="stylesheet" type="text/css"/>
-    <link href="../css/theme_default2.css" rel="stylesheet" type="text/css"/>
     <link href="css/style.css" rel="stylesheet">
     <link href="css/style-responsive.css" rel="stylesheet" />
     <script src="assets/ckeditor/ckeditor.js" type="text/javascript"></script>
     <link rel="stylesheet" type="text/css" href="assets/bootstrap-datetimepicker/css/datetimepicker.css" />
-    <link href="../css/facebox.css" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" type="text/css" href="assets/gritter/css/jquery.gritter.css" />
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 tooltipss and media queries -->
     <!--[if lt IE 9]>
@@ -269,5 +268,10 @@
     <!--script for this page-->
     <script src="js/jquery.stepy.js"></script>
     <script src="js/add-contest.js" type="text/javascript"></script>
+    <script>
+        $(document).ready(function(){
+            $('#previewpane').load('<?php echo SITE_URL.'load-template?name='.$cfg->templateName; ?>');
+        });
+    </script>
   </body>
 </html>

@@ -1,25 +1,22 @@
-<?php 
-define('TEMPLATE_URL', 'http://localhost/sweepstake/template/default/');
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <title>Contest Template</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <link href="<?php echo TEMPLATE_URL; ?>font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
-    <link href="<?php echo TEMPLATE_URL; ?>css/tabserving_v2.css" media="screen" rel="stylesheet" type="text/css">
-    <link href="<?php echo TEMPLATE_URL; ?>css/responsive.css" media="(max-width: 767px)" rel="stylesheet" type="text/css">
-    <link href="<?php echo TEMPLATE_URL; ?>css/tabdesign_v2.css" media="screen" rel="stylesheet" type="text/css">
+    <link href="<?php echo $cfg->templateUrl; ?>font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo $cfg->templateUrl; ?>css/tabserving_v2.css" media="screen" rel="stylesheet" type="text/css">
+    <link href="<?php echo $cfg->templateUrl; ?>css/responsive.css" media="(max-width: 767px)" rel="stylesheet" type="text/css">
+    <link href="<?php echo $cfg->templateUrl; ?>css/tabdesign_v2.css" media="screen" rel="stylesheet" type="text/css">
     <style id="ss_generated_css" type="text/css">
         body.desktop #wrapper {
             max-width: 960px;
         }
     </style>
-    <link href="<?php echo TEMPLATE_URL; ?>css/base.css" rel="stylesheet" type="text/css" />
-    <link href="<?php echo TEMPLATE_URL; ?>css/theme_default2.css" rel="stylesheet" type="text/css" />
-    <link href="<?php echo TEMPLATE_URL; ?>font_awesome/css/font-awesome.css" rel="stylesheet" type="text/css"/>
-    <link href="<?php echo TEMPLATE_URL; ?>font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
-    <link href="<?php echo TEMPLATE_URL; ?>css/facebox.css" rel="stylesheet" type="text/css"/>
+    <link href="<?php echo $cfg->templateUrl; ?>css/base.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo $cfg->templateUrl; ?>css/theme_default2.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo $cfg->templateUrl; ?>font_awesome/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+    <link href="<?php echo $cfg->templateUrl; ?>font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+    <link href="<?php echo $cfg->templateUrl; ?>css/facebox.css" rel="stylesheet" type="text/css"/>
     <style id="ss_custom_css" type="text/css">
         .column_border {
             padding: 2%;
@@ -48,7 +45,7 @@ define('TEMPLATE_URL', 'http://localhost/sweepstake/template/default/');
             </div>
             <div class="ss_box_content ss_image_content ss_align_center" id="content_image">
                 <div class="ss_image_container">
-                    <img alt="" id="headerImage" class="no_hotspots" src="<?php echo TEMPLATE_URL; ?>images/original_ec503296c84547636b2afbf081a3041c.png" title="">
+                    <img alt="" id="headerImage" class="no_hotspots" src="<?php echo $cfg->templateUrl; ?>images/original_ec503296c84547636b2afbf081a3041c.png" title="">
                 </div>
             </div>
             <div class="ss_box_footer ss_image_footer" id="footer_image"></div>
@@ -62,7 +59,7 @@ define('TEMPLATE_URL', 'http://localhost/sweepstake/template/default/');
                         </div>
                         <div class="ss_box_content ss_image_content ss_align_center" id="content_image2">
                             <div class="ss_image_container">
-                                <img alt="" class="no_hotspots" id="logoImage" src="<?php echo TEMPLATE_URL; ?>images/original_original_d5be9bbb216fc983cb69d22a0c5d6dee.png" title="">
+                                <img alt="" class="no_hotspots" id="logoImage" src="<?php echo $cfg->templateUrl; ?>images/original_original_d5be9bbb216fc983cb69d22a0c5d6dee.png" title="">
                             </div>
                         </div>
                     </div>
@@ -71,8 +68,8 @@ define('TEMPLATE_URL', 'http://localhost/sweepstake/template/default/');
                             <h3>Intro Text</h3>
                         </div>
                         <div class="ss_box_content ss_rich_text_content" id="content_rich_text">
-                            <h1 style="text-align: center;" id="prevIntro">We're giving away an awesome prize!</h1>
-                            <p style="text-align: center;" id="prevDescription">That's right, and all you have to do is enter! Fill out the form and be sure to share with friends. The more the merrier!</p>
+                            <h1 style="text-align: center;" id="prevIntro"><?php echo $contestObj->intro ? $contestObj->intro : "We're giving away an awesome prize!"; ?></h1>
+                            <p style="text-align: center;" id="prevDescription"><?php echo $contestObj->description ? $contestObj->description : "That's right, and all you have to do is enter! Fill out the form and be sure to share with friends. The more the merrier!"; ?></p>
                             <h3 style="text-align: center;">Good luck!</h3>
                         </div>
                         <div class="ss_box_footer ss_rich_text_footer" id="footer_rich_text"></div>
@@ -139,7 +136,7 @@ define('TEMPLATE_URL', 'http://localhost/sweepstake/template/default/');
                     </div>
                     <div class="ss_box_content ss_image_content ss_align_center" id="content_image3">
                         <div class="ss_image_container">
-                            <img alt="" class="no_hotspots" src="<?php echo TEMPLATE_URL; ?>images/original_beach.png" title="">
+                            <img alt="" class="no_hotspots" src="<?php echo $cfg->templateUrl; ?>images/original_beach.png" title="">
                         </div>
                     </div>
                     <div class="ss_box_footer ss_image_footer" id="footer_image3"></div>
@@ -161,9 +158,9 @@ define('TEMPLATE_URL', 'http://localhost/sweepstake/template/default/');
                 </div>
                 <div class="ss_box_content ss_links_content ss_align_center" id="content_links">
                     <ol>
-                        <li class="item0 first" id="item_0_links"><a  href="<?php echo TEMPLATE_URL; ?>#" id="officialRules" >Official Rules</a> </li>
-                        <li class="item1 last selected" id="item_1_links"><a href="<?php echo TEMPLATE_URL; ?>#" id="thePrize">The Prize </a> </li>
-                        <li class="item1 last selected" id="item_1_links"><a href="<?php echo TEMPLATE_URL; ?>#" id="theWinners">The Winners </a> </li>
+                        <li class="item0 first" id="item_0_links"><a  href="javascript:;" id="officialRules" >Official Rules</a> </li>
+                        <li class="item1 last selected" id="item_1_links"><a href="javascript:;" id="thePrize">The Prize </a> </li>
+                        <li class="item1 last selected" id="item_1_links"><a href="javascript:;" id="theWinners">The Winners </a> </li>
                     </ol>
                 </div>
                 <div class="ss_box_footer ss_links_footer" id="footer_links"></div>
@@ -176,32 +173,32 @@ define('TEMPLATE_URL', 'http://localhost/sweepstake/template/default/');
             <div class="ss_box_content ss_share_content ss_align_center" id="content_share">
                 <ul>
                     <li>
-                        <a class="ss_share_on ss_share_on_manual" data-platform="manual" href="<?php echo TEMPLATE_URL; ?>#" style="">
+                        <a class="ss_share_on ss_share_on_manual" data-platform="manual" href="javascript:;" style="">
                             <i class="fa fa-share-square fa-2x"></i>
                         </a>
                     </li>
                     <li>
-                        <a class="ss_share_on ss_share_on_facebook" data-platform="facebook" href="<?php echo TEMPLATE_URL; ?>#" style="">
+                        <a class="ss_share_on ss_share_on_facebook" data-platform="facebook" href="javascript:;" style="">
                             <i class="fa fa-facebook-square fa-2x"></i>
                         </a>
                     </li>
                     <li>
-                        <a class="ss_share_on ss_share_on_twitter" data-platform="twitter" href="<?php echo TEMPLATE_URL; ?>#" style="">
+                        <a class="ss_share_on ss_share_on_twitter" data-platform="twitter" href="javascript:;" style="">
                             <i class="fa fa-twitter-square fa-2x"></i>
                         </a>
                     </li>
                     <li>
-                        <a class="ss_share_on ss_share_on_pinterest" data-platform="pinterest" href="<?php echo TEMPLATE_URL; ?>#" style="">
+                        <a class="ss_share_on ss_share_on_pinterest" data-platform="pinterest" href="javascript:;" style="">
                             <i class="fa fa-pinterest-square fa-2x"></i>
                         </a>
                     </li>
                     <li>
-                        <a class="ss_share_on ss_share_on_google" data-platform="google" href="<?php echo TEMPLATE_URL; ?>#" style="">
+                        <a class="ss_share_on ss_share_on_google" data-platform="google" href="javascript:;" style="">
                             <i class="fa fa-google-plus-square fa-2x"></i>
                         </a>
                     </li>
                     <li>
-                        <a class="ss_share_on ss_share_on_linkedin" data-platform="linkedin" href="<?php echo TEMPLATE_URL; ?>#" style="">
+                        <a class="ss_share_on ss_share_on_linkedin" data-platform="linkedin" href="javascript:;" style="">
                             <i class="fa fa-linkedin-square fa-2x"></i>
                         </a>
                     </li>
@@ -231,10 +228,11 @@ define('TEMPLATE_URL', 'http://localhost/sweepstake/template/default/');
         </div>
         
     </div>
-    <script src="<?php echo TEMPLATE_URL; ?>js/jquery.tools.min.js" type="text/javascript"></script>
+    <script src="js/jquery.tools.min.js" type="text/javascript"></script>
     <script type="text/javascript">
         jQuery(document).ready(function(e) {
-            jQuery("#officialRules, #thePrize, #theWinners").click(function() {
+            jQuery("#officialRules, #thePrize, #theWinners").click(function(e) {
+                e.preventDefault();
                 $("#"+$(this).attr('id')+'Overlay').overlay().load();
             });
             // select the overlay element - and "make it an overlay"
