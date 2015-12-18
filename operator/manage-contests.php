@@ -50,6 +50,11 @@
                                         <thead>
                                             <tr>
                                                 <th><input type="checkbox" data-placement="right" class="select-checkbox tooltips" data-toggle="tooltip" data-original-title="Check/Uncheck All" id="multi-action-box" /></th>
+                                                <th>
+                                                    Actions <br/> 
+                                                    <button  class="btn btn-success btn-small multi-activate-contest multi-select" title="Change selected contest status"><i class="btn-icon-only icon-check"> </i></button> 
+                                                    <button class="btn btn-danger btn-small multi-delete-contest multi-select" title="Delete Selected"><i class="btn-icon-only icon-trash"> </i></button>
+                                                </th>
                                                 <th>ID</th>
                                                 <th>Title</th>
                                                 <th>Intro</th>
@@ -72,10 +77,6 @@
                                                 <th>Announce Winner</th>
                                                 <th>Auto Restart</th>
                                                 <th>Restart Interval</th>
-                                                <th>
-                                                    Actions &nbsp; 
-                                                    <button class="btn btn-danger btn-small multi-delete-setting multi-select" title="Delete Selected"><i class="btn-icon-only icon-trash"> </i></button>
-                                                </th>
                                             </tr>
                                         </thead>
                                         <tbody></tbody>
@@ -83,7 +84,6 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="messageBox"></div>
                     </div>
                 </div>
                 <div class="messageBox"></div>

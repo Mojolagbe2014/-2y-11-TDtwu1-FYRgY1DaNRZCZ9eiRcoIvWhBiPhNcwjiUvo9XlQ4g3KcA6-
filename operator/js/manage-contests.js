@@ -1,18 +1,18 @@
 var dataTable;
 $(document).ready(function(){
-    loadAllsSettings();
-    function loadAllsSettings(){
+    loadAllsContests();
+    function loadAllsContests(){
         dataTable = $('#contestlist').DataTable( {
             columnDefs: [ {
                 orderable: false,
                 className: 'select-checkbox',
-                targets:   [0, 3]
+                targets:   [0, 1]
             } ],
             select: {
                 style:    'os',
                 selector: 'td:first-child'
             },
-            order: [[ 1, 'asc' ]],
+            order: [[ 2, 'asc' ]],
             "processing": true,
             "serverSide": true,
             "scrollX": true,
@@ -40,12 +40,12 @@ $(document).ready(function(){
     });
     //Handler for multiple selection
     $('.multi-delete-contest').click(function(){
-        if(confirm("Are you sure you want to delete selected admins?")) {
+        if(confirm("Are you sure you want to delete selected contests?")) {
             if($('#multi-action-box').prop("checked") || $('#contestlist :checkbox:checked').length > 0) {
                 var atLeastOneIsChecked = $('#contestlist :checkbox:checked').length > 0;
                 if (atLeastOneIsChecked !== false) {
                     $('#contestlist :checkbox:checked').each(function(){
-                        deleteSetting($(this).attr('data-name'));
+                        deleteContest($(this).attr('data-id'), $(this).attr('data-header'), $(this).attr('data-logo'));
                     });
                 }
                 else {
@@ -61,28 +61,47 @@ $(document).ready(function(){
             }
         }
     });
+    //Handler for multiple selection
+    $('.multi-activate-contest').click(function(){
+        if(confirm("Are you sure you want to change contest status for selected contests?")) {
+            if($('#multi-action-box').prop("checked") || $('#contestlist :checkbox:checked').length > 0) {
+                var atLeastOneIsChecked = $('#contestlist :checkbox:checked').length > 0;
+                if (atLeastOneIsChecked !== false) {
+                    $('#contestlist :checkbox:checked').each(function(){
+                        activateContest($(this).attr('data-id'), $(this).attr('data-status'));
+                    });
+                }
+                else alert("No row selected. You must select atleast a row.");
+            }
+            else alert("No row selected. You must select atleast a row.");
+        }
+    });
+    var currentStatus ="";
     
+    $(document).on('click', '.activate-contest', function() {
+        currentStatus = 'Activate'; if(parseInt($(this).attr('data-status')) === 1) currentStatus = "De-activate";
+        if(confirm("Are you sure you want to "+currentStatus+" this contest? Contest Title: '"+$(this).attr('data-title')+"'")) activateContest($(this).attr('data-id'),$(this).attr('data-status'));
+    });
     $(document).on('click', '.delete-contest', function() {
-        if(confirm("Are you sure you want to delete this contest? Setting Name: '"+$(this).attr('data-name')+"'")) deleteSetting($(this).attr('data-name'));
+        if(confirm("Are you sure you want to delete this contest? Contest Title: '"+$(this).attr('data-title')+"'")) deleteContest($(this).attr('data-id'), $(this).attr('data-header'), $(this).attr('data-logo'));
     });
     $(document).on('click', '.edit-contest', function() {
-        if(confirm("Are you sure you want to edit this contest? Setting Name: '"+$(this).attr('data-name')+"'")) editSetting($(this).attr('data-name'), $(this).find('span#JQDTvalueholder').html());
+        if(confirm("Are you sure you want to edit this contest? Contest Title: '"+$(this).attr('data-title')+"'")) editContest($(this).attr('data-title'), $(this).find('span#JQDTvalueholder').html());
     });
     
-    function deleteSetting(name){
+    function deleteContest(id, header, logo){
         $.ajax({
             url: "../REST/manage-contests.php",
             type: 'POST',
-            data: {deleteThisSetting: 'true', name:name},
+            data: {deleteThisContest: 'true', id:id, header:header, logo:logo},
             cache: false,
             success : function(data, status) {
                 if(data.status === 1){
                     $("#messageBox, .messageBox").html('<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert">&times;</button>'+data.msg+' </div>');
                     dataTable.ajax.reload();
                 }
-                else {
-                    $("#messageBox, .messageBox").html('<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>'+data.msg+'</div>');
-                }
+                else  $("#messageBox, .messageBox").html('<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>'+data.msg ? data.msg : data+'</div>');
+                
                 $.gritter.add({
                     title: 'Notification!',
                     text: data.msg ? data.msg : data
@@ -105,12 +124,48 @@ $(document).ready(function(){
         });
     }
     
-    function editSetting(name, value){//,
-        $('form #addNewSetting').val('editSetting');
-        $('form #multi-action-catAddEdit').text('Update Setting');
+    function editContest(name, value){//,
+        $('form #addNewContest').val('editContest');
+        $('form #multi-action-catAddEdit').text('Update Contest');
         var formVar = {name:name, value:value, name2:name};
         $.each(formVar, function(key, value) {  $('form #'+key).val(value);  });
         CKEDITOR.instances['value'].setData(value);
         $(document).scrollTo('div.panel-info');
+    }
+    
+    function activateContest(id, status){
+        var alertType = ["danger", "success", "danger", "error"];
+        $.ajax({
+            url: "../REST/manage-contests.php",
+            type: 'GET',
+            data: {activateContest: 'true', id:id, status:status},
+            cache: false,
+            success : function(data, status) {
+                if(data.status === 1 && data.status!=null){
+                    $("#messageBox, .messageBox").html('<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert">&times;</button>Contest Successfully '+currentStatus+'d!</div>');
+                    dataTable.ajax.reload();
+                }
+                else $("#messageBox, .messageBox").html('<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>Contest Activation Failed. '+data.msg ? data.msg : data+'</div>');
+                
+                $.gritter.add({
+                    title: 'Notification!',
+                    text: data.msg ? data.msg : data
+                });
+            },
+            error : function(xhr, status) {
+                erroMsg = '';
+                if(xhr.status===0){ erroMsg = 'There is a problem connecting to internet. Please review your internet connection.'; }
+                else if(xhr.status===404){ erroMsg = 'Requested page not found.'; }
+                else if(xhr.status===500){ erroMsg = 'Internal Server Error.';}
+                else if(status==='parsererror'){ erroMsg = 'Error. Parsing JSON Request failed.'; }
+                else if(status==='timeout'){  erroMsg = 'Request Time out.';}
+                else { erroMsg = 'Unknow Error.\n'+xhr.responseText;}          
+                $("#messageBox, .messageBox").html('<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>Admin details update failed. '+erroMsg+'</div>');
+                $.gritter.add({
+                    title: 'Notification!',
+                    text: erroMsg
+                });
+            }
+        });
     }
 });
