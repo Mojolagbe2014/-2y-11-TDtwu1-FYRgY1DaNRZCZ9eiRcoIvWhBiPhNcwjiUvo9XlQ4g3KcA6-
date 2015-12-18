@@ -1,4 +1,27 @@
-<?php session_start(); ?>
+<?php 
+session_start(); 
+include('../config/config.php');
+$dbObj = new Database($cfg);//Instantiate database
+$thisPage = new WebPage($dbObj); //Create new instance of webPage class
+
+$contestObj = new Contest($dbObj); // Create an object of Contest class
+$errorArr = array(); //Array of errors
+//get the contest id; if failed redirect to contest-categories page
+$thisContestId = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT) ? filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT) : $thisPage->redirectTo('manage-contests');
+//Check if the contest exists if not redirect it to manage-contests page
+if(count($contestObj->fetchRaw("*", " id = $thisContestId "))<1){$thisPage->redirectTo('manage-contests');}
+
+foreach ($contestObj->fetchRaw("*", " id = $thisContestId ") as $contest) {
+    $contestData = array('status' => 'status', 'id' => 'id', 'title' => 'title', 'intro' => 'intro', 'description' => 'description', 'header' => 'header', 'logo' => 'logo', 'startDate' => 'start_date', 'endDate' => 'end_date', 'announcementDate' => 'announcement_date', 'winners' => 'winners', 'question' => 'question', 'answer' => 'answer', 'point' => 'point', 'bonusPoint' => 'bonus_point', 'rules' => 'rules', 'prize' => 'prize', 'message' => 'message', 'css' => 'css', 'dateAdded' => 'date_added', 'announceWinner' => 'announce_winner', 'restart' => 'restart', 'restartInterval' => 'restart_interval');
+    foreach ($contestData as $key => $value){
+        switch ($key) { 
+//            case 'header': $contestObj->$key = MEDIA_FILES_PATH1.'contest-header/'.$contest[$value];break;
+//            case 'logo': $contestObj->$key = MEDIA_FILES_PATH1.'contest-logo/'.$contest[$value];break;
+            default     :   $contestObj->$key = $contest[$value]; break; 
+        }
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -8,7 +31,7 @@
     <meta name="author" content="Mosaddek">
     <meta name="keyword" content="Sweepstakes, Contest">
     <link rel="shortcut icon" href="img/favicon.png">
-    <title>Add New Contest - Sweepstakes &amp; Contests Admin</title>
+    <title>Edit <?php echo $contestObj->title; ?></title>
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/bootstrap-reset.css" rel="stylesheet">
@@ -59,7 +82,7 @@
                     <div class="col-lg-6">
                         <section class="panel panel-primary">
                           <header class="panel-heading">
-                              Sweepstakes Creation Wizard
+                              Sweepstakes Editing Wizard
                           </header>
                           <div class="panel-body">
                               <div class="stepy-tab">
@@ -75,44 +98,49 @@
                                       </li>
                                   </ul>
                               </div>
-                              <form class="form-horizontal" action="../REST/add-contest.php" id="default" method="POST"  enctype="multipart/form-data">
+                              <form class="form-horizontal" action="../REST/manage-contests.php" id="default" method="POST"  enctype="multipart/form-data">
                                   <fieldset title="Step1" class="step" id="default-step-0">
                                       <legend> </legend>
                                       <div class="form-group">
                                           <label class="col-lg-2 control-label" for="title"> Title:</label>
                                           <div class="col-lg-10 input-preview">
-                                              <input type="text" data-preview-id="prevTitle" size="100" id="title" name="title" data-placement="top" class="form-control tooltips" data-toggle="tooltip" data-original-title="This value will appear as the contest's page title" placeholder="Sweepstakes Title">
+                                              <input type="hidden" name="id" id="id" value="<?php echo $contestObj->id; ?>"/>
+                                              <input value="<?php echo $contestObj->title; ?>" type="text" data-preview-id="prevTitle" size="100" id="title" name="title" data-placement="top" class="form-control tooltips" data-toggle="tooltip" data-original-title="This value will appear as the contest's page title" placeholder="Sweepstakes Title">
                                           </div>
                                       </div>
                                       <div class="form-group">
                                           <label class="col-lg-2 control-label" for="intro"> Intro:</label>
                                           <div class="col-lg-10 input-preview">
-                                              <input type="text" size="50" data-preview-id="prevIntro" name="intro" id="intro" data-placement="top" class="form-control tooltips" data-toggle="tooltip" data-original-title="Brief introduction to the sweepstakes." placeholder="Sweepstakes Intro Text">
+                                              <input value="<?php echo $contestObj->intro; ?>" type="text" size="50" data-preview-id="prevIntro" name="intro" id="intro" data-placement="top" class="form-control tooltips" data-toggle="tooltip" data-original-title="Brief introduction to the sweepstakes." placeholder="Sweepstakes Intro Text">
                                           </div>
                                       </div>
                                       <div class="form-group">
                                           <label class="col-lg-2 control-label" for="description"> Description:</label>
                                           <div class="col-lg-10 input-preview">
-                                              <textarea data-placement="top" class="form-control tooltips" data-toggle="tooltip" data-original-title="This description will be used as the sweepstakes' page description as well as brief description to appear on the page" data-preview-id="prevDescription" id="description" name="description" placeholder="About this sweepstakes or contest"></textarea>
+                                              <textarea data-placement="top" class="form-control tooltips" data-toggle="tooltip" data-original-title="This description will be used as the sweepstakes' page description as well as brief description to appear on the page" data-preview-id="prevDescription" id="description" name="description" placeholder="About this sweepstakes or contest"><?php echo $contestObj->description; ?></textarea>
                                           </div>
                                       </div>
                                       <div class="form-group">
                                           <label class="col-lg-2 control-label">Header:</label>
                                           <div class="col-lg-10">
+                                              <img class="hidden" id="oldHeaderImg" src="<?php echo MEDIA_FILES_PATH1.'contest-header/'.$contestObj->header; ?>" style="width:60px;height:20px">
+                                              <input type="hidden" id="oldHeader" name="oldHeader" value="<?php echo $contestObj->header; ?>" />
                                               <input type="file" data-placement="top" class="form-control tooltips" data-toggle="tooltip" data-original-title="The header image in the template will be replaced by the supplied here" name="header" id="header">
                                           </div>
                                       </div>
                                       <div class="form-group">
                                           <label class="col-lg-2 control-label">Logo:</label>
                                           <div class="col-lg-10">
+                                              <img class="hidden" id="oldLogoImg" src="<?php echo MEDIA_FILES_PATH1.'contest-logo/'.$contestObj->logo; ?>" style="width:60px;height:20px">
+                                              <input type="hidden" id="oldLogo" name="oldLogo" value="<?php echo $contestObj->logo; ?>"/>
                                               <input type="file" data-placement="top" class="form-control tooltips" data-toggle="tooltip" data-original-title="This will replace the small image caption below the header image" name="logo" id="logo">
                                           </div>
                                       </div>
                                       <div class="form-group">
                                           <label class="col-lg-2 control-label" for="startDate"> Start:</label>
                                           <div class="col-lg-10">
-                                                <div class="input-group date form_datetime-adv">
-                                                    <input type="text" data-placement="top" class="form-control tooltips" data-toggle="tooltip" data-original-title="The date at which the contest/sweepstakes will start to appear" data-preview-id="prevStartDate" id="startDate" name="startDate" readonly="" size="16" placeholder="Start Date">
+                                                <div class="input-group date form_datetime-adv" data-date="<?php echo $contestObj->startDate; ?>">
+                                                    <input value="<?php echo $contestObj->startDate; ?>" type="text" data-placement="top" class="form-control tooltips" data-toggle="tooltip" data-original-title="The date at which the contest/sweepstakes will start to appear" data-preview-id="prevStartDate" id="startDate" name="startDate" readonly="" size="16" placeholder="Start Date">
                                                     <div class="input-group-btn">
                                                         <button type="button" class="btn btn-danger date-reset"><i class="fa fa-times"></i></button>
                                                         <button type="button" class="btn btn-warning date-set"><i class="fa fa-calendar"></i></button>
@@ -123,8 +151,8 @@
                                       <div class="form-group">
                                           <label class="col-lg-2 control-label" for="endDate"> End:</label>
                                           <div class="col-lg-10">
-                                              <div class="input-group date form_datetime-adv">
-                                                  <input type="text" data-placement="top" class="form-control tooltips" data-toggle="tooltip" data-original-title="The date and time at which contest/sweepstakes will stop appearing or ends" data-preview-id="prevEndDate" id="endDate" name="endDate" readonly="" size="16" placeholder="End Date">
+                                              <div class="input-group date form_datetime-adv" data-date="<?php echo $contestObj->endDate; ?>">
+                                                  <input value="<?php echo $contestObj->endDate; ?>" type="text" data-placement="top" class="form-control tooltips" data-toggle="tooltip" data-original-title="The date and time at which contest/sweepstakes will stop appearing or ends" data-preview-id="prevEndDate" id="endDate" name="endDate" readonly="" size="16" placeholder="End Date">
                                                     <div class="input-group-btn">
                                                         <button type="button" class="btn btn-danger date-reset"><i class="fa fa-times"></i></button>
                                                         <button type="button" class="btn btn-warning date-set"><i class="fa fa-calendar"></i></button>
@@ -135,8 +163,8 @@
                                       <div class="form-group">
                                           <label class="col-lg-2 control-label" for="announcementDate"> Winner:</label>
                                           <div class="col-lg-10">
-                                              <div class="input-group date form_datetime-adv">
-                                                  <input type="text" data-placement="top" class="form-control tooltips" data-toggle="tooltip" data-original-title="The winner(s) details will appear on this day." data-preview-id="prevAnnounceDate" id="announcementDate" name="announcementDate" readonly="" size="16" placeholder="Winner Announcement Date">
+                                              <div class="input-group date form_datetime-adv" data-date="<?php echo $contestObj->announcementDate; ?>">
+                                                  <input value="<?php echo $contestObj->announcementDate; ?>" type="text" data-placement="top" class="form-control tooltips" data-toggle="tooltip" data-original-title="The winner(s) details will appear on this day." data-preview-id="prevAnnounceDate" id="announcementDate" name="announcementDate" readonly="" size="16" placeholder="Winner Announcement Date">
                                                     <div class="input-group-btn">
                                                         <button type="button" class="btn btn-danger date-reset"><i class="fa fa-times"></i></button>
                                                         <button type="button" class="btn btn-warning date-set"><i class="fa fa-calendar"></i></button>
@@ -147,7 +175,7 @@
                                       <div class="form-group">
                                           <label class="col-lg-2 control-label" for="winners"> No of Winners:</label>
                                           <div class="col-lg-10 input-preview">
-                                              <input type="number" data-preview-id="prevNoOfWinners" id="winners" name="winners" data-placement="top" class="form-control tooltips" data-toggle="tooltip" data-original-title="The number of expected winners in the contest" placeholder="Number of Winners">
+                                              <input value="<?php echo $contestObj->winners; ?>" type="number" data-preview-id="prevNoOfWinners" id="winners" name="winners" data-placement="top" class="form-control tooltips" data-toggle="tooltip" data-original-title="The number of expected winners in the contest" placeholder="Number of Winners">
                                           </div>
                                       </div>
                                   </fieldset>
@@ -156,43 +184,43 @@
                                       <div class="form-group">
                                           <label class="col-lg-2 control-label" for='question'>Question:</label>
                                           <div class="col-lg-10 input-preview">
-                                              <input type="text" data-preview-id="prevBonusQuestion" id="question" name="question" data-placement="top" class="form-control tooltips" data-toggle="tooltip" data-original-title="Additional bonus question that will be answered once after which it will not be counted" placeholder="Bonus Question">
+                                              <input <?php echo $contestObj->question; ?> type="text" data-preview-id="prevBonusQuestion" id="question" name="question" data-placement="top" class="form-control tooltips" data-toggle="tooltip" data-original-title="Additional bonus question that will be answered once after which it will not be counted" placeholder="Bonus Question">
                                           </div>
                                       </div>
                                       <div class="form-group">
                                           <label class="col-lg-2 control-label" for="answer">Answer:</label>
                                           <div class="col-lg-10 input-preview">
-                                              <input type="text" data-preview-id="prevBonusAnswer" name="answer" id="answer" data-placement="top" class="form-control tooltips" data-toggle="tooltip" data-original-title="Answer to the bonus question" placeholder="Answer to bonus question">
+                                              <input value="<?php echo $contestObj->answer; ?>" type="text" data-preview-id="prevBonusAnswer" name="answer" id="answer" data-placement="top" class="form-control tooltips" data-toggle="tooltip" data-original-title="Answer to the bonus question" placeholder="Answer to bonus question">
                                           </div>
                                       </div>
                                       <div class="form-group">
                                           <label class="col-lg-2 control-label" for="bonusPoint">Bonus Point:</label>
                                           <div class="col-lg-10">
-                                              <input type="text" name="bonusPoint" id="bonusPoint" data-placement="top" class="form-control tooltips" data-toggle="tooltip" data-original-title="Point to be earned for supplying the correct answer to the bonus question" placeholder="Bonus Point">
+                                              <input value="<?php echo $contestObj->bonusPoint; ?>" type="text" name="bonusPoint" id="bonusPoint" data-placement="top" class="form-control tooltips" data-toggle="tooltip" data-original-title="Point to be earned for supplying the correct answer to the bonus question" placeholder="Bonus Point">
                                           </div>
                                       </div>
                                       <div class="form-group">
                                           <label class="col-lg-2 control-label" for="point">Points per Invitation:</label>
                                           <div class="col-lg-10">
-                                              <input type="text" name="point" id="point" data-placement="top" class="form-control tooltips" data-toggle="tooltip" data-original-title="Point to be earned for each friend invitation" placeholder="Point per invitation">
+                                              <input value="<?php echo $contestObj->point; ?>" type="text" name="point" id="point" data-placement="top" class="form-control tooltips" data-toggle="tooltip" data-original-title="Point to be earned for each friend invitation" placeholder="Point per invitation">
                                           </div>
                                       </div>
                                       <div class="form-group">
                                           <label class="col-lg-2 control-label" for="rules">Rules:</label>
                                           <div class="col-lg-10 input-preview">
-                                              <textarea data-placement="top" class="form-control tooltips ckeditor" data-toggle="tooltip" data-original-title="Rules and regulation binding the contest" id="rules" placeholder="Rules" name="rules" data-preview-id="prevRules" cols="60" rows="5"></textarea>
+                                              <textarea data-placement="top" class="form-control tooltips ckeditor" data-toggle="tooltip" data-original-title="Rules and regulation binding the contest" id="rules" placeholder="Rules" name="rules" data-preview-id="prevRules" cols="60" rows="5"><?php echo $contestObj->rules; ?></textarea>
                                           </div>
                                       </div>
                                         <div class="form-group">
                                             <label class="col-lg-2 control-label" for="prize">Prize:</label>
                                             <div class="col-lg-10 input-preview">
-                                                <textarea data-placement="top" class="form-control tooltips" data-toggle="tooltip" data-original-title="The details of the prize to be won by the winners and how to redeem the prize" id="prize" placeholder="Prize to be won" name="prize" data-preview-id="prevPrize" cols="60" rows="5"></textarea>
+                                                <textarea data-placement="top" class="form-control tooltips" data-toggle="tooltip" data-original-title="The details of the prize to be won by the winners and how to redeem the prize" id="prize" placeholder="Prize to be won" name="prize" data-preview-id="prevPrize" cols="60" rows="5"><?php echo $contestObj->prize; ?></textarea>
                                             </div>
                                         </div>
                                        <div class="form-group">
                                             <label class="col-lg-2 control-label" for="message">Message:</label>
                                             <div class="col-lg-10 input-preview">
-                                                <textarea data-placement="top" class="form-control tooltips" data-toggle="tooltip" data-original-title="Message that will appear after each successful invitation" id="message" placeholder="Thank you message" name="message" cols="60" rows="5"></textarea>
+                                                <textarea data-placement="top" class="form-control tooltips" data-toggle="tooltip" data-original-title="Message that will appear after each successful invitation" id="message" placeholder="Thank you message" name="message" cols="60" rows="5"><?php echo $contestObj->message; ?></textarea>
                                             </div>
                                         </div>
                                   </fieldset>
@@ -202,8 +230,8 @@
                                             <label class="col-lg-2 control-label" for="announceWinner">Auto Announce Winner:</label>
                                             <div class="col-lg-10">
                                                 <select data-placement="top" class="form-control tooltips" data-toggle="tooltip" data-original-title="YES valu will allow the winner to appear automatically after the contest has ended. NO does otherwise" name="announceWinner" id="announceWinner">
-                                                    <option value="Yes">Yes</option>
-                                                    <option value="No">No</option>
+                                                    <option <?php echo $contestObj->announceWinner == 'Yes' ? 'selected="selected"' : ''; ?> value="Yes">Yes</option>
+                                                    <option <?php echo $contestObj->announceWinner == 'No' ? 'selected="selected"' : ''; ?> value="No">No</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -211,26 +239,26 @@
                                             <label class="col-lg-2 control-label" for="restart">Auto Restart:</label>
                                             <div class="col-lg-10">
                                                 <select data-placement="top" class="form-control tooltips" data-toggle="tooltip" data-original-title="YES will automatically restart the contest after the contest has expired and after the interval specified default is 7 days. No does nothing." name="restart" id="restart">
-                                                    <option value="No">No</option>
-                                                    <option value="Yes">Yes</option>
+                                                    <option <?php echo $contestObj->restart == 'Yes' ? 'selected="selected"' : ''; ?> value="Yes">Yes</option>
+                                                    <option <?php echo $contestObj->restart == 'No' ? 'selected="selected"' : ''; ?> value="No">No</option>
                                                 </select>
                                             </div>
                                         </div>
                                       <div class="form-group">
                                             <label class="col-lg-2 control-label" for="restartInterval">Restart Interval (days):</label>
                                             <div class="col-lg-10">
-                                                <input type="number"  data-placement="top" class="form-control tooltips" data-toggle="tooltip" data-original-title="This field has no effect if Autorestart value is NO " name="restartInterval" id="restartInterval" value="7"/>
+                                                <input value="<?php echo $contestObj->restartInterval; ?>" type="number"  data-placement="top" class="form-control tooltips" data-toggle="tooltip" data-original-title="This field has no effect if Autorestart value is NO " name="restartInterval" id="restartInterval" value="7"/>
                                             </div>
                                         </div>
                                       <div class="form-group">
                                             <label class="col-lg-2 control-label" for="css">Custom CSS:</label>
                                             <div class="col-lg-10">
-                                                <textarea data-placement="top" class="form-control tooltips" data-toggle="tooltip" data-original-title="Additional custom styles for customizing further the template and should be entered without <style></style> tags" id="css" placeholder="Custom CSS" name="css" cols="60" rows="5"></textarea>
+                                                <textarea data-placement="top" class="form-control tooltips" data-toggle="tooltip" data-original-title="Additional custom styles for customizing further the template and should be entered without <style></style> tags" id="css" placeholder="Custom CSS" name="css" cols="60" rows="5"><?php echo $contestObj->css; ?></textarea>
                                             </div>
                                         </div>
                                   </fieldset>
-                                  <input type="hidden" id="addNewContest" name="addNewContest" value="addNewContest"/>
-                                  <input type="submit" class="finish btn btn-danger" value="Finish"/>
+                                  <input type="hidden" id="editContest" name="editContest" value="editContest"/>
+                                  <input type="submit" class="finish btn btn-danger" value="Update"/>
                               </form>
                           </div>
                       </section>
@@ -269,5 +297,20 @@
     <!--script for this page-->
     <script src="js/jquery.stepy.js"></script>
     <script src="js/add-contest.js" type="text/javascript"></script>
+    <script>
+        $(document).ready(function(){
+            $("#header").change(function(){ readURL(this, 'img#oldHeaderImg'); });
+            $("#logo").change(function(){ readURL(this, 'img#oldLogoImg'); });
+            //Set Preview after DOM elements has loaded
+            setInterval(function(){
+                $("img#headerImage").attr('src', $("img#oldHeaderImg").attr('src'));
+                $("img#logoImage").attr('src', $("img#oldLogoImg").attr('src'));
+                $('.form_datetime-adv input, .input-preview input, .input-preview textarea').each(function(){
+                    $('#'+$(this).attr('data-preview-id')).html($(this).val() ? $(this).val() : $(this).text());
+                });
+            }, 2000);
+            
+        });
+    </script>
   </body>
 </html>

@@ -1,7 +1,31 @@
+function readURL(input, output) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            $(output).attr('src', e.target.result);
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
+}
 $(document).ready(function(){
     $('#previewpane').load('http://localhost/sweepstake/');
     $('#default').stepy({ backLabel: 'Previous', block: true, nextLabel: 'Next', titleClick: true, titleTarget: '.stepy-tab' });
 
+    $(".form_datetime-adv").datetimepicker({
+        format: "dd MM yyyy - hh:ii",
+        autoclose: true,
+        todayBtn: true,
+        //startDate: "2013-02-14 10:00",
+        minuteStep: 10
+    });
+    
+
+    $("#header").change(function(){ readURL(this, 'img#headerImage'); });
+    $("#logo").change(function(){ readURL(this, 'img#logoImage'); });
+    $(".form_datetime-adv input, .input-preview input, .input-preview textarea").change(function(){
+        $('#'+$(this).attr('data-preview-id')).html($(this).val() ? $(this).val() : $(this).text());
+    });
     $("form#default").submit(function(e){ 
         e.stopPropagation();
         e.preventDefault();

@@ -86,7 +86,7 @@ $(document).ready(function(){
         if(confirm("Are you sure you want to delete this contest? Contest Title: '"+$(this).attr('data-title')+"'")) deleteContest($(this).attr('data-id'), $(this).attr('data-header'), $(this).attr('data-logo'));
     });
     $(document).on('click', '.edit-contest', function() {
-        if(confirm("Are you sure you want to edit this contest? Contest Title: '"+$(this).attr('data-title')+"'")) editContest($(this).attr('data-title'), $(this).find('span#JQDTvalueholder').html());
+        if(confirm("Are you sure you want to edit this contest? Contest Title: '"+$(this).attr('data-title')+"'")) editContest($(this).attr('data-id'));
     });
     
     function deleteContest(id, header, logo){
@@ -124,13 +124,8 @@ $(document).ready(function(){
         });
     }
     
-    function editContest(name, value){//,
-        $('form #addNewContest').val('editContest');
-        $('form #multi-action-catAddEdit').text('Update Contest');
-        var formVar = {name:name, value:value, name2:name};
-        $.each(formVar, function(key, value) {  $('form #'+key).val(value);  });
-        CKEDITOR.instances['value'].setData(value);
-        $(document).scrollTo('div.panel-info');
+    function editContest(id){//,
+        window.location = "edit-contest?id="+id;
     }
     
     function activateContest(id, status){
