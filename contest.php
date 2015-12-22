@@ -24,6 +24,10 @@ foreach ($contestObj->fetchRaw("*", " id = $thisContestId ") as $contest) {
 
 $cfg->templateName = $contestObj->theme ? $contestObj->theme : 'default';
 $cfg->templateUrl = $cfg->templatePath.$cfg->templateName.'/';
+$thisPage->title = $contestObj->title;
+$thisPage->description = $contestObj->description;
 
 include('includes/other-settings.php');
+$thisPage->author = $cfg->author;
+
 include($cfg->templateLoc.$cfg->templateName.'/index.php');

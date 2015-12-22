@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Contest Template</title>
+    <?php include($cfg->metaTagsLoc); ?>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <link href="<?php echo $cfg->templateUrl; ?>font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
     <link href="<?php echo $cfg->templateUrl; ?>css/tabserving_v2.css" media="screen" rel="stylesheet" type="text/css">

@@ -4,7 +4,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <![endif]-->
     <title><?php echo $thisPage->title; ?></title>
-    <link rel='shortcut icon' href='<?php echo SITE_URL; ?>images/favicon.png' type='image/x-icon' />
+    <link rel='shortcut icon' href='<?php echo SITE_URL; ?>/operator/img/favicon.png' type='image/x-icon' />
     <meta name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1' />
     <meta name="description" content="<?php echo $thisPage->description; ?>"/>
     <meta name="robots" content="All" />
@@ -30,7 +30,6 @@
     <meta property="og:image:type" content="image/jpeg"/>
     <meta property="og:image:width" content="200"/>
     <meta property="og:image:height" content="200"/>
-    <meta property="fb:admins" content="<?php echo FACEBOOK_ADMINS; ?>" />
-    <meta property="fb:app_id" content="<?php echo FACEBOOK_APP_ID; ?>"/>
-    <meta property="twitter_id" content="<?php echo TWITTER_ID; ?>"/>
-    <?php echo utf8_decode(Setting::getValue($dbObj, 'ANALYTICS')); ?>
+    <meta property="fb:admins" content="<?php echo $cfg->fbAdmins; ?>" />
+    <meta property="fb:app_id" content="<?php echo $cfg->fbAppId; ?>"/>
+    <meta property="twitter_id" content="<?php echo $cfg->twitterId; ?>"/>

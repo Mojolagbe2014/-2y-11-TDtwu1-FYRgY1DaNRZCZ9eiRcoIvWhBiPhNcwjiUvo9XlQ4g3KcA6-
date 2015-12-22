@@ -29,3 +29,4 @@ $cfg->templatePath = TEMPLATE_PATH;
 $cfg->templateLoc = TEMPLATE_LOCATION;
 $cfg->templateName = 'default';
 $cfg->templateUrl = $cfg->templatePath.$cfg->templateName.'/';
+$cfg->metaTagsLoc = __ROOT__.'/includes/meta-tags.php';
