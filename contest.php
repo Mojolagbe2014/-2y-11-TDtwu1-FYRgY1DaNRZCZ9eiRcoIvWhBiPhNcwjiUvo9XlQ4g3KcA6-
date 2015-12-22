@@ -60,8 +60,7 @@ if(filter_input(INPUT_POST, "email")!= NULL){
         }
         //New Entrant Handler
         else{  
-            echo $thisEntrantAnswer . "=>" .$contestObj->answer;
-            if($thisEntrantAnswer == $contestObj->answer){ $entrantObj->point = Number::getNumber($entrantObj->point)+Number::getNumber($entrantObj->bonusPoint); }
+            if($thisEntrantAnswer == $contestObj->answer){ $entrantObj->point = Number::getNumber($contestObj->point)+Number::getNumber($contestObj->bonusPoint); }
             $returnAction = $entrantObj->addRaw();   
         }
         
