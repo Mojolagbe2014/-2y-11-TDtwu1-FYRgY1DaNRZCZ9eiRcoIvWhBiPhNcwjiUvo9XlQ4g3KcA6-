@@ -38,4 +38,15 @@ class Folder extends Directory {
         return $images;
     }
     
+    public static function getSubDirectories($directory){
+        $data = array();
+        $files = glob($directory . "*");
+        foreach($files as $file) {
+            if(is_dir($file)) {
+                $data[] = basename($file);
+            }
+        }
+        return $data;
+    }
+    
 }

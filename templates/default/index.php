@@ -7,11 +7,7 @@
     <link href="<?php echo $cfg->templateUrl; ?>css/tabserving_v2.css" media="screen" rel="stylesheet" type="text/css">
     <link href="<?php echo $cfg->templateUrl; ?>css/responsive.css" media="(max-width: 767px)" rel="stylesheet" type="text/css">
     <link href="<?php echo $cfg->templateUrl; ?>css/tabdesign_v2.css" media="screen" rel="stylesheet" type="text/css">
-    <style id="ss_generated_css" type="text/css">
-        body.desktop #wrapper {
-            max-width: 960px;
-        }
-    </style>
+    <style id="ss_generated_css" type="text/css"> body.desktop #wrapper { width: 960px;  } </style>
     <link href="<?php echo $cfg->templateUrl; ?>css/base.css" rel="stylesheet" type="text/css" />
     <link href="<?php echo $cfg->templateUrl; ?>css/theme_default2.css" rel="stylesheet" type="text/css" />
     <link href="<?php echo $cfg->templateUrl; ?>font_awesome/css/font-awesome.css" rel="stylesheet" type="text/css"/>
@@ -27,6 +23,7 @@
             border-color: rgba(0, 0, 0, .25);
         }
     </style>
+    <style id="customStyles"><?php echo $contestObj->css; ?></style>
 </head>
 
 <body class="web desktop">
@@ -45,7 +42,7 @@
             </div>
             <div class="ss_box_content ss_image_content ss_align_center" id="content_image">
                 <div class="ss_image_container">
-                    <img alt="" id="headerImage" class="no_hotspots" src="<?php echo $cfg->templateUrl; ?>images/original_ec503296c84547636b2afbf081a3041c.png" title="">
+                    <img alt="" id="headerImage" class="no_hotspots" src="<?php echo $contestObj->header ? $contestObj->header : $cfg->templateUrl."images/original_ec503296c84547636b2afbf081a3041c.png"; ?>" title="">
                 </div>
             </div>
             <div class="ss_box_footer ss_image_footer" id="footer_image"></div>
@@ -59,7 +56,7 @@
                         </div>
                         <div class="ss_box_content ss_image_content ss_align_center" id="content_image2">
                             <div class="ss_image_container">
-                                <img alt="" class="no_hotspots" id="logoImage" src="<?php echo $cfg->templateUrl; ?>images/original_original_d5be9bbb216fc983cb69d22a0c5d6dee.png" title="">
+                                <img alt="" class="no_hotspots" id="logoImage" src="<?php echo $contestObj->logo ? $contestObj->logo : $cfg->templateUrl."images/original_original_d5be9bbb216fc983cb69d22a0c5d6dee.png"; ?>" title="">
                             </div>
                         </div>
                     </div>
@@ -75,10 +72,10 @@
                         <div class="ss_box_footer ss_rich_text_footer" id="footer_rich_text"></div>
                     </div>
                     <div class="ss_box_footer ss_image_footer" id="footer_image2">
-                        <strong> <i class="fa fa-calendar"></i> Start Date:</strong> <span id="prevStartDate"></span><br/><br/>
-                        <strong> <i class="fa fa-calendar"></i> End Date:</strong> <span id="prevEndDate"></span><br/><br/>
-                        <strong> <i class="fa fa-trophy"></i> Winner(s) Announce on:</strong> <span id="prevAnnounceDate"></span><br/><br/>
-                        <strong> <i class="fa fa-trophy"></i> No of Winner(s):</strong> <span id="prevNoOfWinners"></span>
+                        <strong> <i class="fa fa-calendar"></i> Start Date:</strong> <span id="prevStartDate"><?php echo $contestObj->startDate ? str_replace("-", "@", $contestObj->startDate) : "No date available"; ?></span><br/><br/>
+                        <strong> <i class="fa fa-calendar"></i> End Date:</strong> <span id="prevEndDate"><?php echo $contestObj->endDate ? str_replace("-", "@", $contestObj->endDate) : "No date available"; ?></span><br/><br/>
+                        <strong> <i class="fa fa-trophy"></i> Winner(s) Announce on:</strong> <span id="prevAnnounceDate"><?php echo $contestObj->announcementDate ? str_replace("-", "@", $contestObj->announcementDate) : "No date available"; ?></span><br/><br/>
+                        <strong> <i class="fa fa-trophy"></i> No of Winner(s):</strong> <span id="prevNoOfWinners"><?php echo $contestObj->winners ? $contestObj->winners : "Not specified"; ?></span>
                     </div>
                 </div>
                 <div class="ss_container ss_layout_column" data-widget="column2" id="column2" style="width: 50%;">
@@ -108,12 +105,12 @@
                                     <p style="text-align: center;">&nbsp;</p>
                                     <hr>
                                     <h1 style="text-align: center;">Earn extra entry points!</h1>
-                                    <p style="text-align: center;">Each question you answer below gets you extra points!</p>
+                                    <p style="text-align: center;">Each question you answer below gets you <span id="prevBonusPoint"><?php echo $contestObj->bonusPoint ? $contestObj->bonusPoint : ""; ?></span> extra point(s)!</p>
                                     <p style="text-align: center;">&nbsp;</p>
                                 </div>
                                 <div class="field_block custom_field_2_field_block select_field_type_block" id="form_custom_field_2_block">
                                     <label for="form_custom_field_2"><span class="main_field_label">Question: (Optional)</span> </label>
-                                    <p><em id="prevBonusQuestion">The sweepstakes extra point question goes here?</em></p>
+                                    <p><em id="prevBonusQuestion"><?php echo $contestObj->question ? $contestObj->question : "The sweepstakes extra point question goes here?"; ?></em></p>
                                 </div>
                                 <div class="field_block custom_field_3_field_block text_field_type_block" id="form_custom_field_3_block">
                                     <label for="answer"><span class="main_field_label">Answer: </span> <span id="prevBonusAnswer"></span></label>
@@ -208,27 +205,18 @@
         </div>
     </div>
     <div id="officialRulesOverlay" class="facebox et_pb_module et_pb_contact_form_container clearfix  et_pb_contact_form_0">
-        <div><h4 class="et_pb_contact_main_title">Official Rules <button class="close" style="float:right;margin-top:-7px">X</button></h4> </div>
-        <div class="et_pb_contact">
-            Office entry rules goes here!
-        </div>
-        
+        <div><h2 class="et_pb_contact_main_title">Official Rules <button class="close" style="float:right;margin-top:-7px">X</button></h2> </div>
+        <div class="et_pb_contact"><?php echo $contestObj->rules ? $contestObj->rules : "Office entry rules goes here!"; ?></div>        
     </div>
     <div id="thePrizeOverlay" class="facebox et_pb_module et_pb_contact_form_container clearfix  et_pb_contact_form_0">
-        <div><h4 class="et_pb_contact_main_title">The Prize <button class="close" style="float:right;margin-top:-7px">X</button></h4> </div>
-        <div class="et_pb_contact">
-            Prize info goes here!
-        </div>
-        
+        <div><h2 class="et_pb_contact_main_title">The Prize <button class="close" style="float:right;margin-top:-7px">X</button></h2> </div>
+        <div class="et_pb_contact"><?php echo $contestObj->prize ? $contestObj->prize : "Prize info goes here!"; ?></div>     
     </div>
     <div id="theWinnersOverlay" class="facebox et_pb_module et_pb_contact_form_container clearfix  et_pb_contact_form_0">
-        <div><h4 class="et_pb_contact_main_title">The Winners <button class="close" style="float:right;margin-top:-7px">X</button></h4> </div>
-        <div class="et_pb_contact">
-            The List of winners goes here
-        </div>
-        
+        <div><h2 class="et_pb_contact_main_title">The Winners <button class="close" style="float:right;margin-top:-7px">X</button></h2> </div>
+        <div class="et_pb_contact"><?php echo $contestObj->winners ? $contestObj->winners : "The List of winners goes here "; ?></div>
     </div>
-    <script src="js/jquery.tools.min.js" type="text/javascript"></script>
+    <script src="<?php if(strpos($_SERVER['REQUEST_URI'],'/contest')){ echo $cfg->templateUrl;} ?>js/jquery.tools.min.js" type="text/javascript"></script>
     <script type="text/javascript">
         jQuery(document).ready(function(e) {
             jQuery("#officialRules, #thePrize, #theWinners").click(function(e) {

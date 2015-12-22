@@ -12,15 +12,10 @@ $thisContestId = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT) ? filter_inp
 if(count($contestObj->fetchRaw("*", " id = $thisContestId "))<1){$thisPage->redirectTo('manage-contests');}
 
 foreach ($contestObj->fetchRaw("*", " id = $thisContestId ") as $contest) {
-    $contestData = array('status' => 'status', 'id' => 'id', 'title' => 'title', 'intro' => 'intro', 'description' => 'description', 'header' => 'header', 'logo' => 'logo', 'startDate' => 'start_date', 'endDate' => 'end_date', 'announcementDate' => 'announcement_date', 'winners' => 'winners', 'question' => 'question', 'answer' => 'answer', 'point' => 'point', 'bonusPoint' => 'bonus_point', 'rules' => 'rules', 'prize' => 'prize', 'message' => 'message', 'css' => 'css', 'dateAdded' => 'date_added', 'announceWinner' => 'announce_winner', 'restart' => 'restart', 'restartInterval' => 'restart_interval');
-    foreach ($contestData as $key => $value){
-        switch ($key) { 
-//            case 'header': $contestObj->$key = MEDIA_FILES_PATH1.'contest-header/'.$contest[$value];break;
-//            case 'logo': $contestObj->$key = MEDIA_FILES_PATH1.'contest-logo/'.$contest[$value];break;
-            default     :   $contestObj->$key = $contest[$value]; break; 
-        }
-    }
+    $contestData = array('status' => 'status', 'id' => 'id', 'title' => 'title', 'intro' => 'intro', 'description' => 'description', 'header' => 'header', 'logo' => 'logo', 'startDate' => 'start_date', 'endDate' => 'end_date', 'announcementDate' => 'announcement_date', 'winners' => 'winners', 'question' => 'question', 'answer' => 'answer', 'point' => 'point', 'bonusPoint' => 'bonus_point', 'rules' => 'rules', 'prize' => 'prize', 'message' => 'message', 'css' => 'css', 'dateAdded' => 'date_added', 'announceWinner' => 'announce_winner', 'restart' => 'restart', 'restartInterval' => 'restart_interval', 'cutOffPoint' => 'cut_off_point', 'theme' => 'theme');
+    foreach ($contestData as $key => $value){ switch ($key) { default     :   $contestObj->$key = $contest[$value]; break;  } }
 }
+$cfg->templateName = $contestObj->theme ? $contestObj->theme : 'default';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -95,6 +90,19 @@ foreach ($contestObj->fetchRaw("*", " id = $thisContestId ") as $contest) {
                               <form class="form-horizontal" action="../REST/manage-contests.php" id="default" method="POST"  enctype="multipart/form-data">
                                   <fieldset title="Step1" class="step" id="default-step-0">
                                       <legend> </legend>
+                                      <div class="form-group">
+                                            <label class="col-lg-2 control-label" for="theme">Theme:</label>
+                                            <div class="col-lg-10">
+                                                <select class="form-control" name="theme" id="theme">
+                                                <?php 
+                                                if(count(Folder::getSubDirectories(TEMPLATE_LOCATION))>0){
+                                                    foreach(Folder::getSubDirectories(TEMPLATE_LOCATION) as $template){
+                                                ?>
+                                                    <option <?php echo $contestObj->theme == $template ? 'selected="selected"' : ''; ?> value="<?php echo $template; ?>"> <?php echo $template; ?></option>
+                                                <?php  }} ?>
+                                                </select>
+                                            </div>
+                                        </div>
                                       <div class="form-group">
                                           <label class="col-lg-2 control-label" for="title"> Title:</label>
                                           <div class="col-lg-10 input-preview">
@@ -189,14 +197,20 @@ foreach ($contestObj->fetchRaw("*", " id = $thisContestId ") as $contest) {
                                       </div>
                                       <div class="form-group">
                                           <label class="col-lg-2 control-label" for="bonusPoint">Bonus Point:</label>
-                                          <div class="col-lg-10">
-                                              <input value="<?php echo $contestObj->bonusPoint; ?>" type="text" name="bonusPoint" id="bonusPoint" data-placement="top" class="form-control tooltips" data-toggle="tooltip" data-original-title="Point to be earned for supplying the correct answer to the bonus question" placeholder="Bonus Point">
+                                          <div class="col-lg-10 input-preview">
+                                              <input data-preview-id="prevBonusPoint" value="<?php echo $contestObj->bonusPoint; ?>" type="text" name="bonusPoint" id="bonusPoint" data-placement="top" class="form-control tooltips" data-toggle="tooltip" data-original-title="Point to be earned for supplying the correct answer to the bonus question" placeholder="Bonus Point">
                                           </div>
                                       </div>
                                       <div class="form-group">
                                           <label class="col-lg-2 control-label" for="point">Points per Invitation:</label>
                                           <div class="col-lg-10">
                                               <input value="<?php echo $contestObj->point; ?>" type="text" name="point" id="point" data-placement="top" class="form-control tooltips" data-toggle="tooltip" data-original-title="Point to be earned for each friend invitation" placeholder="Point per invitation">
+                                          </div>
+                                      </div>
+                                      <div class="form-group">
+                                          <label class="col-lg-2 control-label" for="cutOffPoint">Cutoff Point:</label>
+                                          <div class="col-lg-10">
+                                              <input value="<?php echo $contestObj->cutOffPoint; ?>" type="text" name="cutOffPoint" id="cutOffPoint" data-placement="top" class="form-control tooltips" data-toggle="tooltip" data-original-title="Minimum points required to be attained to emerge the winner" placeholder="Minimum point required">
                                           </div>
                                       </div>
                                       <div class="form-group">
@@ -246,8 +260,8 @@ foreach ($contestObj->fetchRaw("*", " id = $thisContestId ") as $contest) {
                                         </div>
                                       <div class="form-group">
                                             <label class="col-lg-2 control-label" for="css">Custom CSS:</label>
-                                            <div class="col-lg-10">
-                                                <textarea data-placement="top" class="form-control tooltips" data-toggle="tooltip" data-original-title="Additional custom styles for customizing further the template and should be entered without <style></style> tags" id="css" placeholder="Custom CSS" name="css" cols="60" rows="5"><?php echo $contestObj->css; ?></textarea>
+                                            <div class="col-lg-10 input-preview">
+                                                <textarea data-preview-id="customStyles" data-placement="top" class="form-control tooltips" data-toggle="tooltip" data-original-title="Additional custom styles for customizing further the template and should be entered without <style></style> tags" id="css" placeholder="Custom CSS" name="css" cols="60" rows="5"><?php echo $contestObj->css; ?></textarea>
                                             </div>
                                         </div>
                                   </fieldset>
@@ -304,7 +318,9 @@ foreach ($contestObj->fetchRaw("*", " id = $thisContestId ") as $contest) {
                     $('#'+$(this).attr('data-preview-id')).html($(this).val() ? $(this).val() : $(this).text());
                 });
             }, 2000);
-            
+            $("#theme").change(function () {
+                $('#previewpane').load('<?php echo SITE_URL.'load-template?name='; ?>'+$(this).val());
+            });            
         });
     </script>
   </body>

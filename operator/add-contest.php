@@ -78,6 +78,20 @@ $thisPage = new WebPage($dbObj); //Create new instance of webPage class
                                   <fieldset title="Step1" class="step" id="default-step-0">
                                       <legend> </legend>
                                       <div class="form-group">
+                                            <label class="col-lg-2 control-label" for="theme">Theme:</label>
+                                            <div class="col-lg-10">
+                                                <select class="form-control" name="theme" id="theme">
+                                                <?php 
+                                                if(count(Folder::getSubDirectories(TEMPLATE_LOCATION))>0){
+                                                    foreach(Folder::getSubDirectories(TEMPLATE_LOCATION) as $template){
+                                                        echo "<option value='$template'>".$template."</option>";
+                                                    }
+                                                }
+                                                ?>
+                                                </select>
+                                            </div>
+                                        </div>
+                                      <div class="form-group">
                                           <label class="col-lg-2 control-label" for="title"> Title:</label>
                                           <div class="col-lg-10 input-preview">
                                               <input type="text" data-preview-id="prevTitle" size="100" id="title" name="title" data-placement="top" class="form-control tooltips" data-toggle="tooltip" data-original-title="This value will appear as the contest's page title" placeholder="Sweepstakes Title">
@@ -166,14 +180,20 @@ $thisPage = new WebPage($dbObj); //Create new instance of webPage class
                                       </div>
                                       <div class="form-group">
                                           <label class="col-lg-2 control-label" for="bonusPoint">Bonus Point:</label>
-                                          <div class="col-lg-10">
-                                              <input type="text" name="bonusPoint" id="bonusPoint" data-placement="top" class="form-control tooltips" data-toggle="tooltip" data-original-title="Point to be earned for supplying the correct answer to the bonus question" placeholder="Bonus Point">
+                                          <div class="col-lg-10 input-preview">
+                                              <input data-preview-id="prevBonusPoint" type="text" name="bonusPoint" id="bonusPoint" data-placement="top" class="form-control tooltips" data-toggle="tooltip" data-original-title="Point to be earned for supplying the correct answer to the bonus question" placeholder="Bonus Point">
                                           </div>
                                       </div>
                                       <div class="form-group">
                                           <label class="col-lg-2 control-label" for="point">Points per Invitation:</label>
                                           <div class="col-lg-10">
                                               <input type="text" name="point" id="point" data-placement="top" class="form-control tooltips" data-toggle="tooltip" data-original-title="Point to be earned for each friend invitation" placeholder="Point per invitation">
+                                          </div>
+                                      </div>
+                                      <div class="form-group">
+                                          <label class="col-lg-2 control-label" for="cutOffPoint">Cutoff Point:</label>
+                                          <div class="col-lg-10">
+                                              <input type="text" name="cutOffPoint" id="cutOffPoint" data-placement="top" class="form-control tooltips" data-toggle="tooltip" data-original-title="Minimum points required to be attained to emerge the winner" placeholder="Minimum point required">
                                           </div>
                                       </div>
                                       <div class="form-group">
@@ -215,16 +235,17 @@ $thisPage = new WebPage($dbObj); //Create new instance of webPage class
                                                 </select>
                                             </div>
                                         </div>
-                                      <div class="form-group">
+                                        <div class="form-group">
                                             <label class="col-lg-2 control-label" for="restartInterval">Restart Interval (days):</label>
                                             <div class="col-lg-10">
                                                 <input type="number"  data-placement="top" class="form-control tooltips" data-toggle="tooltip" data-original-title="This field has no effect if Autorestart value is NO " name="restartInterval" id="restartInterval" value="7"/>
                                             </div>
                                         </div>
-                                      <div class="form-group">
+                                        
+                                        <div class="form-group">
                                             <label class="col-lg-2 control-label" for="css">Custom CSS:</label>
-                                            <div class="col-lg-10">
-                                                <textarea data-placement="top" class="form-control tooltips" data-toggle="tooltip" data-original-title="Additional custom styles for customizing further the template and should be entered without <style></style> tags" id="css" placeholder="Custom CSS" name="css" cols="60" rows="5"></textarea>
+                                            <div class="col-lg-10 input-preview">
+                                                <textarea data-preview-id="customStyles" data-placement="top" class="form-control tooltips" data-toggle="tooltip" data-original-title="Additional custom styles for customizing further the template and should be entered without <style></style> tags" id="css" placeholder="Custom CSS" name="css" cols="60" rows="5"></textarea>
                                             </div>
                                         </div>
                                   </fieldset>
@@ -271,6 +292,10 @@ $thisPage = new WebPage($dbObj); //Create new instance of webPage class
     <script>
         $(document).ready(function(){
             $('#previewpane').load('<?php echo SITE_URL.'load-template?name='.$cfg->templateName; ?>');
+            $("#theme").change(function () {
+                $('#previewpane').load('<?php echo SITE_URL.'load-template?name='; ?>'+$(this).val());
+            });
+
         });
     </script>
   </body>
