@@ -6,7 +6,10 @@
  * @author Kaiste
  */
 class Number {
-    
+    /** 
+     * convertToNumber method converts number to words
+     * @param mixed $number Number to be converted
+     */
     public static function convertToWords($number) {
             $hyphen      = '-';
             $conjunction = ' and ';
@@ -117,4 +120,15 @@ class Number {
 
             return $string;
         }
-    }
+        
+    /**
+     * getNumber get numeric value fro a string input
+     * @param type $stringNumber Numeric string to be converted to numeric values
+     */
+    public static function getNumber($stringNumber) { 
+        if (is_numeric($stringNumber)) { 
+          return $stringNumber + 0; 
+        } 
+        return 0; 
+    } 
+}

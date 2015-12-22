@@ -28,12 +28,7 @@
 
 <body class="web desktop">
     <div id="fb-root" class=" fb_reset">
-        <div style="position: absolute; top: -10000px; height: 0px; width: 0px;">
-            <div></div>
-        </div>
-        <div style="position: absolute; top: -10000px; height: 0px; width: 0px;">
-            <div></div>
-        </div>
+        <?php echo $cfg->infoMessage; ?>
     </div>
     <div id="wrapper">
         <div class="ss_box ss_image ss_odd" data-widget="image" id="image">
@@ -88,18 +83,18 @@
                             <form action="" class="ss_form_form ss_bindable_form" id="form_form" method="post">
                                 <div class="field_block email_field_block" id="form_name_block">
                                     <div class="field_block email_field_block" id="form_email_block">
-                                        <label for="entrantEmail"><span class="main_field_label">Your Email:</span><span class="required">*</span>
+                                        <label for="email"><span class="main_field_label">Your Email:</span><span class="required">*</span>
                                         </label>
-                                        <input id="entrantEmail" name="entrantEmail" type="text" class="error" required="required">
+                                        <input id="email" name="email" type="text" class="error" required="required">
                                     </div>
                                     <label for="name"><span class="main_field_label">Your Friend's Name:</span><span class="required">*</span>
                                     </label>
-                                    <input id="name" name="name" type="text" class="error" required="required">
+                                    <input id="names" name="names" type="text" class="error" required="required">
                                 </div>
                                 <div class="field_block email_field_block" id="form_email_block">
-                                    <label for="email"><span class="main_field_label">Your Friend's Email</span><span class="required">*</span>
+                                    <label for="friends"><span class="main_field_label">Your Friend's Email</span><span class="required">*</span>
                                     </label>
-                                    <input id="email" name="email" type="text" class="error" required="required">
+                                    <input id="friends" name="friends" type="text" class="error" required="required">
                                 </div>
                                 <div class="field_block custom_field_1_field_block format_rich_text_field_type_block" id="form_custom_field_1_block">
                                     <p style="text-align: center;">&nbsp;</p>
@@ -116,7 +111,7 @@
                                     <label for="answer"><span class="main_field_label">Answer: </span> <span id="prevBonusAnswer"></span></label>
                                     <input class="large valid" id="answer" name="answer" type="text">
                                 </div>
-                                <div class="field_block submit_field_block" id="form_submit_block"><button type="submit" class="form_submit ss_btn">Submit </button>
+                                <div class="field_block submit_field_block" id="form_submit_block"><button type="submit" class="form_submit ss_btn" name="submitButton" id="submitButton">Submit </button>
                                 </div>
                                 <div class="ss_form_message ajax_message" id="message_form"></div>
                             </form>
