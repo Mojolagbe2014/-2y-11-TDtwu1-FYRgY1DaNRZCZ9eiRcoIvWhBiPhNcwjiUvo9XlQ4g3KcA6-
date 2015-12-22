@@ -25,4 +25,5 @@ foreach ($contestObj->fetchRaw("*", " id = $thisContestId ") as $contest) {
 $cfg->templateName = $contestObj->theme ? $contestObj->theme : 'default';
 $cfg->templateUrl = $cfg->templatePath.$cfg->templateName.'/';
 
+include('includes/other-settings.php');
 include($cfg->templateLoc.$cfg->templateName.'/index.php');

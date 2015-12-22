@@ -19,7 +19,7 @@ require(WEBPAGE_FILE_PATH);
 
 unset($cfg);
 global $cfg;
-$cfg = new stdClass();
+$cfg = new stdClass();//Create Configuration registry
 
 $cfg->dbServer    = DB_SERVER;
 $cfg->dbName    = DB_NAME;
@@ -29,14 +29,3 @@ $cfg->templatePath = TEMPLATE_PATH;
 $cfg->templateLoc = TEMPLATE_LOCATION;
 $cfg->templateName = 'default';
 $cfg->templateUrl = $cfg->templatePath.$cfg->templateName.'/';
-
-if(strpos($_SERVER['SCRIPT_NAME'],'template')){
-    $contestObj = new stdClass();
-    $contestDatas = array('id','title','intro','description','header','logo','startDate','endDate','announcementDate','winners', 'question', 'answer', 'point', 'bonusPoint', 'rules', 'prize', 'message', 'css', 'announceWinner', 'restart', 'restartInterval'); // Form fields names
-    foreach ($contestDatas as $contestData){
-        switch ($contestData) { 
-            default     :   $contestObj->$contestData = ''; break; 
-        }
-    }
-}
-

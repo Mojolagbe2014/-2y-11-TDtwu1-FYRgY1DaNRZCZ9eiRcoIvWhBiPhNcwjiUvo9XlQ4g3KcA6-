@@ -170,32 +170,32 @@
             <div class="ss_box_content ss_share_content ss_align_center" id="content_share">
                 <ul>
                     <li>
-                        <a class="ss_share_on ss_share_on_manual" data-platform="manual" href="javascript:;" style="">
+                        <a class="ss_share_on ss_share_on_manual" data-platform="manual" href="<?php echo $cfg->returnUrl ? $cfg->returnUrl : 'javascript:;'; ?>" style="">
                             <i class="fa fa-share-square fa-2x"></i>
                         </a>
                     </li>
                     <li>
-                        <a class="ss_share_on ss_share_on_facebook" data-platform="facebook" href="javascript:;" style="">
+                        <a class="ss_share_on ss_share_on_facebook" data-platform="facebook" href="<?php echo $cfg->fbLink ? $cfg->fbLink : 'javascript:;'; ?>" style="">
                             <i class="fa fa-facebook-square fa-2x"></i>
                         </a>
                     </li>
                     <li>
-                        <a class="ss_share_on ss_share_on_twitter" data-platform="twitter" href="javascript:;" style="">
+                        <a class="ss_share_on ss_share_on_twitter" data-platform="twitter" href="<?php echo $cfg->twitterLink ? $cfg->twitterLink : 'javascript:;'; ?>" style="">
                             <i class="fa fa-twitter-square fa-2x"></i>
                         </a>
                     </li>
                     <li>
-                        <a class="ss_share_on ss_share_on_pinterest" data-platform="pinterest" href="javascript:;" style="">
+                        <a class="ss_share_on ss_share_on_pinterest" data-platform="pinterest" href="<?php echo $cfg->pinterestLink ? $cfg->pinterestLink : 'javascript:;'; ?>" style="">
                             <i class="fa fa-pinterest-square fa-2x"></i>
                         </a>
                     </li>
                     <li>
-                        <a class="ss_share_on ss_share_on_google" data-platform="google" href="javascript:;" style="">
+                        <a class="ss_share_on ss_share_on_google" data-platform="google" href="<?php echo $cfg->gplusLink ? $cfg->gplusLink : 'javascript:;'; ?>" style="">
                             <i class="fa fa-google-plus-square fa-2x"></i>
                         </a>
                     </li>
                     <li>
-                        <a class="ss_share_on ss_share_on_linkedin" data-platform="linkedin" href="javascript:;" style="">
+                        <a class="ss_share_on ss_share_on_linkedin" data-platform="linkedin" href="<?php echo $cfg->linkedinLink ? $cfg->linkedinLink : 'javascript:;'; ?>" style="">
                             <i class="fa fa-linkedin-square fa-2x"></i>
                         </a>
                     </li>
@@ -214,7 +214,7 @@
     </div>
     <div id="theWinnersOverlay" class="facebox et_pb_module et_pb_contact_form_container clearfix  et_pb_contact_form_0">
         <div><h2 class="et_pb_contact_main_title">The Winners <button class="close" style="float:right;margin-top:-7px">X</button></h2> </div>
-        <div class="et_pb_contact"><?php echo $contestObj->winners ? $contestObj->winners : "The List of winners goes here "; ?></div>
+        <div class="et_pb_contact"><?php echo $contestObj->getWinners() ? $contestObj->getWinners() : "The List of winners goes here "; ?></div>
     </div>
     <script src="<?php if(strpos($_SERVER['REQUEST_URI'],'/contest')){ echo $cfg->templateUrl;} ?>js/jquery.tools.min.js" type="text/javascript"></script>
     <script type="text/javascript">
