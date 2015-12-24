@@ -56,6 +56,8 @@ if(filter_input(INPUT_POST, "email")!= NULL){
         $returnAction="";
         //Existing Entrant handler
         if($entrantObj->emailExists()==true){ 
+            $entrantObj->point = Number::getNumber($contestObj->point) + Entrant::getSingle($dbObj, 'point', $entrantObj->email);//fetch current point
+            echo $entrantObj->point;
             $returnAction = $entrantObj->updateRaw(); 
         }
         //New Entrant Handler

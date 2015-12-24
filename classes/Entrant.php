@@ -206,4 +206,17 @@ class Entrant implements ContentManipulator{
         if($this->email == $storedEmail){ return true; }
         else{ return false;    }
     } 
+    
+    /** getSingle() fetches the title of an entrant using the entrant $id
+     * @param object $dbObj Database connectivity and manipulation object
+     * @param string $column Table's required column in the datatbase
+     * @param string $email Entrant email of the entrant whose name is to be fetched
+     * @return string Name of the entrant
+     */
+    public static function getSingle($dbObj, $column, $email) {
+        $thisReqVal = '';
+        $thisReqVals = $dbObj->fetchNum("SELECT $column FROM ".self::$tableName." WHERE email = '{$email}' ");
+        foreach ($thisReqVals as $thisReqVals) { $thisReqVal = $thisReqVals[0]; }
+        return $thisReqVal;
+    }
 }
