@@ -27,9 +27,6 @@
 </head>
 
 <body class="web desktop">
-    <div id="fb-root" class=" fb_reset">
-        <?php echo $cfg->infoMessage; ?>
-    </div>
     <div id="wrapper">
         <div class="ss_box ss_image ss_odd" data-widget="image" id="image">
             <div class="ss_box_header ss_image_header" id="header_image">
@@ -211,13 +208,24 @@
         <div><h2 class="et_pb_contact_main_title">The Winners <button class="close" style="float:right;margin-top:-7px">X</button></h2> </div>
         <div class="et_pb_contact"><?php echo $contestObj->getWinners() ? $contestObj->getWinners() : "The List of winners goes here "; ?></div>
     </div>
+    <?php if($cfg->infoMessage){ ?>
+    <div id="messageBox" class="facebox et_pb_module et_pb_contact_form_container clearfix  et_pb_contact_form_0">
+        <div><h2 class="et_pb_contact_main_title">Message <button class="close" style="float:right;margin-top:-7px">X</button></h2> </div>
+        <div class="et_pb_contact"><?php echo $cfg->infoMessage ? $cfg->infoMessage : "Unable to display the message!"; ?></div>
+    </div>
+    <?php } ?>
     <script src="<?php if(strpos($_SERVER['REQUEST_URI'],'/contest')){ echo $cfg->templateUrl;} ?>js/jquery.tools.min.js" type="text/javascript"></script>
     <script type="text/javascript">
+        function showPopup(selector) {
+            if ($(selector).hasClass("init")) { $(selector).overlay().load(); }
+            else { $(selector).addClass("init"); $(selector).overlay({top: 150,mask: {color: '#fff',loadSpeed: 200,opacity: 0.5},closeOnClick: true,load: true }); }
+        }
         jQuery(document).ready(function(e) {
             jQuery("#officialRules, #thePrize, #theWinners").click(function(e) {
                 e.preventDefault();
                 $("#"+$(this).attr('id')+'Overlay').overlay().load();
             });
+            <?php if($cfg->infoMessage){ ?> showPopup("#messageBox"); <?php } ?>
             // select the overlay element - and "make it an overlay"
             $(".facebox").overlay({top: 150,mask: {color: '#fff',loadSpeed: 200,opacity: 0.5},closeOnClick: true,load: false });
         });	

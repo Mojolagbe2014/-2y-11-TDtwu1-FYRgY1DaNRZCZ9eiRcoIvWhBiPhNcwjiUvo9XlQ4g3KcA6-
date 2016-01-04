@@ -1,6 +1,7 @@
 <?php 
 session_start();
 include('config/config.php');
+require('swiftmailer/lib/swift_required.php');
 
 $dbObj = new Database($cfg);//Instantiate database
 $thisPage = new WebPage($dbObj, 'webpage'); //Create new instance of webPage class
@@ -28,7 +29,7 @@ $cfg->templateName = $contestObj->theme ? $contestObj->theme : 'default';
 $cfg->templateUrl = $cfg->templatePath.$cfg->templateName.'/';
 $thisPage->title = $contestObj->title;
 $thisPage->description = $contestObj->description;
-
+include('includes/other-settings.php');
 //Invitation Handler
 if(filter_input(INPUT_POST, "email")!= NULL){
     $postVars = array('email','friends','names', 'answer', 'contest', 'point'); // Form fields names
@@ -39,7 +40,7 @@ if(filter_input(INPUT_POST, "email")!= NULL){
             case 'answer':  $thisEntrantAnswer = filter_input(INPUT_POST, $postVar) ? mysqli_real_escape_string($dbObj->connection, filter_input(INPUT_POST, $postVar)) :  '';
                             break;
             case 'contest': $entrantObj->$postVar = $thisContestId; break;
-            case 'point':   $entrantObj->$postVar = $contestObj->point; break;
+            case 'point':   $entrantObj->$postVar = 0; break;//$contestObj->point
             case 'email':   $entrantObj->$postVar = filter_input(INPUT_POST, $postVar, FILTER_VALIDATE_EMAIL) ? mysqli_real_escape_string($dbObj->connection, filter_input(INPUT_POST, $postVar, FILTER_VALIDATE_EMAIL)) :  ''; 
                             if(filter_input(INPUT_POST, $postVar) === "") {array_push ($errorArr, $postVar);}
                             break;
@@ -54,26 +55,57 @@ if(filter_input(INPUT_POST, "email")!= NULL){
     }
     if(count($errorArr) < 1)   {
         $returnAction="";
-        //Existing Entrant handler
-        if($entrantObj->emailExists()==true){ 
-            $entrantObj->point = Number::getNumber($contestObj->point) + Entrant::getSingle($dbObj, 'point', $entrantObj->email);//fetch current point
-            echo $entrantObj->point;
-            $returnAction = $entrantObj->updateRaw(); 
+        $siteUrl = SITE_URL."contest/$contestObj->id/".StringManipulator::slugify($contestObj->title)."/".Entrant::getSingle($dbObj, "id", $entrantObj->email)."/$entrantObj->friends/";
+        
+        include('includes/invitation-email-template.php');
+        
+        $subject = "Sweepstakes/Contest Invitation";	
+        $transport = Swift_MailTransport::newInstance();
+        $message = Swift_Message::newInstance();
+        $message->setTo(array($entrantObj->friends => $entrantObj->names));
+        $message->setSubject($subject);
+        $message->setBody($body);
+        $message->setFrom($entrantObj->email, $entrantObj->email);
+        $message->setContentType("text/html");
+        $mailer = Swift_Mailer::newInstance($transport);
+        
+        if($entrantObj->emailExists()==true){//Existing Entrant handler 
+            $friendNamesList = Entrant::getSingle($dbObj, 'names', $entrantObj->email);
+            $friendEmailsList = Entrant::getSingle($dbObj, 'friends', $entrantObj->email);
+            
+            $friendEmailsArr = explode(",", $friendEmailsList);
+            
+            if(!in_array(trim($entrantObj->friends), $friendEmailsArr)){
+                $entrantObj->friends .= ",".$friendEmailsList; $entrantObj->names .= ",".$friendNamesList;
+                //if($mailer->send($message) > 0) { $returnAction = $entrantObj->updateRaw(); }
+                $returnAction = $entrantObj->updateRaw();
+            }
         }
-        //New Entrant Handler
-        else{  
-            if($thisEntrantAnswer == $contestObj->answer){ $entrantObj->point = Number::getNumber($contestObj->point)+Number::getNumber($contestObj->bonusPoint); }
-            $returnAction = $entrantObj->addRaw();   
+        else{//New Entrant Handler
+            if($thisEntrantAnswer == $contestObj->answer){ $entrantObj->point = Number::getNumber($contestObj->bonusPoint); }//Number::getNumber($contestObj->point)+Number::getNumber($contestObj->bonusPoint);
+            //if($mailer->send($message) > 0) { $entrantObj->friends .= ","; $entrantObj->names .= ","; $returnAction = $entrantObj->addRaw(); }
+            $entrantObj->friends .= ","; $entrantObj->names .= ",";
+            $returnAction = $entrantObj->addRaw();
         }
         
         if($returnAction == 'success') {
-            $cfg->infoMessage = $thisPage->messageBox('Contest successfully entered and invitation sent.', 'success');
+            $cfg->infoMessage = 'Contest successfully entered and invitation sent.';
         } 
         else {
-            $cfg->infoMessage = $thisPage->messageBox('Contest invitation failed. '.$returnAction, 'error');
+            $cfg->infoMessage = '<h3>Contest invitation failed!</h3> <p>Please try again later.</p>';
         }
     }
     else{ $cfg->infoMessage = $thisPage->showError($errorArr); }
+}
+
+//Refered Visitor's Handler
+if(filter_input(INPUT_GET, "referer")!= NULL && filter_input(INPUT_GET, "invitee")!= NULL){
+    $entrantObj->email = Entrant::getSingle($dbObj, 'email', filter_input(INPUT_GET, "referer", FILTER_VALIDATE_INT));
+    if($entrantObj->emailExists()==true){//Existing Entrant handler 
+        $entrantObj->point = Number::getNumber($contestObj->point) + Entrant::getSingle($dbObj, 'point', $entrantObj->email);//fetch current point
+        $returnAction = $entrantObj->updateSingleRaw($dbObj, "point", $entrantObj->point, $entrantObj->email); 
+        $thisPage->redirectTo(SITE_URL."contest/$contestObj->id/".StringManipulator::slugify($contestObj->title)."/");
+    }
 }
 
 include('includes/other-settings.php');

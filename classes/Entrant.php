@@ -147,11 +147,12 @@ class Entrant implements ContentManipulator{
     /** Method that update single field detail of a entrant
      * @param string $field Column to be updated 
      * @param string $value New value of $field (Column to be updated)
-     * @param int $id Id of the post to be updated
+     * @param int $id Id or email of the entrant to be updated
      * @return JSON JSON encoded success or failure message
      */
     public static function updateSingle($dbObj, $field, $value, $id){
-        $sql = "UPDATE ".self::$tableName." SET $field = '{$value}' WHERE id = $id ";
+        $det = intval($id) ? "id" : "email";
+        $sql = "UPDATE ".self::$tableName." SET $field = '{$value}' WHERE $det = '$id' ";
         if(!empty($id)){
             $result = $dbObj->query($sql);
             if($result !== false){ $json = array("status" => 1, "msg" => "Done, entrant successfully updated!"); }
@@ -161,6 +162,23 @@ class Entrant implements ContentManipulator{
         $dbObj->close();
         header('Content-type: application/json');
         return json_encode($json);
+    }
+    
+    /** Method that update single field detail of a entrant
+     * @param string $field Column to be updated 
+     * @param string $value New value of $field (Column to be updated)
+     * @param int $id Id or email of the entrant to be updated
+     * @return string success|error
+     */
+    public static function updateSingleRaw($dbObj, $field, $value, $id){
+        $det = intval($id) ? "id" : "email";
+        $sql = "UPDATE ".self::$tableName." SET $field = '{$value}' WHERE $det = '$id' ";
+        if(!empty($id)){
+            $result = $dbObj->query($sql);
+            if($result !== false){ return 'success'; }
+            else{ return 'error';    }
+        }
+        else{return 'error'; }
     }
 
     /** Method that update details of a entrant
@@ -207,15 +225,16 @@ class Entrant implements ContentManipulator{
         else{ return false;    }
     } 
     
-    /** getSingle() fetches the title of an entrant using the entrant $id
+    /** getSingle() fetches a single column of an entrant using $email or $id
      * @param object $dbObj Database connectivity and manipulation object
      * @param string $column Table's required column in the datatbase
-     * @param string $email Entrant email of the entrant whose name is to be fetched
+     * @param string $email Entrant email or ID of the entrant whose name is to be fetched
      * @return string Name of the entrant
      */
     public static function getSingle($dbObj, $column, $email) {
+        $field = intval($email) ? "id" : "email";
         $thisReqVal = '';
-        $thisReqVals = $dbObj->fetchNum("SELECT $column FROM ".self::$tableName." WHERE email = '{$email}' ");
+        $thisReqVals = $dbObj->fetchNum("SELECT $column FROM ".self::$tableName." WHERE $field = '{$email}' ");
         foreach ($thisReqVals as $thisReqVals) { $thisReqVal = $thisReqVals[0]; }
         return $thisReqVal;
     }
