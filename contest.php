@@ -15,7 +15,7 @@ $thisContestId = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT) ? filter_inp
 if(count($contestObj->fetchRaw("*", " id = $thisContestId "))<1){$thisPage->redirectTo(SITE_URL);}
 
 foreach ($contestObj->fetchRaw("*", " id = $thisContestId ") as $contest) {
-    $contestData = array('status' => 'status', 'id' => 'id', 'title' => 'title', 'intro' => 'intro', 'description' => 'description', 'header' => 'header', 'logo' => 'logo', 'startDate' => 'start_date', 'endDate' => 'end_date', 'announcementDate' => 'announcement_date', 'winners' => 'winners', 'question' => 'question', 'answer' => 'answer', 'point' => 'point', 'bonusPoint' => 'bonus_point', 'rules' => 'rules', 'prize' => 'prize', 'message' => 'message', 'css' => 'css', 'dateAdded' => 'date_added', 'announceWinner' => 'announce_winner', 'restart' => 'restart', 'restartInterval' => 'restart_interval', 'cut_off_point' => 'cut_off_point', 'theme' => 'theme');
+    $contestData = array('status' => 'status', 'id' => 'id', 'title' => 'title', 'intro' => 'intro', 'description' => 'description', 'header' => 'header', 'logo' => 'logo', 'startDate' => 'start_date', 'endDate' => 'end_date', 'announcementDate' => 'announcement_date', 'winners' => 'winners', 'question' => 'question', 'answer' => 'answer', 'point' => 'point', 'bonusPoint' => 'bonus_point', 'rules' => 'rules', 'prize' => 'prize', 'message' => 'message', 'css' => 'css', 'dateAdded' => 'date_added', 'announceWinner' => 'announce_winner', 'restart' => 'restart', 'restartInterval' => 'restart_interval', 'cutOffPoint' => 'cut_off_point', 'theme' => 'theme');
     foreach ($contestData as $key => $value){
         switch ($key) { 
             case 'header': $contestObj->$key = MEDIA_FILES_PATH1.'contest-header/'.$contest[$value];break;
@@ -77,15 +77,15 @@ if(filter_input(INPUT_POST, "email")!= NULL){
             
             if(!in_array(trim($entrantObj->friends), $friendEmailsArr)){
                 $entrantObj->friends .= ",".$friendEmailsList; $entrantObj->names .= ",".$friendNamesList;
-                //if($mailer->send($message) > 0) { $returnAction = $entrantObj->updateRaw(); }
-                $returnAction = $entrantObj->updateRaw();
+                if($mailer->send($message) > 0) { $returnAction = $entrantObj->updateRaw(); }
+                //$returnAction = $entrantObj->updateRaw();
             }
         }
         else{//New Entrant Handler
             if($thisEntrantAnswer == $contestObj->answer){ $entrantObj->point = Number::getNumber($contestObj->bonusPoint); }//Number::getNumber($contestObj->point)+Number::getNumber($contestObj->bonusPoint);
-            //if($mailer->send($message) > 0) { $entrantObj->friends .= ","; $entrantObj->names .= ","; $returnAction = $entrantObj->addRaw(); }
-            $entrantObj->friends .= ","; $entrantObj->names .= ",";
-            $returnAction = $entrantObj->addRaw();
+            if($mailer->send($message) > 0) { $entrantObj->friends .= ","; $entrantObj->names .= ","; $returnAction = $entrantObj->addRaw(); }
+//            $entrantObj->friends .= ","; $entrantObj->names .= ",";
+//            $returnAction = $entrantObj->addRaw();
         }
         
         if($returnAction == 'success') {
@@ -101,11 +101,23 @@ if(filter_input(INPUT_POST, "email")!= NULL){
 //Refered Visitor's Handler
 if(filter_input(INPUT_GET, "referer")!= NULL && filter_input(INPUT_GET, "invitee")!= NULL){
     $entrantObj->email = Entrant::getSingle($dbObj, 'email', filter_input(INPUT_GET, "referer", FILTER_VALIDATE_INT));
-    if($entrantObj->emailExists()==true){//Existing Entrant handler 
-        $entrantObj->point = Number::getNumber($contestObj->point) + Entrant::getSingle($dbObj, 'point', $entrantObj->email);//fetch current point
-        $returnAction = $entrantObj->updateSingleRaw($dbObj, "point", $entrantObj->point, $entrantObj->email); 
-        $thisPage->redirectTo(SITE_URL."contest/$contestObj->id/".StringManipulator::slugify($contestObj->title)."/");
+    $entrantObj->friends = filter_input(INPUT_GET, "invitee") ? filter_input(INPUT_GET, "invitee"): "";
+    
+    $friendNamesList = Entrant::getSingle($dbObj, 'names', $entrantObj->email);
+    $friendEmailsList = Entrant::getSingle($dbObj, 'friends', $entrantObj->email);
+    
+    $friendEmailsArr = explode(",", $friendEmailsList);
+    $friendNamesArr = explode(",", $friendNamesList);
+    $inviteeName = $friendNamesArr[array_search(trim($entrantObj->friends), $friendEmailsArr)];//strrpos($friendNamesList, $friendNamesArr[array_search(trim($entrantObj->friends), $friendEmailsArr)]."[m]");
+    
+    if(in_array(trim($entrantObj->friends), $friendEmailsArr) && !strrpos($inviteeName, "[m]")){
+        if($entrantObj->emailExists()==true){//Existing Entrant handler 
+            $entrantObj->point = Number::getNumber($contestObj->point) + Entrant::getSingle($dbObj, 'point', $entrantObj->email);//fetch current point
+            $entrantObj->updateSingleRaw($dbObj, "point", $entrantObj->point, $entrantObj->email); 
+            $entrantObj->updateSingleRaw($dbObj, "names", str_ireplace($inviteeName, $inviteeName."[m]", $friendNamesList), $entrantObj->email); 
+        }
     }
+    $thisPage->redirectTo(SITE_URL."contest/$contestObj->id/".StringManipulator::slugify($contestObj->title)."/");
 }
 
 include('includes/other-settings.php');

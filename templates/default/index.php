@@ -206,7 +206,7 @@
     </div>
     <div id="theWinnersOverlay" class="facebox et_pb_module et_pb_contact_form_container clearfix  et_pb_contact_form_0">
         <div><h2 class="et_pb_contact_main_title">The Winners <button class="close" style="float:right;margin-top:-7px">X</button></h2> </div>
-        <div class="et_pb_contact"><?php echo $contestObj->getWinners() ? $contestObj->getWinners() : "The List of winners goes here "; ?></div>
+        <div class="et_pb_contact"><p><?php echo $contestObj->getWinners() ? $contestObj->getWinners() : "The List of winners goes here "; ?></p></div>
     </div>
     <?php if($cfg->infoMessage){ ?>
     <div id="messageBox" class="facebox et_pb_module et_pb_contact_form_container clearfix  et_pb_contact_form_0">

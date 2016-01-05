@@ -242,9 +242,24 @@ class Contest implements ContentManipulator{
     }
     
     /**
-     * geTWinners gets all winners of the contest 
+     * getWinners gets all winners of the contest 
+     * @return string List of winners or error message
      */
     public function getWinners(){
-        return $this->id." is under processing";
+        $d1 = new DateTime(date('j F Y H:i'));
+        $d2 = new DateTime(str_replace(" - ", " ", $this->endDate));
+        
+        if($d1>=$d2){
+            if($this->announceWinner == "Yes")
+                return Entrant::getWinners($this->id, $this->cutOffPoint, $this->winners);
+            else if($this->announceWinner == "No"){
+                $dd1 = new DateTime(date('j F Y H:i'));
+                $dd2 = new DateTime(str_replace(" - ", " ", $this->announcementDate));
+                if($dd1>=$dd2) return Entrant::getWinners($this->id, $this->cutOffPoint, $this->winners);
+                else return "<h3>Winners are yet to be announced!</h3> <p>Please check back. Winner announcement date is $this->announcementDate </p>";
+            }
+        } else{
+            return "The contest/sweepstakes is still ongoing please check back. This contest will end on $this->endDate";
+        }
     }
 }

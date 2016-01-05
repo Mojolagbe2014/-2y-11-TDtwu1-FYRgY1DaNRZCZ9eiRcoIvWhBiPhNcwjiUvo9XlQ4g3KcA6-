@@ -15,7 +15,7 @@ if(!isset($_SESSION['SWPLoggedInAdmin']) || !isset($_SESSION["SWPadminEmail"])){
 }
 else{
     if(filter_input(INPUT_POST, "addNewContest") != NULL){
-        $postVars = array('title','intro','description','header','logo','startDate','endDate','announcementDate','winners', 'question', 'answer', 'point', 'bonusPoint', 'rules', 'prize', 'message', 'css', 'announceWinner', 'restart', 'restartInterval'); // Form fields names
+        $postVars = array('title','intro','description','header','logo','startDate','endDate','announcementDate','winners', 'question', 'answer', 'point', 'bonusPoint', 'rules', 'prize', 'message', 'css', 'announceWinner', 'restart', 'restartInterval', 'cutOffPoint'); // Form fields names
         //Validate the POST variables and add up to error message if empty
         foreach ($postVars as $postVar){
             switch($postVar){

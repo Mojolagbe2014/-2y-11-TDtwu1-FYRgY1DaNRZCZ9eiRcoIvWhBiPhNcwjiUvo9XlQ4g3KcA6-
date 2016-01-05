@@ -108,7 +108,7 @@ else{
     }  
     
     if(filter_input(INPUT_POST, "editContest") != NULL){
-        $postVars = array('id','title','intro','description','header','logo','startDate','endDate','announcementDate','winners', 'question', 'answer', 'point', 'bonusPoint', 'rules', 'prize', 'message', 'css', 'announceWinner', 'restart', 'restartInterval'); // Form fields names
+        $postVars = array('id','title','intro','description','header','logo','startDate','endDate','announcementDate','winners', 'question', 'answer', 'point', 'bonusPoint', 'rules', 'prize', 'message', 'css', 'announceWinner', 'restart', 'restartInterval', 'cutOffPoint'); // Form fields names
         $oldHeader = $_REQUEST['oldHeader']; $oldLogo = $_REQUEST['oldLogo'];
         //Validate the POST variables and add up to error message if empty
         foreach ($postVars as $postVar){

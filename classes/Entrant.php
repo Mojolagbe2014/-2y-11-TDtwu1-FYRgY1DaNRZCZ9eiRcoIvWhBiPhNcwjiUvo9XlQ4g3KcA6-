@@ -133,6 +133,19 @@ class Entrant implements ContentManipulator{
         return json_encode($json);
     }
 
+    /** Method that fetches entrant from database
+     * @param string $column Column name of the data to be fetched
+     * @param string $condition Additional condition e.g category_id > 9
+     * @param string $sort column name to be used as sort parameter
+     * @return Array Entrant list
+     */
+    public function fetchRaw($column="*", $condition="", $sort="id"){
+        $sql = "SELECT $column FROM ".self::$tableName." ORDER BY $sort";
+        if(!empty($condition)){$sql = "SELECT $column FROM ".self::$tableName." WHERE $condition ORDER BY $sort";}
+        $result = self::$dbObj->fetchAssoc($sql);
+        return $result;
+    }
+    
     /** Empty string checker  
      * @return Booloean True|False
      */
@@ -238,4 +251,22 @@ class Entrant implements ContentManipulator{
         foreach ($thisReqVals as $thisReqVals) { $thisReqVal = $thisReqVals[0]; }
         return $thisReqVal;
     }
+    
+    /**
+     * getWinners method fetches winners based on the setted criteria using contest id - $contest
+     * @param string $contest Contest id
+     * @param int $cutOffPoint Point Limit
+     * @param int $noOfWinners Number of winners required
+     * @return string List of winner's email
+     */
+    public static function getWinners($contest, $cutOffPoint, $noOfWinners){
+        $returnVal = "<ul>"; $sn=1;
+        
+        $winners = self::$dbObj->fetchAssoc("SELECT * FROM ".self::$tableName." WHERE contest = $contest AND point >= $cutOffPoint ORDER BY point DESC LIMIT $noOfWinners");
+        if(count($winners)>0){
+            foreach($winners as $winner){ $returnVal .= "<li>$sn. ".$winner['email']." [".$winner['point']."points] </li>"; }
+        } else{ $returnVal .= "<li>No winners chosen because minimum point ($cutOffPoint) is not reached.</li>"; }
+        return $returnVal."</ul>";
+    }
 }
+//$date=date_create("2013-03-15 23:40:00");
