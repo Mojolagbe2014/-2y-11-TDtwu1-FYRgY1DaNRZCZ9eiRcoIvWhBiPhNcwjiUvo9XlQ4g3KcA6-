@@ -33,6 +33,16 @@
                     </li>
                     <li class="sub-menu">
                         <a href="javascript:;" >
+                            <i class="fa fa-users"></i>
+                            <span>Contest Entrants</span>
+                        </a>
+                        <ul class="sub">
+                            <li><a  href="manage-entrants">Manage Entrants</a></li>
+                        </ul>
+                    </li>
+                    
+                    <li class="sub-menu">
+                        <a href="javascript:;" >
                             <i class="fa fa-cog"></i>
                             <span>Settings Manager</span>
                         </a>

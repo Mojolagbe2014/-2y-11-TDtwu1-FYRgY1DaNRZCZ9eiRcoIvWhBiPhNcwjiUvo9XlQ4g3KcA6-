@@ -98,9 +98,9 @@ class Entrant implements ContentManipulator{
         $result =array(); 
         if(count($data)>0){
             foreach($data as $r){ 
-                $actionButtons = '<button data-email="'.$r['email'].'" data-id="'.$r['id'].'" class="btn btn-success btn-small message-entrant"  title="Send Message"><i class="btn-icon-only icon-envelope"> </i></button> <button data-id="'.$r['id'].'" data-email="'.$r['email'].'" class="btn btn-danger btn-small delete-entrant" title="Delete"><i class="btn-icon-only icon-trash"> </i></button>';
+                $actionButtons = '<div style="white-space:nowrap"> <button data-id="'.$r['id'].'" data-email="'.$r['email'].'" class="btn btn-danger btn-sm delete-entrant" title="Delete"><i class="btn-icon-only icon-trash"> </i></button> </div>';//'<button data-email="'.$r['email'].'" data-id="'.$r['id'].'" class="btn btn-success btn-sm message-entrant"  title="Send Message"><i class="btn-icon-only icon-envelope"> </i></button> ';
                 $multiActionBox = '<input type="checkbox" class="multi-action-box" data-id="'.$r['id'].'" />';
-                $result[] = array(utf8_encode($multiActionBox), $r['id'], utf8_encode($r['email']), utf8_encode($r['friends']),  utf8_encode($r['names']),  utf8_encode($r['time_entered']),  utf8_encode($r['contest']),  utf8_encode($r['point']), utf8_encode($actionButtons));
+                $result[] = array(utf8_encode($multiActionBox), utf8_encode($actionButtons), $r['id'],  utf8_encode(Contest::getName(self::$dbObj, $r['contest'])), utf8_encode($r['email']), utf8_encode(str_replace(",", ", ", $r['friends'])), utf8_encode($r['names']),  utf8_encode($r['time_entered']), utf8_encode($r['point']));
             }
             $json = array("status" => 1,"draw" => intval($draw), "recordsTotal"    => intval($totalData), "recordsFiltered" => intval($totalFiltered), "data" => $result);
         } 
@@ -228,7 +228,7 @@ class Entrant implements ContentManipulator{
      * @return Boolean True for exists, while false for not
      */
     public function emailExists(){//password_verify($password, $hash)
-        $sql =  "SELECT * FROM ".self::$tableName." WHERE email = '$this->email' LIMIT 1 ";
+        $sql =  "SELECT * FROM ".self::$tableName." WHERE email = '$this->email' AND contest = '$this->contest' LIMIT 1 ";
         $storedEmail = '';
         $results = self::$dbObj->fetchAssoc($sql);
         foreach ($results as $result) {
@@ -251,6 +251,7 @@ class Entrant implements ContentManipulator{
         foreach ($thisReqVals as $thisReqVals) { $thisReqVal = $thisReqVals[0]; }
         return $thisReqVal;
     }
+    
     
     /**
      * getWinners method fetches winners based on the setted criteria using contest id - $contest

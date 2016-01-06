@@ -221,8 +221,9 @@ class Contest implements ContentManipulator{
      * @return string Name of the contest
      */
     public static function getSingle($dbObj, $column, $id) {
+        $field = intval($id) ? "id = '{$id}' " : " title LIKE '%{$id}%' ";
         $thisAsstReqVal = '';
-        $thisAsstReqVals = $dbObj->fetchNum("SELECT $column FROM ".self::$tableName." WHERE id = '{$id}' ");
+        $thisAsstReqVals = $dbObj->fetchNum("SELECT $column FROM ".self::$tableName." WHERE $field ORDER BY id LIMIT 1");
         foreach ($thisAsstReqVals as $thisAsstReqVals) { $thisAsstReqVal = $thisAsstReqVals[0]; }
         return $thisAsstReqVal;
     }

@@ -103,6 +103,7 @@ if(filter_input(INPUT_POST, "email")!= NULL){
 if(filter_input(INPUT_GET, "referer")!= NULL && filter_input(INPUT_GET, "invitee")!= NULL){
     $entrantObj->email = Entrant::getSingle($dbObj, 'email', filter_input(INPUT_GET, "referer", FILTER_VALIDATE_INT));
     $entrantObj->friends = filter_input(INPUT_GET, "invitee") ? filter_input(INPUT_GET, "invitee"): "";
+    $entrantObj->contest = $thisContestId;
     
     $friendNamesList = Entrant::getSingle($dbObj, 'names', $entrantObj->email);
     $friendEmailsList = Entrant::getSingle($dbObj, 'friends', $entrantObj->email);
