@@ -33,7 +33,7 @@ include('includes/other-settings.php');
 //Invitation Handler
 if(filter_input(INPUT_POST, "email")!= NULL){
     $postVars = array('email','friends','names', 'answer', 'contest', 'point'); // Form fields names
-    $thisEntrantAnswer='';
+    $thisEntrantAnswer=''; $thisFriendEmail=''; $thisFriendName = '';
     //Validate the POST variables and add up to error message if empty
     foreach ($postVars as $postVar){
         switch($postVar){
@@ -45,6 +45,11 @@ if(filter_input(INPUT_POST, "email")!= NULL){
                             if(filter_input(INPUT_POST, $postVar) === "") {array_push ($errorArr, $postVar);}
                             break;
             case 'friends': $entrantObj->$postVar = filter_input(INPUT_POST, $postVar, FILTER_VALIDATE_EMAIL) ? mysqli_real_escape_string($dbObj->connection, filter_input(INPUT_POST, $postVar, FILTER_VALIDATE_EMAIL)) :  ''; 
+                            $thisFriendEmail = $entrantObj->$postVar;
+                            if(filter_input(INPUT_POST, $postVar) === "") {array_push ($errorArr, $postVar);}
+                            break;
+            case 'names':   $entrantObj->$postVar = filter_input(INPUT_POST, $postVar) ? mysqli_real_escape_string($dbObj->connection, filter_input(INPUT_POST, $postVar)) :  ''; 
+                            $thisFriendName = $entrantObj->$postVar;
                             if(filter_input(INPUT_POST, $postVar) === "") {array_push ($errorArr, $postVar);}
                             break;
                             
@@ -54,20 +59,8 @@ if(filter_input(INPUT_POST, "email")!= NULL){
         }
     }
     if(count($errorArr) < 1)   {
-        $returnAction="";
-        $siteUrl = SITE_URL."contest/$contestObj->id/".StringManipulator::slugify($contestObj->title)."/".Entrant::getSingle($dbObj, "id", $entrantObj->email)."/$entrantObj->friends/";
+        $returnAction=""; $sendMail = false;
         
-        include('includes/invitation-email-template.php');
-        
-        $subject = "Sweepstakes/Contest Invitation";	
-        $transport = Swift_MailTransport::newInstance();
-        $message = Swift_Message::newInstance();
-        $message->setTo(array($entrantObj->friends => $entrantObj->names));
-        $message->setSubject($subject);
-        $message->setBody($body);
-        $message->setFrom($entrantObj->email, $entrantObj->email);
-        $message->setContentType("text/html");
-        $mailer = Swift_Mailer::newInstance($transport);
         
         if($entrantObj->emailExists()==true){//Existing Entrant handler 
             $friendNamesList = Entrant::getSingle($dbObj, 'names', $entrantObj->email);
@@ -78,16 +71,31 @@ if(filter_input(INPUT_POST, "email")!= NULL){
             
             if(!in_array(trim($entrantObj->friends), $friendEmailsArr)){
                 $entrantObj->friends .= ",".$friendEmailsList; $entrantObj->names .= ",".$friendNamesList;
-                if($mailer->send($message) > 0) { $returnAction = $entrantObj->updateRaw(); }
-//                $returnAction = $entrantObj->updateRaw();
+                $returnAction = $entrantObj->updateRaw();
+                $sendMail = true;
             }
         }
         else{//New Entrant Handler
             if($thisEntrantAnswer == $contestObj->answer){ $entrantObj->point = Number::getNumber($contestObj->bonusPoint); }//Number::getNumber($contestObj->point)+Number::getNumber($contestObj->bonusPoint);
-            if($mailer->send($message) > 0) { $entrantObj->friends .= ","; $entrantObj->names .= ","; $returnAction = $entrantObj->addRaw(); }
-//            $entrantObj->friends .= ","; $entrantObj->names .= ",";
-//            $returnAction = $entrantObj->addRaw();
+            $entrantObj->friends .= ","; $entrantObj->names .= ",";
+            $returnAction = $entrantObj->addRaw();
+            $sendMail=true;
         }
+        
+        $siteUrl = SITE_URL."contest/$contestObj->id/".StringManipulator::slugify($contestObj->title)."/".Entrant::getSingle($dbObj, "id", $entrantObj->email)."/$thisFriendEmail/";
+        include('includes/invitation-email-template.php');
+        
+        $subject = "Sweepstakes/Contest Invitation";	
+        $transport = Swift_MailTransport::newInstance();
+        $message = Swift_Message::newInstance();
+        $message->setTo(array($thisFriendEmail => $thisFriendName));
+        $message->setSubject($subject);
+        $message->setBody($body);
+        $message->setFrom($entrantObj->email, $entrantObj->email);
+        $message->setContentType("text/html");
+        $mailer = Swift_Mailer::newInstance($transport);
+        
+        if($sendMail){ $mailer->send($message); }//Send Email to the invitee
         
         if($returnAction == 'success') {
             $cfg->infoMessage = "Contest successfully entered and invitation sent. Your current total point is: $entrantObj->point.";
