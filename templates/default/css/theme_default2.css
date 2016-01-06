@@ -920,3 +920,4 @@ body.mobile .ss_countdown_content .ss_countdown_layout .ss_countdown_word {
   background: none !important; 
   font-size: medium !important;
 }
+.danger, .error{ color:red;font-weight: bold;}

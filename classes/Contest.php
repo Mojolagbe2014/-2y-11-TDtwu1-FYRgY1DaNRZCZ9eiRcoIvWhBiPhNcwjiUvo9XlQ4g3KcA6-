@@ -256,10 +256,10 @@ class Contest implements ContentManipulator{
                 $dd1 = new DateTime(date('j F Y H:i'));
                 $dd2 = new DateTime(str_replace(" - ", " ", $this->announcementDate));
                 if($dd1>=$dd2) return Entrant::getWinners($this->id, $this->cutOffPoint, $this->winners);
-                else return "<h3>Winners are yet to be announced!</h3> <p>Please check back. Winner announcement date is $this->announcementDate </p>";
+                else return "<em style='color:red;font-weight:bold;'>Winners are yet to be announced!</em> <p>Please check back. Winner announcement date is $this->announcementDate </p>";
             }
         } else{
-            return "The contest/sweepstakes is still ongoing please check back. This contest will end on $this->endDate";
+            return "<p>The contest/sweepstakes is still ongoing please check back. This contest will end on <strong>".str_replace("-", "at", $this->endDate)."</strong></p>";
         }
     }
 }

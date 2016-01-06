@@ -12,7 +12,7 @@ $errorArr = array();
 //get the contest id; if failed redirect to contest-home page
 $thisContestId = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT) ? filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT) : $thisPage->redirectTo(SITE_URL);
 
-if(count($contestObj->fetchRaw("*", " id = $thisContestId "))<1){$thisPage->redirectTo(SITE_URL);}
+if(count($contestObj->fetchRaw("*", " id = $thisContestId AND status = 1 "))<1){$thisPage->redirectTo(SITE_URL);}
 
 foreach ($contestObj->fetchRaw("*", " id = $thisContestId ") as $contest) {
     $contestData = array('status' => 'status', 'id' => 'id', 'title' => 'title', 'intro' => 'intro', 'description' => 'description', 'header' => 'header', 'logo' => 'logo', 'startDate' => 'start_date', 'endDate' => 'end_date', 'announcementDate' => 'announcement_date', 'winners' => 'winners', 'question' => 'question', 'answer' => 'answer', 'point' => 'point', 'bonusPoint' => 'bonus_point', 'rules' => 'rules', 'prize' => 'prize', 'message' => 'message', 'css' => 'css', 'dateAdded' => 'date_added', 'announceWinner' => 'announce_winner', 'restart' => 'restart', 'restartInterval' => 'restart_interval', 'cutOffPoint' => 'cut_off_point', 'theme' => 'theme');
@@ -72,24 +72,25 @@ if(filter_input(INPUT_POST, "email")!= NULL){
         if($entrantObj->emailExists()==true){//Existing Entrant handler 
             $friendNamesList = Entrant::getSingle($dbObj, 'names', $entrantObj->email);
             $friendEmailsList = Entrant::getSingle($dbObj, 'friends', $entrantObj->email);
-            
+            $entrantObj->point = Entrant::getSingle($dbObj, 'point', $entrantObj->email);
+                    
             $friendEmailsArr = explode(",", $friendEmailsList);
             
             if(!in_array(trim($entrantObj->friends), $friendEmailsArr)){
                 $entrantObj->friends .= ",".$friendEmailsList; $entrantObj->names .= ",".$friendNamesList;
-                if($mailer->send($message) > 0) { $returnAction = $entrantObj->updateRaw(); }
-                //$returnAction = $entrantObj->updateRaw();
+//                if($mailer->send($message) > 0) { $returnAction = $entrantObj->updateRaw(); }
+                $returnAction = $entrantObj->updateRaw();
             }
         }
         else{//New Entrant Handler
             if($thisEntrantAnswer == $contestObj->answer){ $entrantObj->point = Number::getNumber($contestObj->bonusPoint); }//Number::getNumber($contestObj->point)+Number::getNumber($contestObj->bonusPoint);
-            if($mailer->send($message) > 0) { $entrantObj->friends .= ","; $entrantObj->names .= ","; $returnAction = $entrantObj->addRaw(); }
-//            $entrantObj->friends .= ","; $entrantObj->names .= ",";
-//            $returnAction = $entrantObj->addRaw();
+//            if($mailer->send($message) > 0) { $entrantObj->friends .= ","; $entrantObj->names .= ","; $returnAction = $entrantObj->addRaw(); }
+            $entrantObj->friends .= ","; $entrantObj->names .= ",";
+            $returnAction = $entrantObj->addRaw();
         }
         
         if($returnAction == 'success') {
-            $cfg->infoMessage = 'Contest successfully entered and invitation sent.';
+            $cfg->infoMessage = "Contest successfully entered and invitation sent. Your current total point is: $entrantObj->point.";
         } 
         else {
             $cfg->infoMessage = '<h3>Contest invitation failed!</h3> <p>Please try again later.</p>';

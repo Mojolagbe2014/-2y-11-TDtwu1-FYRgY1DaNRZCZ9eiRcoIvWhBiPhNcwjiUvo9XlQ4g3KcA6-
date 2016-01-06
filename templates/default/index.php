@@ -77,6 +77,7 @@
                         </div>
                         <div class="ss_box_content ss_form_content" id="content_form">
                             <div class="ss_form_header_msg" id="header_msg_form"></div>
+                            
                             <form action="" class="ss_form_form ss_bindable_form" id="form_form" method="post">
                                 <div class="field_block email_field_block" id="form_name_block">
                                     <div class="field_block email_field_block" id="form_email_block">
@@ -112,7 +113,16 @@
                                 </div>
                                 <div class="ss_form_message ajax_message" id="message_form"></div>
                             </form>
-                            <div class="ss_form_footer_msg" id="footer_msg_form"></div>
+                            <?php 
+                                $d1 = new DateTime(date('j F Y H:i'));
+                                $d2 = new DateTime(str_replace(" - ", " ", $contestObj->endDate));
+                                if($d1>$d2){
+                            ?>
+                            <div class="ss_form_footer_msg" id="footer_msg_form">
+                                <p class="danger error">This Contest has ended. Click the "The Winners" button below to see the winners.<br/> Thanks.</p>
+                            </div>
+                            <?php } ?>
+                            
                         </div>
                         <div class="ss_box_footer ss_form_footer" id="footer_form"></div>
                     </div>
@@ -162,7 +172,7 @@
             <div class="ss_box_content ss_share_content ss_align_center" id="content_share">
                 <ul>
                     <li>
-                        <a class="ss_share_on ss_share_on_manual" data-platform="manual" href="<?php echo $cfg->returnUrl ? $cfg->returnUrl : 'javascript:;'; ?>" style="">
+                        <a class="ss_share_on ss_share_on_manual" data-platform="manual" title="Return" href="<?php echo SITE_URL ? SITE_URL : 'javascript:;'; ?>" style="">
                             <i class="fa fa-share-square fa-2x"></i>
                         </a>
                     </li>
@@ -206,7 +216,7 @@
     </div>
     <div id="theWinnersOverlay" class="facebox et_pb_module et_pb_contact_form_container clearfix  et_pb_contact_form_0">
         <div><h2 class="et_pb_contact_main_title">The Winners <button class="close" style="float:right;margin-top:-7px">X</button></h2> </div>
-        <div class="et_pb_contact"><p><?php echo $contestObj->getWinners() ? $contestObj->getWinners() : "The List of winners goes here "; ?></p></div>
+        <div class="et_pb_contact"><?php echo $contestObj->getWinners() ? $contestObj->getWinners() : "The List of winners goes here "; ?></div>
     </div>
     <?php if($cfg->infoMessage){ ?>
     <div id="messageBox" class="facebox et_pb_module et_pb_contact_form_container clearfix  et_pb_contact_form_0">
@@ -228,6 +238,11 @@
             <?php if($cfg->infoMessage){ ?> showPopup("#messageBox"); <?php } ?>
             // select the overlay element - and "make it an overlay"
             $(".facebox").overlay({top: 150,mask: {color: '#fff',loadSpeed: 200,opacity: 0.5},closeOnClick: true,load: false });
+            <?php if($d1>$d2){ ?>
+                $('form#form_form input, form#form_form button').each(function(){
+                    $(this).attr('disabled', 'disabled');
+                });
+            <?php } ?>
         });	
     </script>
 </body>

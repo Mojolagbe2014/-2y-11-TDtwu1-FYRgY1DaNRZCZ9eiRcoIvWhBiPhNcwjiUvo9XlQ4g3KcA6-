@@ -264,7 +264,7 @@ class Entrant implements ContentManipulator{
         
         $winners = self::$dbObj->fetchAssoc("SELECT * FROM ".self::$tableName." WHERE contest = $contest AND point >= $cutOffPoint ORDER BY point DESC LIMIT $noOfWinners");
         if(count($winners)>0){
-            foreach($winners as $winner){ $returnVal .= "<li>$sn. ".$winner['email']." [".$winner['point']."points] </li>"; }
+            foreach($winners as $winner){ $returnVal .= "<li>$sn. ".$winner['email']." [".$winner['point']." points] </li>"; $sn++;}
         } else{ $returnVal .= "<li>No winners chosen because minimum point ($cutOffPoint) is not reached.</li>"; }
         return $returnVal."</ul>";
     }
