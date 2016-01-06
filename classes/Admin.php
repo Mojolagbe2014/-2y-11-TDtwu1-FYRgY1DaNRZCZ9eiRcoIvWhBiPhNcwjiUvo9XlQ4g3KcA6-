@@ -110,7 +110,7 @@ class Admin implements ContentManipulator{
      */
     public function fetch($column="*", $condition="", $sort="id"){
         $sql = "SELECT $column FROM ".self::$tableName." ORDER BY $sort";
-        if(!empty($condition)){$sql = "SELECT $column FROM admin WHERE $condition ORDER BY $sort";}
+        if(!empty($condition)){$sql = "SELECT $column FROM ".self::$tableName." WHERE $condition ORDER BY $sort";}
         $data = self::$dbObj->fetchAssoc($sql);
         $result =array(); 
         if(count($data)>0){

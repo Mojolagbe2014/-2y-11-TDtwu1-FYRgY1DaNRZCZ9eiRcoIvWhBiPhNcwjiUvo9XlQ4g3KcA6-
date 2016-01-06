@@ -7,12 +7,12 @@
 class Setting implements ContentManipulator{
     private $name;
     private $value;
-    private static $dbObj;
-    public static $tableName = __CLASS__;
+    private static $dbObj = null;
+    public static $tableName = "setting";
     
     
     //Class constructor
-    public function Setting($dbObj=null, $tableName=__CLASS__) {
+    public function Setting($dbObj=null, $tableName="setting") {
         self::$dbObj = $dbObj;        
         self::$tableName = $tableName;
     }
