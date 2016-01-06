@@ -78,15 +78,15 @@ if(filter_input(INPUT_POST, "email")!= NULL){
             
             if(!in_array(trim($entrantObj->friends), $friendEmailsArr)){
                 $entrantObj->friends .= ",".$friendEmailsList; $entrantObj->names .= ",".$friendNamesList;
-//                if($mailer->send($message) > 0) { $returnAction = $entrantObj->updateRaw(); }
-                $returnAction = $entrantObj->updateRaw();
+                if($mailer->send($message) > 0) { $returnAction = $entrantObj->updateRaw(); }
+//                $returnAction = $entrantObj->updateRaw();
             }
         }
         else{//New Entrant Handler
             if($thisEntrantAnswer == $contestObj->answer){ $entrantObj->point = Number::getNumber($contestObj->bonusPoint); }//Number::getNumber($contestObj->point)+Number::getNumber($contestObj->bonusPoint);
-//            if($mailer->send($message) > 0) { $entrantObj->friends .= ","; $entrantObj->names .= ","; $returnAction = $entrantObj->addRaw(); }
-            $entrantObj->friends .= ","; $entrantObj->names .= ",";
-            $returnAction = $entrantObj->addRaw();
+            if($mailer->send($message) > 0) { $entrantObj->friends .= ","; $entrantObj->names .= ","; $returnAction = $entrantObj->addRaw(); }
+//            $entrantObj->friends .= ","; $entrantObj->names .= ",";
+//            $returnAction = $entrantObj->addRaw();
         }
         
         if($returnAction == 'success') {
