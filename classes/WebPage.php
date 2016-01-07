@@ -20,10 +20,10 @@ class WebPage {
     private $keywords;
     private $author;
     private static $dbObj;
-    private static $tableName = __CLASS__;
+    private static $tableName = 'webpage';
     
     //Class Constructor
-    public function WebPage($dbObj=null, $tableName=__CLASS__) {
+    public function WebPage($dbObj=null, $tableName='webpage') {
         self::$dbObj = $dbObj;        
         self::$tableName = $tableName;
         

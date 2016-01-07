@@ -31,14 +31,14 @@ class Contest implements ContentManipulator{
     private $cutOffPoint;
     private $theme = 'default';
     private static $dbObj = null;
-    public static $tableName = __CLASS__;
+    public static $tableName = 'contest';
     
     
     /**
      * @param Object $dbObj Database connectivity and manipulation object
      * @param string $tableName Contest class table name in the database
      */
-    public function Contest($dbObj=null, $tableName=__CLASS__) {
+    public function Contest($dbObj=null, $tableName='contest') {
         self::$dbObj = $dbObj;        
         self::$tableName = $tableName;
     }

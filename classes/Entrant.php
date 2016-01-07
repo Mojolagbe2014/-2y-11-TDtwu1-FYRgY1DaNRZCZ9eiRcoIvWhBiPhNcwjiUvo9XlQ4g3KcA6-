@@ -13,10 +13,10 @@ class Entrant implements ContentManipulator{
     private $contest;
     private $point;
     private static $dbObj;
-    public static $tableName = __CLASS__;
+    public static $tableName = 'entrant';
 
     //Class constructor
-    public function Entrant($dbObj=null, $tableName=__CLASS__) {
+    public function Entrant($dbObj=null, $tableName='entrant') {
         self::$dbObj = $dbObj;        
         self::$tableName = $tableName;
     }

@@ -13,13 +13,13 @@ class Admin implements ContentManipulator{
     private $role;
     private $dateRegistered = " CURRENT_DATE ";
     private static $dbObj;
-    public static $tableName = __CLASS__;
+    public static $tableName = 'admin';
 
 
 
 
     //Class constructor
-    public function Admin($dbObj=null, $tableName=__CLASS__) {
+    public function Admin($dbObj=null, $tableName='admin') {
         self::$dbObj = $dbObj;        
         self::$tableName = $tableName;
     }
